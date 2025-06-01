@@ -75,6 +75,104 @@ public static class PCGAlgorithms
         return dungeonFloor;
     }
 
+    public static BSPNode BinarySpacePartitioning(RectInt dungeonSpace, int minRoomWidth, int minRoomHeight)
+    {
+        BSPNode root = new BSPNode(dungeonSpace);
+        RecursiveSplit(root, minRoomWidth, minRoomHeight);
+        return root;
+    }
+
+    private static void RecursiveSplit(BSPNode node, int minRoomWidth, int minRoomHeight)
+    {
+        if (node.Bounds.width >= minRoomWidth && node.Bounds.height >= minRoomHeight)
+        {
+            bool nodeWasSplit = false;
+
+            // The larger the multiplier, the stricter the requirement for splitting (so larger rooms)
+            const float minSplitMultiplier = 2.5f;
+
+            // Randomly attempt to split vertically or horizontally first
+            if (Random.value < 0.5f)
+            {
+                // VERTICAL
+                if (node.Bounds.width >= minRoomWidth * minSplitMultiplier)
+                {
+                    SplitVertically(node, minRoomWidth);
+                    nodeWasSplit = true;
+                }
+                // HORIZONTAL
+                else if (node.Bounds.height >= minRoomHeight * minSplitMultiplier - 0.25f)
+                {
+                    SplitHorizontally(node, minRoomHeight);
+                    nodeWasSplit = true;
+                }    
+            }
+            else
+            {
+                // HORIZONTAL
+                if (node.Bounds.height >= minRoomHeight * minSplitMultiplier)
+                {
+                    SplitHorizontally(node, minRoomHeight);
+                    nodeWasSplit = true;
+                }
+                // VERTICAL
+                else if (node.Bounds.width >= minRoomWidth * minSplitMultiplier - 0.25f)
+                {
+                    SplitVertically(node, minRoomWidth);
+                    nodeWasSplit = true;
+                }
+            }
+
+            // If split occurred, perform recursion on resulting children
+            if (nodeWasSplit)
+            {
+                if (node.LeftChild != null) RecursiveSplit(node.LeftChild, minRoomWidth, minRoomHeight);
+                if (node.RightChild != null) RecursiveSplit(node.RightChild, minRoomWidth, minRoomHeight);
+            }
+        }
+    }
+
+    private static void SplitVertically(BSPNode node, int minRoomWidth)
+    {
+        if (node.Bounds.width <= minRoomWidth/2) return;
+        int xSplit = Random.Range(minRoomWidth/2, node.Bounds.width); // Inclusive range
+
+        // VALUE BELOW MAKES IT LOOK TOO PREDICTABLE (but makes only valid leaves!)
+        // if (node.Bounds.width <= minRoomWidth-1) return; // Too narrow to split
+        // int xSplit = Random.Range(minRoomWidth, node.Bounds.width - minRoomWidth); // Ensure both rooms are large enough
+
+
+        // Create new rooms with resulting split amount included
+        RectInt room1Rect = new RectInt(node.Bounds.x, node.Bounds.y, xSplit, node.Bounds.height);
+        RectInt room2Rect = new RectInt(node.Bounds.x + xSplit, node.Bounds.y, node.Bounds.width - xSplit, node.Bounds.height);
+
+        // Create child nodes in tree
+        BSPNode room1Node = new BSPNode(room1Rect);
+        BSPNode room2Node = new BSPNode(room2Rect);
+        node.LeftChild = room1Node;
+        node.RightChild = room2Node;
+    }
+
+    private static void SplitHorizontally(BSPNode node, int minRoomHeight)
+    {
+        if (node.Bounds.height <= minRoomHeight/2) return;
+        int ySplit = Random.Range(minRoomHeight/2, node.Bounds.height); // Inclusive range
+
+        // VALUE BELOW MAKES IT LOOK TOO PREDICTABLE (but makes only valid leaves!)
+        // if (node.Bounds.height <= minRoomHeight-1) return; // Too narrow to split
+        // int ySplit = Random.Range(minRoomHeight, node.Bounds.height - minRoomHeight); // Ensure both rooms are large enough
+
+        // Create new rooms with resulting split amount included
+        RectInt room1Rect = new RectInt(node.Bounds.x, node.Bounds.y, node.Bounds.width, ySplit);
+        RectInt room2Rect = new RectInt(node.Bounds.x, node.Bounds.y + ySplit, node.Bounds.width, node.Bounds.height - ySplit);
+
+        // Create child nodes in tree
+        BSPNode room1Node = new BSPNode(room1Rect);
+        BSPNode room2Node = new BSPNode(room2Rect);
+        node.LeftChild = room1Node;  // Top child
+        node.RightChild = room2Node; // Bottom child
+    }  
+
 
 
 }

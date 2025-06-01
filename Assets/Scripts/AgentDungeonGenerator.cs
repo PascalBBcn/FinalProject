@@ -18,7 +18,7 @@ public class AgentDungeonGenerator : MonoBehaviour
             Debug.LogError("TileRenderer missing!");
             return;
         }
-
+        // "Refresh" game scene each time before repopulating it
         tileRenderer.RemoveTiles(); 
         dungeonFloor.Clear();
 
