@@ -6,7 +6,9 @@ using UnityEngine.Tilemaps;
 public class TileRenderer : MonoBehaviour
 {
     [SerializeField] private Tilemap floorTilemap;
+    [SerializeField] private Tilemap wallTilemap;
     [SerializeField] private TileBase floorTile;
+    [SerializeField] private TileBase wallTile;
 
     // Flexible as it can be used to set any sort of tile
     private void SetTiles(HashSet<Vector2Int> positions, Tilemap tilemap, TileBase tile)
@@ -27,10 +29,51 @@ public class TileRenderer : MonoBehaviour
     {
         SetTiles(floorPositions, floorTilemap, floorTile);
     }
-    
+
+    public void SetWallTiles(HashSet<Vector2Int> floorPositions)
+    {
+        var cardinalDirections = new List<Vector2Int>
+        {
+            new Vector2Int(0, 1),   // UP
+            new Vector2Int(0, -1),  // DOWN
+            new Vector2Int(1, 0),   // RIGHT
+            new Vector2Int(-1, 0)   // LEFT
+        };
+
+        var wallPositions = FindWallPositions(floorPositions, cardinalDirections);
+        foreach (var position in wallPositions)
+        {
+            SetSingleWall(position);
+        }
+    }
+
+    public void SetSingleWall(Vector2Int position)
+    {
+        SetSingleTile(wallTilemap, wallTile, position);
+    }
+
+    private static HashSet<Vector2Int> FindWallPositions(HashSet<Vector2Int> floorPositions, List<Vector2Int> directionList)
+    {
+        HashSet<Vector2Int> wallPositions = new HashSet<Vector2Int>();
+        foreach (var position in floorPositions)
+        {
+            foreach (var direction in directionList)
+            {
+                var neighbourPosition = position + direction;
+                // Find all positions that are not the floor tiles but are near our floor tiles
+                if (floorPositions.Contains(neighbourPosition) == false)
+                {
+                    wallPositions.Add(neighbourPosition);
+                }
+            }
+        }
+        return wallPositions;
+    }
+
     public void RemoveTiles()
     {
         floorTilemap.ClearAllTiles();
+        wallTilemap.ClearAllTiles();
     }
 
     

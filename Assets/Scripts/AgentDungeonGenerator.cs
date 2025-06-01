@@ -30,6 +30,7 @@ public class AgentDungeonGenerator : MonoBehaviour
     private void RenderTiles(HashSet<Vector2Int> dungeonFloor)
     {
         // Render based on dungeonFloor positions
-        tileRenderer.SetFloorTiles(dungeonFloor); 
+        tileRenderer.SetFloorTiles(dungeonFloor);
+        tileRenderer.SetWallTiles(dungeonFloor);
     }
 }
