@@ -5,11 +5,11 @@ using UnityEngine;
 // Uses BSP for macro, but fills rooms with Agent-based "digged" rooms
 public class BSPAgentDungeonGenerator : MonoBehaviour
 {
-    [SerializeField] private int dungeonWidth = 70;
-    [SerializeField] private int dungeonHeight = 70;
-    [SerializeField] private int minRoomWidth = 12;
-    [SerializeField] private int minRoomHeight = 12;
-    [SerializeField] private int numberOfDigs = 100;
+    [SerializeField] private int dungeonWidth = 80;
+    [SerializeField] private int dungeonHeight = 80;
+    [SerializeField] private int minRoomWidth = 13;
+    [SerializeField] private int minRoomHeight = 13;
+    [SerializeField] private int numberOfDigs = 200;
 
 
     [SerializeField] private Vector2Int startPos = Vector2Int.zero;

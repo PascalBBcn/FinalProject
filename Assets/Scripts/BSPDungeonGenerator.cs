@@ -7,10 +7,10 @@ using UnityEngine;
 // The main script of the game
 public class BSPDungeonGenerator : MonoBehaviour
 {
-    [SerializeField] private int dungeonWidth = 70;
-    [SerializeField] private int dungeonHeight = 70;
-    [SerializeField] private int minRoomWidth = 12;
-    [SerializeField] private int minRoomHeight = 12;
+    [SerializeField] private int dungeonWidth = 80;
+    [SerializeField] private int dungeonHeight = 80;
+    [SerializeField] private int minRoomWidth = 13;
+    [SerializeField] private int minRoomHeight = 13;
     private int padding = 2; // For padding between rooms
 
     [SerializeField] private Vector2Int startPos = Vector2Int.zero;
