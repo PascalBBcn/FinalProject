@@ -3,8 +3,12 @@ using UnityEngine;
 
 public class CorridorGenerator
 {
+    // Used for furthest room from starting room calculation
+    public static HashSet<Vector2Int> thinCorridors = new HashSet<Vector2Int>();
+
     public static HashSet<Vector2Int> CreateCorridors(List<(Vector2Int, Vector2Int)> roomConnections)
     {
+        thinCorridors.Clear(); // Static variable must be cleared
         HashSet<Vector2Int> corridors = new HashSet<Vector2Int>();
         // Create a corridor for each pairing of closest rooms
         foreach (var connection in roomConnections)
@@ -19,6 +23,7 @@ public class CorridorGenerator
     {
         HashSet<Vector2Int> corridor = new HashSet<Vector2Int>();
         Vector2Int pos = room1;
+        thinCorridors.Add(pos);
         corridor.Add(pos);
 
         // Find the difference in directions, then add that direction until point reached
@@ -28,6 +33,7 @@ public class CorridorGenerator
             while (pos.x != room2.x)
             {
                 pos += new Vector2Int(xDirection, 0);
+                thinCorridors.Add(pos);
                 corridor.Add(pos);
                 corridor.Add(pos + Vector2Int.up);   // above
                 corridor.Add(pos + Vector2Int.down); // below
@@ -36,6 +42,7 @@ public class CorridorGenerator
             while (pos.y != room2.y)
             {
                 pos += new Vector2Int(0, yDirection);
+                thinCorridors.Add(pos);
                 corridor.Add(pos);
                 corridor.Add(pos + Vector2Int.left);  // left
                 corridor.Add(pos + Vector2Int.right); // right
@@ -47,6 +54,7 @@ public class CorridorGenerator
             while (pos.y != room2.y)
             {
                 pos += new Vector2Int(0, yDirection);
+                thinCorridors.Add(pos);
                 corridor.Add(pos);
                 corridor.Add(pos + Vector2Int.left);  // left
                 corridor.Add(pos + Vector2Int.right); // right
@@ -55,6 +63,7 @@ public class CorridorGenerator
             while (pos.x != room2.x)
             {
                 pos += new Vector2Int(xDirection, 0);
+                thinCorridors.Add(pos);
                 corridor.Add(pos);
                 corridor.Add(pos + Vector2Int.up);   // above
                 corridor.Add(pos + Vector2Int.down); // below

@@ -16,6 +16,8 @@ public class BSPDungeonGenerator : MonoBehaviour
     [SerializeField] private Vector2Int startPos = Vector2Int.zero;
     [SerializeField] private TileRenderer tileRenderer; 
 
+    [SerializeField] private Spawner spawner;
+
     // Give read-access only to other scripts
     public HashSet<Vector2Int> dungeonFloor { get; private set; }
     public List<RectInt> rooms { get; private set; } = new List<RectInt>();
@@ -29,7 +31,7 @@ public class BSPDungeonGenerator : MonoBehaviour
             Debug.LogError("TileRenderer missing!");
             return;
         }
-
+        spawner.RemoveInstances();
         // "Refresh" game scene each time before repopulating it
         tileRenderer.RemoveTiles();
 
@@ -63,8 +65,12 @@ public class BSPDungeonGenerator : MonoBehaviour
         HashSet<Vector2Int> corridors = CorridorGenerator.CreateCorridors(roomConnectionPairings);
         dungeonFloor.UnionWith(corridors);
 
+        // Using thin corridors (to avoid redundant processes from 3-wide corridor)
+        Vector2Int furthestRoom = spawner.GetFurthestRoomFromStart(roomCenterPoints, CorridorGenerator.thinCorridors);
 
         RenderTiles(dungeonFloor);
+
+        spawner.SpawnInstances(rooms, this, furthestRoom);
     }
 
     private HashSet<Vector2Int> CreateRectangularRooms(List<RectInt> rooms)
