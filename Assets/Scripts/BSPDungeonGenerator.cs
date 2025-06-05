@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Numerics;
 using UnityEngine;
 
 
@@ -14,11 +12,12 @@ public class BSPDungeonGenerator : MonoBehaviour
     private int padding = 2; // For padding between rooms
 
     [SerializeField] private Vector2Int startPos = Vector2Int.zero;
-    [SerializeField] private TileRenderer tileRenderer; 
+    [SerializeField] private TileRenderer tileRenderer;
 
     [SerializeField] private Spawner spawner;
 
     // Give read-access only to other scripts
+    public HashSet<Vector2Int> corridors { get; private set; }
     public HashSet<Vector2Int> dungeonFloor { get; private set; }
     public List<RectInt> rooms { get; private set; } = new List<RectInt>();
 
@@ -36,6 +35,7 @@ public class BSPDungeonGenerator : MonoBehaviour
         tileRenderer.RemoveTiles();
 
         CreateRooms();
+        Pathfinding.Initialize(dungeonFloor);
     }
 
     private void CreateRooms()
@@ -57,12 +57,12 @@ public class BSPDungeonGenerator : MonoBehaviour
         {
             roomCenterPoints.Add(Vector2Int.FloorToInt(room.center));
         }
-
+        
         // Generate the positions for corridor placements
         // These are pairs of connections
         List<(Vector2Int, Vector2Int)> roomConnectionPairings = CorridorGenerator.GetRoomConnectionPairings(rootNode, roomCenterPoints);
         // Generate corridors
-        HashSet<Vector2Int> corridors = CorridorGenerator.CreateCorridors(roomConnectionPairings);
+        corridors = CorridorGenerator.CreateCorridors(roomConnectionPairings);
         dungeonFloor.UnionWith(corridors);
 
         // Using thin corridors (to avoid redundant processes from 3-wide corridor)
@@ -96,5 +96,39 @@ public class BSPDungeonGenerator : MonoBehaviour
     {
         tileRenderer.SetFloorTiles(dungeonFloor); // Render based on dungeonFloor positions
         tileRenderer.SetWallTiles(dungeonFloor);
+    }
+    
+    // Locks the room if enemies within room are alive, unlocks otherwise
+    public void LockRoom(RectInt room)
+    {
+        List<Vector2Int> edgePositions = new List<Vector2Int>();
+
+        for (int x = room.xMin + 1; x < room.xMax - 1; x++)
+        {
+            edgePositions.Add(new Vector2Int(x, room.yMin));
+            edgePositions.Add(new Vector2Int(x, room.yMax - 1));
+        }
+
+        for (int y = room.yMin + 1; y < room.yMax - 1; y++)
+        {
+            edgePositions.Add(new Vector2Int(room.xMin, y));
+            edgePositions.Add(new Vector2Int(room.xMax - 1, y));
+        }
+        // If enemies still alive, keep the room locked
+        if (spawner.EnemiesAreAlive(room))
+        {
+            foreach (var pos in edgePositions)
+            {
+                if (corridors.Contains(pos)) tileRenderer.SetSingleWall(pos);
+            }
+        }
+        // "Unlock" room (by removing those wall tiles) once all enemies in room defeated
+        else
+        {
+            foreach (var pos in edgePositions)
+            {
+                if (corridors.Contains(pos)) tileRenderer.RemoveTile(pos);
+            }
+        }
     }
 }

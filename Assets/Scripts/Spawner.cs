@@ -97,6 +97,18 @@ public class Spawner : MonoBehaviour
         }
     }
     
+    // For room locking system
+    public bool EnemiesAreAlive(RectInt room)
+    {
+        foreach (var enemy in spawnedEnemies)
+        {
+            if (enemy == null) continue;
+            Vector2Int enemyPos = new Vector2Int(Mathf.RoundToInt(enemy.transform.position.x), Mathf.RoundToInt(enemy.transform.position.y));
+            if (room.Contains(enemyPos)) return true;
+        }
+        return false;
+    }
+
     public void RemoveInstances()
     {
         foreach (var enemy in spawnedEnemies)

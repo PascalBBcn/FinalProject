@@ -221,7 +221,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -629,6 +629,54 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &207240794
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 207240796}
+  - component: {fileID: 207240795}
+  m_Layer: 0
+  m_Name: TileRenderer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &207240795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 207240794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 677e3b1f083ab204084e402650d9f3a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floorTilemap: {fileID: 144034552}
+  wallTilemap: {fileID: 67508107}
+  floorTile: {fileID: 11400000, guid: 6509e2315e831a84885b0da3e4284aec, type: 2}
+  wallTile: {fileID: 11400000, guid: b6ea114399ae5c14e8f040ac322f8411, type: 2}
+--- !u!4 &207240796
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 207240794}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.2072525, y: -57.791473, z: -4.252185}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &283560462
 GameObject:
   m_ObjectHideFlags: 0
@@ -638,10 +686,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 283560463}
-  - component: {fileID: 283560465}
   - component: {fileID: 283560464}
   m_Layer: 0
-  m_Name: BSPAgentDungeonGenerator (1)
+  m_Name: BSPAgentDungeonGenerator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -680,26 +727,7 @@ MonoBehaviour:
   minRoomHeight: 12
   numberOfDigs: 100
   startPos: {x: 0, y: 0}
-  tileRenderer: {fileID: 1514530934}
---- !u!114 &283560465
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 283560462}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceede34e2a851e7409c57bff833a8aaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dungeonWidth: 80
-  dungeonHeight: 80
-  minRoomWidth: 11
-  minRoomHeight: 11
-  startPos: {x: 0, y: 0}
-  tileRenderer: {fileID: 1514530934}
-  spawner: {fileID: 0}
+  tileRenderer: {fileID: 207240795}
 --- !u!1 &437850997
 GameObject:
   m_ObjectHideFlags: 0
@@ -904,7 +932,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 100
+  orthographic size: 50
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1388,7 +1416,7 @@ MonoBehaviour:
   minRoomWidth: 11
   minRoomHeight: 11
   startPos: {x: 0, y: 0}
-  tileRenderer: {fileID: 1514530934}
+  tileRenderer: {fileID: 207240795}
   spawner: {fileID: 476362376}
 --- !u!1 &852660605
 GameObject:
@@ -1469,7 +1497,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfDigs: 200
-  tileRenderer: {fileID: 1514530934}
+  tileRenderer: {fileID: 207240795}
 --- !u!1 &1514530931
 GameObject:
   m_ObjectHideFlags: 0
@@ -1480,7 +1508,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1514530933}
   - component: {fileID: 1514530932}
-  - component: {fileID: 1514530934}
   m_Layer: 0
   m_Name: Tilemaps
   m_TagString: Untagged
@@ -1517,22 +1544,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1514530934
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1514530931}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 677e3b1f083ab204084e402650d9f3a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  floorTilemap: {fileID: 144034552}
-  wallTilemap: {fileID: 67508107}
-  floorTile: {fileID: 11400000, guid: 6509e2315e831a84885b0da3e4284aec, type: 2}
-  wallTile: {fileID: 11400000, guid: b6ea114399ae5c14e8f040ac322f8411, type: 2}
 --- !u!1 &1580705093
 GameObject:
   m_ObjectHideFlags: 0

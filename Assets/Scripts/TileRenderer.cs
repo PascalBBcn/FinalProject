@@ -70,6 +70,12 @@ public class TileRenderer : MonoBehaviour
         return wallPositions;
     }
 
+    public void RemoveTile(Vector2Int position)
+    {
+        var tilePos = wallTilemap.WorldToCell((Vector3Int)position);
+        wallTilemap.SetTile(tilePos, null);
+    }
+
     public void RemoveTiles()
     {
         floorTilemap.ClearAllTiles();
