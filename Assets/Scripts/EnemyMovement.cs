@@ -14,11 +14,13 @@ public class EnemyMovement : MonoBehaviour
     private int currentPathIndex = 0;
     private Vector2Int lastPlayerPos;
     private Vector2Int enemyPos;
+    private Rigidbody2D rb;
     
     private Transform playerTransform;
 
     void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         StartCoroutine(UpdatePath());
     }
@@ -58,7 +60,7 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
-    void Update()
+    void FixedUpdate()
     {
         MoveAlongPath();
     }
@@ -73,11 +75,13 @@ public class EnemyMovement : MonoBehaviour
             currentPath[currentPathIndex].y, 
             transform.position.z);
         
-        transform.position = Vector3.MoveTowards(
+        Vector3 newPosition = Vector3.MoveTowards(
             transform.position, 
             targetPos, 
             moveSpeed * Time.deltaTime);
         
+        rb.MovePosition(newPosition);
+
         if (Vector3.Distance(transform.position, targetPos) < 0.1f)
         {
             currentPathIndex++;
