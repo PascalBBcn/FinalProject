@@ -65,6 +65,7 @@ public class Spawner : MonoBehaviour
         if (playerInstance == null)
         {
             playerInstance = Instantiate(playerPrefab, generatedRooms[0].center, Quaternion.identity);
+            Camera.main.GetComponent<FollowPlayerCamera>().player = playerInstance.transform;
         }
         else
         {
