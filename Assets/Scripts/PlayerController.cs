@@ -9,6 +9,11 @@ public class PlayerController : MonoBehaviour
     Vector2 direction = Vector2.zero;
     BoxCollider2D playerCollider;
 
+    Vector2 mousePosition;
+    public GameObject bulletPrefab;
+    public Transform firePoint;
+    public float bulletSpeed = 20f;
+
     private BSPDungeonGenerator dungeonGenerator;
 
     private void Awake()
@@ -16,7 +21,6 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<BoxCollider2D>();
         dungeonGenerator = FindObjectOfType<BSPDungeonGenerator>();
-        
     }
     private void OnEnable()
     {
@@ -32,8 +36,30 @@ public class PlayerController : MonoBehaviour
         direction = playerControls.ReadValue<Vector2>();
         rb.velocity = new Vector2(direction.x * movementSpeed, direction.y * movementSpeed);
         CheckIfEnteredRoom();
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            Shoot();
+        }
+        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
 
+    private void FixedUpdate()
+    {
+        Vector2 aimDirection = mousePosition - rb.position;
+        float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - 90f;
+        rb.rotation = aimAngle;
+    }
+    public void Shoot()
+    {
+        
+        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+
+        bullet.GetComponent<Rigidbody2D>().AddForce(firePoint.up * bulletSpeed, ForceMode2D.Impulse);
+    }
+
+    
     void CheckIfEnteredRoom()
     {
         if (dungeonGenerator == null) return;
@@ -56,9 +82,6 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
-
-    
 }
 
 
