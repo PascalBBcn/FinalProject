@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour
     {
         direction = playerControls.ReadValue<Vector2>();
         rb.velocity = new Vector2(direction.x * movementSpeed, direction.y * movementSpeed);
+        Die();
         CheckIfEnteredRoom();
 
         if (Input.GetMouseButtonDown(0))
@@ -59,6 +60,13 @@ public class PlayerController : MonoBehaviour
         bullet.GetComponent<Rigidbody2D>().AddForce(firePoint.up * bulletSpeed, ForceMode2D.Impulse);
     }
 
+    void Die()
+    {
+        if (playerCollider.IsTouchingLayers(LayerMask.GetMask("Enemy")))
+        {
+            FindObjectOfType<GameSession>().ProcessPlayerDeath();
+        }
+    }
     
     void CheckIfEnteredRoom()
     {
