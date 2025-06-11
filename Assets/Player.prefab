@@ -231,4 +231,5 @@ MonoBehaviour:
     m_Flags: 0
   bulletPrefab: {fileID: 8857881037204353521, guid: e190e68c89b89ac49ae3612868066f4d, type: 3}
   firePoint: {fileID: 628361416537747984}
-  bulletSpeed: 20
+  bulletSpeed: 80
+  currentWeapon: {fileID: 11400000, guid: 555ce05a50a57f948aaea23bc859f073, type: 2}
