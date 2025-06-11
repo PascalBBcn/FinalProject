@@ -13,6 +13,8 @@ public class Spawner : MonoBehaviour
 
     public GameObject gunSmgPrefab;
     private GameObject gunSmgInstance;
+    public GameObject gunShotgunPrefab;
+    private GameObject gunShotgunInstance;
 
     // Walks through the corridors
     // Corridors does indeed contain the center points as well
@@ -79,6 +81,7 @@ public class Spawner : MonoBehaviour
         exitInstance.GetComponent<LevelExit>().SetGenerator(generator);
 
         gunSmgInstance = Instantiate(gunSmgPrefab, generatedRooms[1].center, Quaternion.identity);
+        gunShotgunInstance = Instantiate(gunShotgunPrefab, generatedRooms[2].center, Quaternion.identity);
 
 
 
