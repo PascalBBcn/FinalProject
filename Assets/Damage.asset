@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   modifierName: Damage
   modifierImage: {fileID: 0}
-  damageMultiplier: 8
-  fireRateMultiplier: 2
-  bulletSpeedMultiplier: 0
+  damageMultiplier: 1
+  fireRateMultiplier: 5
+  bulletSpeedMultiplier: 40
   bulletSpreadModifier: 1
   bulletQuantityModifier: 1

@@ -70,23 +70,23 @@ public class PlayerController : MonoBehaviour
         float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - 90f;
         rb.rotation = aimAngle;
     }
+
     public void Shoot()
     {
         for (int i = 0; i < currentWeapon.bulletQuantityModifier; i++)
         {
             GameObject bulletObject = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
             Physics2D.IgnoreCollision(bulletObject.GetComponent<Collider2D>(), GetComponent<Collider2D>());
-
             Bullet bullet = bulletObject.GetComponent<Bullet>();
             if (bullet != null)
             {
+                // Apply bullet spread via rotation
                 bulletObject.transform.Rotate(0, 0, Random.Range(-currentWeapon.bulletSpreadModifier, currentWeapon.bulletSpreadModifier));
                 bullet.damage = currentWeapon.damageMultiplier;
                 bullet.speed = currentWeapon.bulletSpeedMultiplier;
             }
         }
     }
-
 
     void Die()
     {
@@ -95,7 +95,7 @@ public class PlayerController : MonoBehaviour
             FindObjectOfType<GameSession>().ProcessPlayerDeath();
         }
     }
-    
+
     void CheckIfEnteredRoom()
     {
         if (dungeonGenerator == null) return;
@@ -118,6 +118,12 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+    
+    public void SetWeapon(StatModifier newWeapon)
+    {
+        currentWeapon = newWeapon;
+    }
+
 }
 
 

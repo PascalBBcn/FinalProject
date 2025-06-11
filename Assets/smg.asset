@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 364398c93f5570548887b4d04652c143, type: 3}
-  m_Name: FireRate
+  m_Name: smg
   m_EditorClassIdentifier: 
   modifierName: FireRate
   modifierImage: {fileID: 0}
   damageMultiplier: 1
-  fireRateMultiplier: 10
+  fireRateMultiplier: 60
   bulletSpeedMultiplier: 40
   bulletSpreadModifier: 4
   bulletQuantityModifier: 1

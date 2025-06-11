@@ -1,6 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Spawner : MonoBehaviour
 {
@@ -10,6 +10,9 @@ public class Spawner : MonoBehaviour
     private GameObject playerInstance;
     public GameObject exitPrefab;
     private GameObject exitInstance;
+
+    public GameObject gunSmgPrefab;
+    private GameObject gunSmgInstance;
 
     // Walks through the corridors
     // Corridors does indeed contain the center points as well
@@ -75,6 +78,10 @@ public class Spawner : MonoBehaviour
         exitInstance = Instantiate(exitPrefab, (Vector3Int)furthestRoom, Quaternion.identity);
         exitInstance.GetComponent<LevelExit>().SetGenerator(generator);
 
+        gunSmgInstance = Instantiate(gunSmgPrefab, generatedRooms[1].center, Quaternion.identity);
+
+
+
         for (int i = 1; i < generatedRooms.Count - 1; i++)
         {
             // Skip the exit room
@@ -94,7 +101,7 @@ public class Spawner : MonoBehaviour
                 spawnedEnemies.Add(enemyInstance);
                 r--;
             }
-            
+
         }
     }
     

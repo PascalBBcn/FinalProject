@@ -999,6 +999,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 6237256674629555278, guid: 712cf05184fec1e4fab48b230d6d5e1f, type: 3}
   playerPrefab: {fileID: 7751979707553719728, guid: b9f80a2a5dac7694ea7ab7bd47986544, type: 3}
   exitPrefab: {fileID: 7751979707553719728, guid: 86864cb7853411742b88d7b6e54f1fd8, type: 3}
+  gunSmgPrefab: {fileID: 7751979707553719728, guid: ff7754c905948c3408f9778080cb4abd, type: 3}
 --- !u!4 &476362377
 Transform:
   m_ObjectHideFlags: 0
