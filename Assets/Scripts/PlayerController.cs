@@ -19,7 +19,8 @@ public class PlayerController : MonoBehaviour
 
     public StatModifier currentWeapon;
     private bool isFiring = false;
-    private float fireTimer;
+    // To control the fire rate (otherwise will shoot every frame)
+    private float timeSinceLastShot;
 
     private void Awake()
     {
@@ -53,12 +54,12 @@ public class PlayerController : MonoBehaviour
         }
         if (isFiring)
         {
-            if (fireTimer > 1 / currentWeapon.fireRateMultiplier)
+            if (timeSinceLastShot > 1 / currentWeapon.fireRateMultiplier)
             {
-                fireTimer = 0;
+                timeSinceLastShot = 0;
                 Shoot();
             }
-            fireTimer += Time.deltaTime;
+            timeSinceLastShot += Time.deltaTime;
         }
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
@@ -71,12 +72,21 @@ public class PlayerController : MonoBehaviour
     }
     public void Shoot()
     {
+        for (int i = 0; i < currentWeapon.bulletQuantityModifier; i++)
+        {
+            GameObject bulletObject = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+            Physics2D.IgnoreCollision(bulletObject.GetComponent<Collider2D>(), GetComponent<Collider2D>());
 
-        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-        Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), GetComponent<Collider2D>());
-        bullet.GetComponent<Rigidbody2D>().AddForce(firePoint.up * bulletSpeed, ForceMode2D.Impulse);
-
+            Bullet bullet = bulletObject.GetComponent<Bullet>();
+            if (bullet != null)
+            {
+                bulletObject.transform.Rotate(0, 0, Random.Range(-currentWeapon.bulletSpreadModifier, currentWeapon.bulletSpreadModifier));
+                bullet.damage = currentWeapon.damageMultiplier;
+                bullet.speed = currentWeapon.bulletSpeedMultiplier;
+            }
+        }
     }
+
 
     void Die()
     {
