@@ -9,13 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 364398c93f5570548887b4d04652c143, type: 3}
+  m_Script: {fileID: 11500000, guid: dce85b3b596bf41479c02d629bbb18b8, type: 3}
   m_Name: shotgun
   m_EditorClassIdentifier: 
-  modifierName: FireRate
-  modifierImage: {fileID: 0}
-  damageMultiplier: 1
-  fireRateMultiplier: 5
-  bulletSpeedMultiplier: 30
-  bulletSpreadModifier: 4
-  bulletQuantityModifier: 3
+  weaponName: smg
+  fireRate: 2
+  weaponSprite: {fileID: 0}
+  bulletPrefab: {fileID: 8857881037204353521, guid: e190e68c89b89ac49ae3612868066f4d, type: 3}
+  bulletDamage: 1
+  bulletSpeed: 30
+  bulletSpread: 10
+  bulletQuantity: 6

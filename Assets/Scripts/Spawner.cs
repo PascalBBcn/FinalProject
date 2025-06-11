@@ -129,6 +129,9 @@ public class Spawner : MonoBehaviour
                 Destroy(enemy);
             }
         }
+        Destroy(gunShotgunInstance);
+        Destroy(gunSmgInstance);
+
         Destroy(exitInstance);
         spawnedEnemies.Clear();
     }

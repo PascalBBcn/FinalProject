@@ -8,25 +8,18 @@ public class PlayerController : MonoBehaviour
     public InputAction playerControls;
     Vector2 direction = Vector2.zero;
     BoxCollider2D playerCollider;
-
     Vector2 mousePosition;
-    public GameObject bulletPrefab;
-    public Transform firePoint;
-    public float bulletSpeed = 20f;
+    
+    private WeaponInterface currentWeapon;
 
     private BSPDungeonGenerator dungeonGenerator;
-
-
-    public StatModifier currentWeapon;
-    private bool isFiring = false;
-    // To control the fire rate (otherwise will shoot every frame)
-    private float timeSinceLastShot;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<BoxCollider2D>();
         dungeonGenerator = FindObjectOfType<BSPDungeonGenerator>();
+        currentWeapon = GetComponentInChildren<WeaponInterface>();
     }
     private void OnEnable()
     {
@@ -46,20 +39,11 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            isFiring = true;
+            currentWeapon?.StartShooting();
         }
         if (Input.GetMouseButtonUp(0))
         {
-            isFiring = false;
-        }
-        if (isFiring)
-        {
-            if (timeSinceLastShot > 1 / currentWeapon.fireRateMultiplier)
-            {
-                timeSinceLastShot = 0;
-                Shoot();
-            }
-            timeSinceLastShot += Time.deltaTime;
+            currentWeapon?.StopShooting();
         }
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
@@ -69,23 +53,6 @@ public class PlayerController : MonoBehaviour
         Vector2 aimDirection = mousePosition - rb.position;
         float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - 90f;
         rb.rotation = aimAngle;
-    }
-
-    public void Shoot()
-    {
-        for (int i = 0; i < currentWeapon.bulletQuantityModifier; i++)
-        {
-            GameObject bulletObject = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-            Physics2D.IgnoreCollision(bulletObject.GetComponent<Collider2D>(), GetComponent<Collider2D>());
-            Bullet bullet = bulletObject.GetComponent<Bullet>();
-            if (bullet != null)
-            {
-                // Apply bullet spread via rotation
-                bulletObject.transform.Rotate(0, 0, Random.Range(-currentWeapon.bulletSpreadModifier, currentWeapon.bulletSpreadModifier));
-                bullet.damage = currentWeapon.damageMultiplier;
-                bullet.speed = currentWeapon.bulletSpeedMultiplier;
-            }
-        }
     }
 
     void Die()
@@ -119,10 +86,10 @@ public class PlayerController : MonoBehaviour
         }
     }
     
-    public void SetWeapon(StatModifier newWeapon)
-    {
-        currentWeapon = newWeapon;
-    }
+    // public void SetWeapon(StatModifier newWeapon)
+    // {
+    //     currentWeapon = newWeapon;
+    // }
 
 }
 
