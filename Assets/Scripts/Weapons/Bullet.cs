@@ -12,6 +12,18 @@ public class Bullet : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         rb.velocity = (Vector2)(transform.up * speed);
 
+        // Explicitly ignore collisions between bullets
+        Collider2D firstCollider = GetComponent<Collider2D>();
+        Bullet[] activeBullets = FindObjectsOfType<Bullet>();
+        for (int i = 0; i < activeBullets.Length; i++)
+        {
+            Bullet bullet = activeBullets[i];
+            if (bullet != this)
+            {
+                Collider2D secondCollider = bullet.GetComponent<Collider2D>();
+                if (secondCollider != null) Physics2D.IgnoreCollision(firstCollider, secondCollider);
+            }
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

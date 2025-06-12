@@ -15,7 +15,7 @@ MonoBehaviour:
   weaponName: smg
   fireRate: 10
   weaponSprite: {fileID: 0}
-  bulletPrefab: {fileID: 8857881037204353521, guid: e190e68c89b89ac49ae3612868066f4d, type: 3}
+  bulletPrefab: {fileID: 309163366586274605, guid: c8646111e4062544cbbacf17eac749cf, type: 3}
   bulletDamage: 1
   bulletSpeed: 30
   bulletSpread: 0

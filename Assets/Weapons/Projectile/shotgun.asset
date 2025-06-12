@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dce85b3b596bf41479c02d629bbb18b8, type: 3}
   m_Name: shotgun
   m_EditorClassIdentifier: 
-  weaponName: smg
+  weaponName: shotgun
   fireRate: 2
   weaponSprite: {fileID: 0}
-  bulletPrefab: {fileID: 8857881037204353521, guid: e190e68c89b89ac49ae3612868066f4d, type: 3}
+  bulletPrefab: {fileID: 309163366586274605, guid: c8646111e4062544cbbacf17eac749cf, type: 3}
   bulletDamage: 1
   bulletSpeed: 30
   bulletSpread: 10
