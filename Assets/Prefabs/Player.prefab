@@ -262,5 +262,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 976bb97a364ba83408baf35c96450594, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponData: {fileID: 11400000, guid: 61b8cc70c13b53a4386b70f314e63973, type: 2}
+  weaponData: {fileID: 11400000, guid: 408fba9a7e843104a94d2ffe38e63536, type: 2}
   firePoint: {fileID: 628361416537747984}

@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dce85b3b596bf41479c02d629bbb18b8, type: 3}
-  m_Name: smg
+  m_Name: snaker
   m_EditorClassIdentifier: 
   weaponName: smg
-  fireRate: 30
+  fireRate: 50
   weaponSprite: {fileID: 0}
   bulletPrefab: {fileID: 309163366586274605, guid: c8646111e4062544cbbacf17eac749cf, type: 3}
   bulletDamage: 1
-  bulletSpeed: 30
-  bulletSpread: 2
-  bulletQuantity: 20
+  bulletSpeed: 40
+  bulletSpread: 0
+  bulletQuantity: 1
