@@ -9,14 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dce85b3b596bf41479c02d629bbb18b8, type: 3}
-  m_Name: snaker
+  m_Script: {fileID: 11500000, guid: dfcd23dd1da6fda4a92186ee44692321, type: 3}
+  m_Name: New Laser Weapon
   m_EditorClassIdentifier: 
-  weaponName: snaker
-  fireRate: 20
+  weaponName: Laser
+  fireRate: 5
   weaponSprite: {fileID: 0}
-  bulletPrefab: {fileID: 309163366586274605, guid: c8646111e4062544cbbacf17eac749cf, type: 3}
-  bulletDamage: 1
-  bulletSpeed: 60
-  bulletSpread: 0
-  bulletQuantity: 1
+  laserDPS: 0
+  laserDistance: 100
+  laserWidth: 0.5
+  laserColour: {r: 1, g: 1, b: 0, a: 0.54901963}

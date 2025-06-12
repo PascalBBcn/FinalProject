@@ -19,7 +19,17 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<BoxCollider2D>();
         dungeonGenerator = FindObjectOfType<BSPDungeonGenerator>();
-        currentWeapon = GetComponentInChildren<WeaponInterface>();
+
+        // Needed otherwise it selects the first weaponScript (no matter if unchecked)
+        var weapons = GetComponentsInChildren<WeaponInterface>();
+        foreach (var weapon in weapons)
+        {
+            if (((MonoBehaviour)weapon).enabled)
+            {
+                currentWeapon = weapon;
+                break;
+            }
+        }
     }
     private void OnEnable()
     {
