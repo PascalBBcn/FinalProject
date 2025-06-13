@@ -4,6 +4,7 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     public EnemySpawner enemySpawner;
+    public WeaponSpawner weaponSpawner;
 
     public GameObject playerPrefab;
     private GameObject playerInstance;
@@ -79,6 +80,7 @@ public class Spawner : MonoBehaviour
         exitInstance = Instantiate(exitPrefab, (Vector3Int)furthestRoom, Quaternion.identity);
         exitInstance.GetComponent<LevelExit>().SetGenerator(generator);
 
+        
         // gunSmgInstance = Instantiate(gunSmgPrefab, generatedRooms[1].center, Quaternion.identity);
         // gunShotgunInstance = Instantiate(gunShotgunPrefab, generatedRooms[2].center, Quaternion.identity);
 

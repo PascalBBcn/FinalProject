@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 
 // The main script of the game
@@ -15,6 +16,7 @@ public class BSPDungeonGenerator : MonoBehaviour
     [SerializeField] private TileRenderer tileRenderer;
 
     [SerializeField] private Spawner spawner;
+    // Need access to enemySpawner just for room-locking-system
     [SerializeField] private EnemySpawner enemySpawner;
 
 
@@ -22,7 +24,6 @@ public class BSPDungeonGenerator : MonoBehaviour
     public HashSet<Vector2Int> corridors { get; private set; }
     public HashSet<Vector2Int> dungeonFloor { get; private set; }
     public List<RectInt> rooms { get; private set; } = new List<RectInt>();
-
 
     public void StartGeneration()
     {
@@ -67,11 +68,37 @@ public class BSPDungeonGenerator : MonoBehaviour
         corridors = CorridorGenerator.CreateCorridors(roomConnectionPairings);
         dungeonFloor.UnionWith(corridors);
 
+        // Furthest room is used for Boss/Exit room
         // Using thin corridors (to avoid redundant processes from 3-wide corridor)
         Vector2Int furthestRoom = spawner.GetFurthestRoomFromStart(roomCenterPoints, CorridorGenerator.thinCorridors);
 
         RenderTiles(dungeonFloor);
+
         
+        int bossRoomIndex = 1;
+        for (int i = 1; i < rooms.Count; i++)
+        {
+            if (Vector2Int.FloorToInt(rooms[i].center) == furthestRoom) bossRoomIndex = i;
+        }
+        List<int> validChestRoomIndices = new List<int>();
+        for (int i = 1; i < rooms.Count; i++)
+        {
+            if (i != bossRoomIndex) validChestRoomIndices.Add(i);  
+        }
+        int chestRoomIndex = validChestRoomIndices[Random.Range(0, validChestRoomIndices.Count-1)];
+
+        // Room assignment via tagging by roomType
+        List<RoomData> roomData = new List<RoomData>();
+        for (int i = 0; i < rooms.Count; i++)
+        {
+            RoomType roomType = RoomType.Normal;
+            if (i == 0) roomType = RoomType.Start;
+            else if (i == chestRoomIndex) roomType = RoomType.Chest;
+            else if (i == bossRoomIndex) roomType = RoomType.Boss;
+
+            roomData.Add(new RoomData(rooms[i], roomType));
+        }
+
         spawner.SpawnInstances(rooms, this, furthestRoom);
     }
 
