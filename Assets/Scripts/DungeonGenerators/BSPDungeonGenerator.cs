@@ -74,31 +74,9 @@ public class BSPDungeonGenerator : MonoBehaviour
 
         RenderTiles(dungeonFloor);
 
+        // For "tagging" rooms via different roomTypes
+        List<RoomData> roomData = RoomAssigner.AssignRooms(rooms, furthestRoom);
         
-        int bossRoomIndex = 1;
-        for (int i = 1; i < rooms.Count; i++)
-        {
-            if (Vector2Int.FloorToInt(rooms[i].center) == furthestRoom) bossRoomIndex = i;
-        }
-        List<int> validChestRoomIndices = new List<int>();
-        for (int i = 1; i < rooms.Count; i++)
-        {
-            if (i != bossRoomIndex) validChestRoomIndices.Add(i);  
-        }
-        int chestRoomIndex = validChestRoomIndices[Random.Range(0, validChestRoomIndices.Count-1)];
-
-        // Room assignment via tagging by roomType
-        List<RoomData> roomData = new List<RoomData>();
-        for (int i = 0; i < rooms.Count; i++)
-        {
-            RoomType roomType = RoomType.Normal;
-            if (i == 0) roomType = RoomType.Start;
-            else if (i == chestRoomIndex) roomType = RoomType.Chest;
-            else if (i == bossRoomIndex) roomType = RoomType.Boss;
-
-            roomData.Add(new RoomData(rooms[i], roomType));
-        }
-
         spawner.SpawnInstances(rooms, this, furthestRoom);
     }
 
