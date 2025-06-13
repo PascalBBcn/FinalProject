@@ -15,6 +15,8 @@ public class BSPDungeonGenerator : MonoBehaviour
     [SerializeField] private TileRenderer tileRenderer;
 
     [SerializeField] private Spawner spawner;
+    [SerializeField] private EnemySpawner enemySpawner;
+
 
     // Give read-access only to other scripts
     public HashSet<Vector2Int> corridors { get; private set; }
@@ -69,7 +71,7 @@ public class BSPDungeonGenerator : MonoBehaviour
         Vector2Int furthestRoom = spawner.GetFurthestRoomFromStart(roomCenterPoints, CorridorGenerator.thinCorridors);
 
         RenderTiles(dungeonFloor);
-
+        
         spawner.SpawnInstances(rooms, this, furthestRoom);
     }
 
@@ -115,7 +117,7 @@ public class BSPDungeonGenerator : MonoBehaviour
             edgePositions.Add(new Vector2Int(room.xMax - 1, y));
         }
         // If enemies still alive, keep the room locked
-        if (spawner.EnemiesAreAlive(room))
+        if (enemySpawner.EnemiesAreAlive(room))
         {
             foreach (var pos in edgePositions)
             {

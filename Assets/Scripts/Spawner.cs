@@ -4,17 +4,17 @@ using Random = UnityEngine.Random;
 
 public class Spawner : MonoBehaviour
 {
-    private List<GameObject> spawnedEnemies = new List<GameObject>();
-    public GameObject enemyPrefab;
+    public EnemySpawner enemySpawner;
+
     public GameObject playerPrefab;
     private GameObject playerInstance;
     public GameObject exitPrefab;
     private GameObject exitInstance;
 
-    public GameObject gunSmgPrefab;
-    private GameObject gunSmgInstance;
-    public GameObject gunShotgunPrefab;
-    private GameObject gunShotgunInstance;
+    // public GameObject gunSmgPrefab;
+    // private GameObject gunSmgInstance;
+    // public GameObject gunShotgunPrefab;
+    // private GameObject gunShotgunInstance;
 
     // Walks through the corridors
     // Corridors does indeed contain the center points as well
@@ -80,59 +80,18 @@ public class Spawner : MonoBehaviour
         exitInstance = Instantiate(exitPrefab, (Vector3Int)furthestRoom, Quaternion.identity);
         exitInstance.GetComponent<LevelExit>().SetGenerator(generator);
 
-        gunSmgInstance = Instantiate(gunSmgPrefab, generatedRooms[1].center, Quaternion.identity);
-        gunShotgunInstance = Instantiate(gunShotgunPrefab, generatedRooms[2].center, Quaternion.identity);
+        // gunSmgInstance = Instantiate(gunSmgPrefab, generatedRooms[1].center, Quaternion.identity);
+        // gunShotgunInstance = Instantiate(gunShotgunPrefab, generatedRooms[2].center, Quaternion.identity);
 
-
-
-        for (int i = 1; i < generatedRooms.Count - 1; i++)
-        {
-            // Skip the exit room
-            if (furthestRoom.x >= generatedRooms[i].x && furthestRoom.x < generatedRooms[i].xMax &&
-        furthestRoom.y >= generatedRooms[i].y && furthestRoom.y < generatedRooms[i].yMax) continue;
-
-            // int r = Random.Range(1, 5);
-            int r = 1;
-            while (r > 0)
-            {
-                // Random position
-                int x = Random.Range(generatedRooms[i].x + 3, generatedRooms[i].xMax - 3);
-                int y = Random.Range(generatedRooms[i].y + 3, generatedRooms[i].yMax - 3);
-                Vector2 spawnPos = new Vector2(x, y);
-
-                GameObject enemyInstance = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
-                spawnedEnemies.Add(enemyInstance);
-                r--;
-            }
-
-        }
-    }
-    
-    // For room locking system
-    public bool EnemiesAreAlive(RectInt room)
-    {
-        foreach (var enemy in spawnedEnemies)
-        {
-            if (enemy == null) continue;
-            Vector2Int enemyPos = new Vector2Int(Mathf.RoundToInt(enemy.transform.position.x), Mathf.RoundToInt(enemy.transform.position.y));
-            if (room.Contains(enemyPos)) return true;
-        }
-        return false;
+        enemySpawner.SpawnEnemies(generatedRooms, furthestRoom);
     }
 
     public void RemoveInstances()
     {
-        foreach (var enemy in spawnedEnemies)
-        {
-            if (enemy != null)
-            {
-                Destroy(enemy);
-            }
-        }
-        Destroy(gunShotgunInstance);
-        Destroy(gunSmgInstance);
+        enemySpawner.RemoveEnemies();
+        // Destroy(gunShotgunInstance);
+        // Destroy(gunSmgInstance);
 
         Destroy(exitInstance);
-        spawnedEnemies.Clear();
     }
 }

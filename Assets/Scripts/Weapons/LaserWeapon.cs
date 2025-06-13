@@ -35,13 +35,12 @@ public class LaserWeapon : MonoBehaviour, WeaponInterface
         isFiring = false;
         lineRenderer.enabled = false;
     }
-
     private void Shoot()
     {
         Vector3 startPos = firePoint.position;
         Vector3 endPos;
 
-        RaycastHit2D hit = Physics2D.Raycast(firePoint.position, firePoint.up, weaponData.laserDistance);
+        RaycastHit2D hit = Physics2D.Raycast(startPos, firePoint.up, weaponData.laserDistance);
         if (hit.collider != null)
         {
             endPos = hit.point;
@@ -50,7 +49,7 @@ public class LaserWeapon : MonoBehaviour, WeaponInterface
                 Destroy(hit.collider.gameObject);
             }
         }    
-        else endPos = firePoint.position + firePoint.up * weaponData.laserDistance;
+        else endPos = startPos + firePoint.up * weaponData.laserDistance;
 
         startPos.z = 0f;
         endPos.z = 0f;
