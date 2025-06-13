@@ -64,27 +64,34 @@ public class Spawner : MonoBehaviour
         return maxKey;
     }
 
-    public void SpawnInstances(List<RectInt> generatedRooms, BSPDungeonGenerator generator, Vector2Int furthestRoom)
+    public void SpawnInstances(List<RoomData> roomData, BSPDungeonGenerator generator)
     {
-        Debug.Log(generatedRooms[0].center);
+        RoomData startRoom = roomData[0];
+        RoomData chestRoom = null;
+        RoomData bossRoom = null;
+        for (int i = 1; i < roomData.Count; i++)
+        {
+            if (roomData[i].roomType == RoomType.Chest) chestRoom = roomData[i];
+            else if (roomData[i].roomType == RoomType.Boss) bossRoom = roomData[i];
+        }
         if (playerInstance == null)
         {
-            playerInstance = Instantiate(playerPrefab, generatedRooms[0].center, Quaternion.identity);
+            playerInstance = Instantiate(playerPrefab, startRoom.bounds.center, Quaternion.identity);
             Camera.main.GetComponent<FollowPlayerCamera>().player = playerInstance.transform;
         }
         else
         {
             // Move existing player to new level's start position
-            playerInstance.transform.position = generatedRooms[0].center;
+            playerInstance.transform.position = startRoom.bounds.center;
         }
-        exitInstance = Instantiate(exitPrefab, (Vector3Int)furthestRoom, Quaternion.identity);
+        exitInstance = Instantiate(exitPrefab, bossRoom.bounds.center, Quaternion.identity);
         exitInstance.GetComponent<LevelExit>().SetGenerator(generator);
 
         
         // gunSmgInstance = Instantiate(gunSmgPrefab, generatedRooms[1].center, Quaternion.identity);
         // gunShotgunInstance = Instantiate(gunShotgunPrefab, generatedRooms[2].center, Quaternion.identity);
-
-        enemySpawner.SpawnEnemies(generatedRooms, furthestRoom);
+        
+        enemySpawner.SpawnEnemies(roomData);
     }
 
     public void RemoveInstances()

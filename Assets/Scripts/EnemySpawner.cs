@@ -7,27 +7,27 @@ public class EnemySpawner : MonoBehaviour
     private List<GameObject> spawnedEnemies = new List<GameObject>();
     public GameObject enemyPrefab;
 
-    public void SpawnEnemies(List<RectInt> generatedRooms, Vector2Int furthestRoom)
+    public void SpawnEnemies(List<RoomData> roomData)
     {
-        for (int i = 1; i < generatedRooms.Count - 1; i++)
+        for (int i = 1; i < roomData.Count - 1; i++)
         {
-            // Skip the exit room
-            if (furthestRoom.x >= generatedRooms[i].x && furthestRoom.x < generatedRooms[i].xMax &&
-                furthestRoom.y >= generatedRooms[i].y && furthestRoom.y < generatedRooms[i].yMax) continue;
-
-            // int r = Random.Range(1, 5);
-            int r = 1;
-            while (r > 0)
+            if (roomData[i].roomType != RoomType.Boss && roomData[i].roomType != RoomType.Chest)
             {
-                // Random position
-                int x = Random.Range(generatedRooms[i].x + 3, generatedRooms[i].xMax - 3);
-                int y = Random.Range(generatedRooms[i].y + 3, generatedRooms[i].yMax - 3);
-                Vector2 spawnPos = new Vector2(x, y);
+                // int r = Random.Range(1, 5);
+                int r = 1;
+                while (r > 0)
+                {
+                    // Random position
+                    int x = Random.Range(roomData[i].bounds.x + 3, roomData[i].bounds.xMax - 3);
+                    int y = Random.Range(roomData[i].bounds.y + 3, roomData[i].bounds.yMax - 3);
+                    Vector2 spawnPos = new Vector2(x, y);
 
-                GameObject enemyInstance = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
-                spawnedEnemies.Add(enemyInstance);
-                r--;
+                    GameObject enemyInstance = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+                    spawnedEnemies.Add(enemyInstance);
+                    r--;
+                }
             }
+            
 
         }
     }   

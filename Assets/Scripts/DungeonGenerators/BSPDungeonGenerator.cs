@@ -60,7 +60,7 @@ public class BSPDungeonGenerator : MonoBehaviour
         {
             roomCenterPoints.Add(Vector2Int.FloorToInt(room.center));
         }
-        
+
         // Generate the positions for corridor placements
         // These are pairs of connections
         List<(Vector2Int, Vector2Int)> roomConnectionPairings = CorridorGenerator.GetRoomConnectionPairings(rootNode, roomCenterPoints);
@@ -76,8 +76,10 @@ public class BSPDungeonGenerator : MonoBehaviour
 
         // For "tagging" rooms via different roomTypes
         List<RoomData> roomData = RoomAssigner.AssignRooms(rooms, furthestRoom);
-        
-        spawner.SpawnInstances(rooms, this, furthestRoom);
+
+        // spawner.SpawnInstances(rooms, this, furthestRoom);
+        spawner.SpawnInstances(roomData, this);
+
     }
 
     private HashSet<Vector2Int> CreateRectangularRooms(List<RectInt> rooms)
