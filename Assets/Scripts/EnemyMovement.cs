@@ -15,7 +15,9 @@ public class EnemyMovement : MonoBehaviour
     private Vector2Int lastPlayerPos;
     private Vector2Int enemyPos;
     private Rigidbody2D rb;
-    
+
+    public RectInt roomBounds; // To store which room each enemy is in
+
     private Transform playerTransform;
 
     void Start()
@@ -43,19 +45,32 @@ public class EnemyMovement : MonoBehaviour
                 Mathf.RoundToInt(playerTransform.position.x), 
                 Mathf.RoundToInt(playerTransform.position.y));
 
-            if (Vector2.Distance(enemyPos, playerPos) <= range && !isChasing)
+            if (roomBounds.Contains(playerPos))
             {
-                isChasing = true;
-            }
-            if (isChasing && playerPos != lastPlayerPos)
-            {
-                currentPath = Pathfinding.AStar(enemyPos, playerPos);
-                if (currentPath != null && currentPath.Count > 0)
+                RectInt smallerRoomBounds = new RectInt(
+                    roomBounds.x + 1,
+                    roomBounds.y + 1,
+                    roomBounds.width - 2,
+                    roomBounds.height - 2
+                );
+                if (smallerRoomBounds.Contains(playerPos))
                 {
-                    currentPathIndex = 0;
-                    lastPlayerPos = playerPos;
+                    if (Vector2.Distance(enemyPos, playerPos) <= range && !isChasing)
+                    {
+                        isChasing = true;
+                    }
+                    if (isChasing && playerPos != lastPlayerPos)
+                    {
+                        currentPath = Pathfinding.AStar(enemyPos, playerPos);
+                        if (currentPath != null && currentPath.Count > 0)
+                        {
+                            currentPathIndex = 0;
+                            lastPlayerPos = playerPos;
+                        }
+                    }
                 }
             }
+            
             yield return new WaitForSeconds(pathUpdateInterval);
         }
     }

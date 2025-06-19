@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     Vector2 direction = Vector2.zero;
     BoxCollider2D playerCollider;
     Vector2 mousePosition;
-    
+
     private WeaponInterface currentWeapon;
 
     private BSPDungeonGenerator dungeonGenerator;
@@ -77,6 +77,7 @@ public class PlayerController : MonoBehaviour
     {
         if (dungeonGenerator == null) return;
         Vector2Int playerPos = Vector2Int.FloorToInt(transform.position);
+
         for (int i = 1; i < dungeonGenerator.rooms.Count - 1; i++)
         {
             RectInt roomTriggerZone = new RectInt(
@@ -86,11 +87,9 @@ public class PlayerController : MonoBehaviour
                 dungeonGenerator.rooms[i].height - 2
             );
 
-            if (roomTriggerZone.Contains(playerPos))
+            if (roomTriggerZone.Contains(playerPos)) // Player is in a room.
             {
                 dungeonGenerator.LockRoom(dungeonGenerator.rooms[i]);
-                // Player is in a room.
-                Debug.Log("IN ROOM");
                 return;
             }
         }

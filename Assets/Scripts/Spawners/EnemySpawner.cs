@@ -23,11 +23,12 @@ public class EnemySpawner : MonoBehaviour
                     Vector2 spawnPos = new Vector2(x, y);
 
                     GameObject enemyInstance = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+                    enemyInstance.GetComponent<EnemyMovement>().roomBounds = roomData[i].bounds;
                     spawnedEnemies.Add(enemyInstance);
                     r--;
                 }
             }
-            
+
 
         }
     }   
