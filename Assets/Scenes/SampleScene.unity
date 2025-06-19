@@ -1869,7 +1869,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08a9f255902fef34e98b0c5150e9245a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLives: 300
+  currentFloor: 0
+  difficultyMultiplier: 1
+  playerHealth: 300
 --- !u!4 &1267540237
 Transform:
   m_ObjectHideFlags: 0

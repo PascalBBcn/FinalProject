@@ -2,24 +2,33 @@ using UnityEngine;
 
 public class GameSession : MonoBehaviour
 {
-    [SerializeField] int playerLives = 3;
+    public static GameSession instance { get; private set; }
+
+    public int currentFloor = -1;
+    public float difficultyMultiplier = 1.0f;
+    [SerializeField] int playerHealth = 300;
+
 
     void Awake()
     {
-        int numOfGameSessions = FindObjectsOfType<GameSession>().Length;
-        if (numOfGameSessions > 1)
+        if (instance != null && instance != this)
         {
             Destroy(gameObject);
+            return;
         }
-        else
-        {
-            DontDestroyOnLoad(gameObject);
-        }
+        instance = this;
+        Debug.Log(currentFloor);
+    }
+
+    public void IncreaseFloor()
+    {
+        currentFloor++;
+        difficultyMultiplier += 0.2f;
     }
 
     public void ProcessPlayerDeath()
     {
-        if (playerLives > 0)
+        if (playerHealth > 0)
         {
             TakeLife();
         }
@@ -29,7 +38,7 @@ public class GameSession : MonoBehaviour
 
     void TakeLife()
     {
-        playerLives--;
+        playerHealth--;
     } 
     
     void KillPlayer()

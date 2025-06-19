@@ -27,6 +27,8 @@ public class BSPDungeonGenerator : MonoBehaviour
 
     public void StartGeneration()
     {
+        GameSession.instance.IncreaseFloor();
+        Debug.Log(GameSession.instance.currentFloor);
         // Ensure tileRenderer exists
         if (tileRenderer == null)
         {
