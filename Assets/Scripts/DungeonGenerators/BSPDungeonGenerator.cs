@@ -128,7 +128,7 @@ public class BSPDungeonGenerator : MonoBehaviour
         {
             foreach (var pos in edgePositions)
             {
-                if (corridors.Contains(pos)) tileRenderer.SetSingleWall(pos);
+                if (corridors.Contains(pos)) tileRenderer.SetSingleDoor(pos);
             }
         }
         // "Unlock" room (by removing those wall tiles) once all enemies in room defeated

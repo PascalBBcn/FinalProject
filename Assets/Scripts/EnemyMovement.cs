@@ -27,6 +27,7 @@ public class EnemyMovement : MonoBehaviour
         StartCoroutine(UpdatePath());
     }
 
+    // Does not recalculate the path every frame but rather based on interval
     IEnumerator UpdatePath()
     {
         while (true)
@@ -75,6 +76,7 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
+    // rb physics movement has better performance in fixedUpdate
     void FixedUpdate()
     {
         MoveAlongPath();

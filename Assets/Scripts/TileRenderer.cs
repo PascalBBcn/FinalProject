@@ -7,8 +7,11 @@ public class TileRenderer : MonoBehaviour
 {
     [SerializeField] private Tilemap floorTilemap;
     [SerializeField] private Tilemap wallTilemap;
+    [SerializeField] private Tilemap doorTilemap;
+
     [SerializeField] private TileBase floorTile;
     [SerializeField] private TileBase wallTile;
+    [SerializeField] private TileBase doorTile;
 
     // Flexible as it can be used to set any sort of tile
     private void SetTiles(HashSet<Vector2Int> positions, Tilemap tilemap, TileBase tile)
@@ -52,6 +55,12 @@ public class TileRenderer : MonoBehaviour
         SetSingleTile(wallTilemap, wallTile, position);
     }
 
+    public void SetSingleDoor(Vector2Int position)
+    {
+        SetSingleTile(doorTilemap, doorTile, position);
+    }
+
+
     private static HashSet<Vector2Int> FindWallPositions(HashSet<Vector2Int> floorPositions, List<Vector2Int> directionList)
     {
         HashSet<Vector2Int> wallPositions = new HashSet<Vector2Int>();
@@ -74,12 +83,14 @@ public class TileRenderer : MonoBehaviour
     {
         var tilePos = wallTilemap.WorldToCell((Vector3Int)position);
         wallTilemap.SetTile(tilePos, null);
+        doorTilemap.SetTile(tilePos, null);
     }
 
     public void RemoveTiles()
     {
         floorTilemap.ClearAllTiles();
         wallTilemap.ClearAllTiles();
+        doorTilemap.ClearAllTiles();
     }
 
     
