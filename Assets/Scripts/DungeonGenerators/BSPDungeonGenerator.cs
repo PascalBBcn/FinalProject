@@ -90,7 +90,7 @@ public class BSPDungeonGenerator : MonoBehaviour
             }
             foreach (var pos in edgePositions)
             {
-                if (corridors.Contains(pos)) tileRenderer.SetSingleDoor(pos);
+                if (corridors.Contains(pos)) tileRenderer.SetSingleUnlockedDoor(pos);
             }
         }
 
@@ -134,34 +134,34 @@ public class BSPDungeonGenerator : MonoBehaviour
     // Locks the room if enemies within room are alive, unlocks otherwise
     public void LockRoom(RectInt room)
     {
-        // List<Vector2Int> edgePositions = new List<Vector2Int>();
+        List<Vector2Int> edgePositions = new List<Vector2Int>();
 
-        // for (int x = room.xMin + 1; x < room.xMax - 1; x++)
-        // {
-        //     edgePositions.Add(new Vector2Int(x, room.yMin));
-        //     edgePositions.Add(new Vector2Int(x, room.yMax - 1));
-        // }
+        for (int x = room.xMin + 1; x < room.xMax - 1; x++)
+        {
+            edgePositions.Add(new Vector2Int(x, room.yMin));
+            edgePositions.Add(new Vector2Int(x, room.yMax - 1));
+        }
 
-        // for (int y = room.yMin + 1; y < room.yMax - 1; y++)
-        // {
-        //     edgePositions.Add(new Vector2Int(room.xMin, y));
-        //     edgePositions.Add(new Vector2Int(room.xMax - 1, y));
-        // }
-        // // If enemies still alive, keep the room locked
-        // if (enemySpawner.EnemiesAreAlive(room))
-        // {
-        //     foreach (var pos in edgePositions)
-        //     {
-        //         if (corridors.Contains(pos)) tileRenderer.SetSingleDoor(pos);
-        //     }
-        // }
-        // // "Unlock" room (by removing those wall tiles) once all enemies in room defeated
-        // else
-        // {
-        //     foreach (var pos in edgePositions)
-        //     {
-        //         if (corridors.Contains(pos)) tileRenderer.RemoveTile(pos);
-        //     }
-        // }
+        for (int y = room.yMin + 1; y < room.yMax - 1; y++)
+        {
+            edgePositions.Add(new Vector2Int(room.xMin, y));
+            edgePositions.Add(new Vector2Int(room.xMax - 1, y));
+        }
+        // If enemies still alive, keep the room locked
+        if (enemySpawner.EnemiesAreAlive(room))
+        {
+            foreach (var pos in edgePositions)
+            {
+                if (corridors.Contains(pos)) tileRenderer.SetSingleLockedDoor(pos);
+            }
+        }
+        // "Unlock" room (by removing those wall tiles) once all enemies in room defeated
+        else
+        {
+            foreach (var pos in edgePositions)
+            {
+                if (corridors.Contains(pos)) tileRenderer.RemoveTile(pos);
+            }
+        }
     }
 }

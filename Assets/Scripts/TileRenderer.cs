@@ -7,11 +7,13 @@ public class TileRenderer : MonoBehaviour
 {
     [SerializeField] private Tilemap floorTilemap;
     [SerializeField] private Tilemap wallTilemap;
-    [SerializeField] private Tilemap doorTilemap;
+    [SerializeField] private Tilemap doorUnlockedTilemap;
+    [SerializeField] private Tilemap doorLockedTilemap;
 
     [SerializeField] private TileBase floorTile;
     [SerializeField] private TileBase wallTile;
-    [SerializeField] private TileBase doorTile;
+    [SerializeField] private TileBase doorUnlockedTile;
+    [SerializeField] private TileBase doorLockedTile;
 
     // Flexible as it can be used to set any sort of tile
     private void SetTiles(HashSet<Vector2Int> positions, Tilemap tilemap, TileBase tile)
@@ -55,9 +57,13 @@ public class TileRenderer : MonoBehaviour
         SetSingleTile(wallTilemap, wallTile, position);
     }
 
-    public void SetSingleDoor(Vector2Int position)
+    public void SetSingleUnlockedDoor(Vector2Int position)
     {
-        SetSingleTile(doorTilemap, doorTile, position);
+        SetSingleTile(doorUnlockedTilemap, doorUnlockedTile, position);
+    }
+    public void SetSingleLockedDoor(Vector2Int position)
+    {
+        SetSingleTile(doorLockedTilemap, doorLockedTile, position);
     }
 
 
@@ -81,16 +87,17 @@ public class TileRenderer : MonoBehaviour
 
     public void RemoveTile(Vector2Int position)
     {
-        var tilePos = wallTilemap.WorldToCell((Vector3Int)position);
-        wallTilemap.SetTile(tilePos, null);
-        doorTilemap.SetTile(tilePos, null);
+        var tilePos = doorLockedTilemap.WorldToCell((Vector3Int)position);
+        // wallTilemap.SetTile(tilePos, null);
+        doorLockedTilemap.SetTile(tilePos, null);
     }
 
     public void RemoveTiles()
     {
         floorTilemap.ClearAllTiles();
         wallTilemap.ClearAllTiles();
-        doorTilemap.ClearAllTiles();
+        doorUnlockedTilemap.ClearAllTiles();
+        doorLockedTilemap.ClearAllTiles();
     }
 
     

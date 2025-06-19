@@ -660,10 +660,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floorTilemap: {fileID: 144034552}
   wallTilemap: {fileID: 67508107}
-  doorTilemap: {fileID: 1491827952}
+  doorUnlockedTilemap: {fileID: 1491827952}
+  doorLockedTilemap: {fileID: 1402883094}
   floorTile: {fileID: 11400000, guid: 6509e2315e831a84885b0da3e4284aec, type: 2}
   wallTile: {fileID: 11400000, guid: b6ea114399ae5c14e8f040ac322f8411, type: 2}
-  doorTile: {fileID: 11400000, guid: 8756b0cd56513524b9e548b95ddfc67e, type: 2}
+  doorUnlockedTile: {fileID: 11400000, guid: 8756b0cd56513524b9e548b95ddfc67e, type: 2}
+  doorLockedTile: {fileID: 11400000, guid: 754a4df474639974288edbec647845aa, type: 2}
 --- !u!4 &207240796
 Transform:
   m_ObjectHideFlags: 0
@@ -1898,7 +1900,7 @@ GameObject:
   - component: {fileID: 1402883091}
   - component: {fileID: 1402883090}
   m_Layer: 9
-  m_Name: DoorUnlockedTilemap
+  m_Name: DoorLockedTilemap
   m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2020,7 +2022,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -2128,7 +2130,7 @@ GameObject:
   - component: {fileID: 1491827949}
   - component: {fileID: 1491827948}
   m_Layer: 11
-  m_Name: DoorLockedTilemap
+  m_Name: DoorUnlockedTilemap
   m_TagString: BlockAllExceptPlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
