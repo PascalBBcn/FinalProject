@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    public float moveSpeed = 4f;
+    private EnemyStats stats;
+    private float moveSpeed;
     public float pathUpdateInterval = 0.5f;
     public float range = 10f;
     private bool isChasing = false;
@@ -20,9 +21,15 @@ public class EnemyMovement : MonoBehaviour
 
     private Transform playerTransform;
 
-    void Start()
+    void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        stats = GetComponent<EnemyStats>();
+        moveSpeed = stats.MoveSpeed;
+    }
+
+    void Start()
+    {
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         StartCoroutine(UpdatePath());
     }
