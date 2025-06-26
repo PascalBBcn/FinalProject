@@ -11,11 +11,10 @@ public class EnemySpawner : MonoBehaviour
     {
         for (int i = 1; i < roomData.Count - 1; i++)
         {
+            int enemyCount = GetEnemyCount();
             if (roomData[i].roomType != RoomType.Boss && roomData[i].roomType != RoomType.Chest)
             {
-                // int r = Random.Range(1, 5);
-                int r = 1;
-                while (r > 0)
+                while (enemyCount > 0)
                 {
                     // Random position
                     int x = Random.Range(roomData[i].bounds.x + 3, roomData[i].bounds.xMax - 3);
@@ -25,13 +24,52 @@ public class EnemySpawner : MonoBehaviour
                     GameObject enemyInstance = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
                     enemyInstance.GetComponent<EnemyMovement>().roomBounds = roomData[i].bounds;
                     spawnedEnemies.Add(enemyInstance);
-                    r--;
+                    enemyCount--;
                 }
             }
 
 
         }
-    }   
+    }
+
+    public int GetEnemyCount()
+    {
+        int enemyCount = 0;
+        int floor = GameSession.instance.currentFloor;
+        float difficulty = GameSession.instance.difficultyMultiplier;
+
+        switch (floor)
+        {
+            case 1:
+                if (Random.value < 0.7f) enemyCount = Random.Range(1, 3); // 70%
+                else if (Random.value < 0.8f) enemyCount = Random.Range(4, 7); // 10%
+                else enemyCount = 0; // 20%
+                break;
+            case 2:
+                if (Random.value < 0.7f) enemyCount = Random.Range(3, 6);
+                else if (Random.value < 0.8f) enemyCount = Random.Range(7, 10);
+                else enemyCount = Random.Range(2, 4);
+                break;
+            case 3:
+                if (Random.value < 0.7f) enemyCount = Random.Range(7, 11);
+                else if (Random.value < 0.8f) enemyCount = Random.Range(12, 17);
+                else enemyCount = Random.Range(5, 7);
+                break;
+            case 4:
+                if (Random.value < 0.7f) enemyCount = Random.Range(7, 13);
+                else if (Random.value < 0.8f) enemyCount = Random.Range(14, 18);
+                else enemyCount = Random.Range(5, 7);
+                break;
+            case 5:
+                if (Random.value < 0.7f) enemyCount = Random.Range(7, 14);
+                else if (Random.value < 0.8f) enemyCount = Random.Range(15, 8);
+                else enemyCount = Random.Range(5, 7);
+                break;
+            
+        }
+
+        return Mathf.Clamp(enemyCount, 0, 18);
+    }
 
     // For room locking system
     public bool EnemiesAreAlive(RectInt room)

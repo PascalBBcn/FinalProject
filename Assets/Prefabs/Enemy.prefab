@@ -128,7 +128,11 @@ MonoBehaviour:
   moveSpeed: 10
   pathUpdateInterval: 0.5
   range: 10
-  player: {fileID: 2739825362684890008, guid: b9f80a2a5dac7694ea7ab7bd47986544, type: 3}
+  roomBounds:
+    x: 0
+    y: 0
+    width: 0
+    height: 0
 --- !u!50 &-8020243547482062475
 Rigidbody2D:
   serializedVersion: 4

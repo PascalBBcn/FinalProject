@@ -75,7 +75,7 @@ public class EnemyMovement : MonoBehaviour
             yield return new WaitForSeconds(pathUpdateInterval);
         }
     }
-
+ 
     // rb physics movement has better performance in fixedUpdate
     void FixedUpdate()
     {
