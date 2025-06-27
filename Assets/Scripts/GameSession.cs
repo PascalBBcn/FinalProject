@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class GameSession : MonoBehaviour
@@ -6,7 +7,8 @@ public class GameSession : MonoBehaviour
 
     public int currentFloor = -1;
     public float difficultyMultiplier = 1.0f;
-    [SerializeField] int playerHealth = 300;
+    [SerializeField] int playerHealth = 100;
+    [SerializeField] TextMeshProUGUI healthText;
 
 
     void Awake()
@@ -20,6 +22,11 @@ public class GameSession : MonoBehaviour
         Debug.Log(currentFloor);
     }
 
+    void Start()
+    {
+        healthText.text = playerHealth.ToString();
+    }
+
     public void IncreaseFloor()
     {
         currentFloor++;
@@ -29,7 +36,8 @@ public class GameSession : MonoBehaviour
     public void ProcessPlayerDeath(float damage)
     {
         playerHealth -= Mathf.RoundToInt(damage);
-        if (playerHealth <= 0) KillPlayer(); 
+        if (playerHealth <= 0) KillPlayer();
+        healthText.text = playerHealth.ToString();
     }
     
     void KillPlayer()

@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     Vector2 mousePosition;
 
     private SpriteRenderer spriteRenderer;
-
+    public Color playerColour;
     private WeaponInterface currentWeapon;
 
     private BSPDungeonGenerator dungeonGenerator;
@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
         playerCollider = GetComponent<BoxCollider2D>();
         dungeonGenerator = FindObjectOfType<BSPDungeonGenerator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-
+        playerColour = spriteRenderer.color;
         // Needed otherwise it selects the first weaponScript (no matter if unchecked)
         var weapons = GetComponentsInChildren<WeaponInterface>();
         foreach (var weapon in weapons)
@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator HitVisual()
     {
-        Color playerColour = spriteRenderer.color;
+        
         spriteRenderer.color = Color.white;
         yield return new WaitForSeconds(0.15f);
         spriteRenderer.color = playerColour;
