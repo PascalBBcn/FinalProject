@@ -1871,7 +1871,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentFloor: 0
   difficultyMultiplier: 1
-  playerHealth: 300
+  playerHealth: 100
 --- !u!4 &1267540237
 Transform:
   m_ObjectHideFlags: 0

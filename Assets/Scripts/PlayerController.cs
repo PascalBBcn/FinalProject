@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
     {
         direction = playerControls.ReadValue<Vector2>();
         rb.velocity = new Vector2(direction.x * movementSpeed, direction.y * movementSpeed);
-        Die();
+        // Die();
         CheckIfEnteredRoom();
 
         if (Input.GetMouseButtonDown(0))
@@ -65,13 +65,13 @@ public class PlayerController : MonoBehaviour
         rb.rotation = aimAngle;
     }
 
-    void Die()
-    {
-        if (playerCollider.IsTouchingLayers(LayerMask.GetMask("Enemy")))
-        {
-            FindObjectOfType<GameSession>().ProcessPlayerDeath();
-        }
-    }
+    // void Die()
+    // {
+    //     if (playerCollider.IsTouchingLayers(LayerMask.GetMask("Enemy")))
+    //     {
+    //         FindObjectOfType<GameSession>().ProcessPlayerDeath();
+    //     }
+    // }
 
     void CheckIfEnteredRoom()
     {

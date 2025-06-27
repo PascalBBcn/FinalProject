@@ -26,20 +26,11 @@ public class GameSession : MonoBehaviour
         difficultyMultiplier += 0.2f;
     }
 
-    public void ProcessPlayerDeath()
+    public void ProcessPlayerDeath(float damage)
     {
-        if (playerHealth > 0)
-        {
-            TakeLife();
-        }
-        else KillPlayer();
-
+        playerHealth -= Mathf.RoundToInt(damage);
+        if (playerHealth <= 0) KillPlayer(); 
     }
-
-    void TakeLife()
-    {
-        playerHealth--;
-    } 
     
     void KillPlayer()
     {
