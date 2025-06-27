@@ -60,6 +60,7 @@ public class BSPDungeonGenerator : MonoBehaviour
         List<Vector2Int> roomCenterPoints = new List<Vector2Int>();
         foreach (var room in rooms)
         {
+            Debug.Log(room.width * room.height);
             roomCenterPoints.Add(Vector2Int.FloorToInt(room.center));
         }
 

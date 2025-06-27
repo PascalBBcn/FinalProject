@@ -11,7 +11,7 @@ public class EnemySpawner : MonoBehaviour
     {
         for (int i = 1; i < roomData.Count - 1; i++)
         {
-            int enemyCount = GetEnemyCount();
+            int enemyCount = GetEnemyCount(roomData[i]);
             if (roomData[i].roomType != RoomType.Boss && roomData[i].roomType != RoomType.Chest)
             {
                 while (enemyCount > 0)
@@ -32,8 +32,10 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    public int GetEnemyCount()
+    public int GetEnemyCount(RoomData roomData)
     {
+        //if too small, cap the number of enemies which can spawn in that room 
+        bool roomIsTooSmall = (roomData.bounds.width * roomData.bounds.height) < 250;
         int enemyCount = 0;
         int floor = GameSession.instance.currentFloor;
         float difficulty = GameSession.instance.difficultyMultiplier;
@@ -49,21 +51,29 @@ public class EnemySpawner : MonoBehaviour
                 if (Random.value < 0.7f) enemyCount = Random.Range(3, 6);
                 else if (Random.value < 0.8f) enemyCount = Random.Range(7, 10);
                 else enemyCount = Random.Range(2, 4);
+
+                if (roomIsTooSmall && enemyCount > 5) enemyCount = 5;
                 break;
             case 3:
                 if (Random.value < 0.7f) enemyCount = Random.Range(7, 11);
                 else if (Random.value < 0.8f) enemyCount = Random.Range(12, 17);
                 else enemyCount = Random.Range(5, 7);
+
+                if (roomIsTooSmall && enemyCount > 6) enemyCount = 6;
                 break;
             case 4:
                 if (Random.value < 0.7f) enemyCount = Random.Range(7, 13);
                 else if (Random.value < 0.8f) enemyCount = Random.Range(14, 18);
                 else enemyCount = Random.Range(5, 7);
+
+                if (roomIsTooSmall && enemyCount > 6) enemyCount = 6;
                 break;
             case 5:
                 if (Random.value < 0.7f) enemyCount = Random.Range(7, 14);
-                else if (Random.value < 0.8f) enemyCount = Random.Range(15, 8);
+                else if (Random.value < 0.8f) enemyCount = Random.Range(15, 18);
                 else enemyCount = Random.Range(5, 7);
+
+                if (roomIsTooSmall && enemyCount > 6) enemyCount = 6;
                 break;
             
         }
