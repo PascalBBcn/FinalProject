@@ -30,7 +30,8 @@ public class Bullet : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
-            Destroy(collision.gameObject);
+            EnemyStats enemyStats = collision.gameObject.GetComponent<EnemyStats>();
+            if (enemyStats != null) enemyStats.TakeDamage(damage);
         }
         if (collision.gameObject.layer != LayerMask.NameToLayer("Bullet"))
         {

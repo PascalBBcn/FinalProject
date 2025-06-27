@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dce85b3b596bf41479c02d629bbb18b8, type: 3}
   m_Name: pistol
   m_EditorClassIdentifier: 
-  weaponName: shotgun
+  weaponName: pistol
   fireRate: 2
   weaponSprite: {fileID: 0}
+  rarity: 0
   bulletPrefab: {fileID: 309163366586274605, guid: c8646111e4062544cbbacf17eac749cf, type: 3}
-  bulletDamage: 1
+  bulletDamage: 34
   bulletSpeed: 40
   bulletSpread: 0
   bulletQuantity: 1
