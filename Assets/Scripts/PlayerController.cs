@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,6 +11,8 @@ public class PlayerController : MonoBehaviour
     BoxCollider2D playerCollider;
     Vector2 mousePosition;
 
+    private SpriteRenderer spriteRenderer;
+
     private WeaponInterface currentWeapon;
 
     private BSPDungeonGenerator dungeonGenerator;
@@ -19,6 +22,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<BoxCollider2D>();
         dungeonGenerator = FindObjectOfType<BSPDungeonGenerator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
         // Needed otherwise it selects the first weaponScript (no matter if unchecked)
         var weapons = GetComponentsInChildren<WeaponInterface>();
@@ -65,13 +69,18 @@ public class PlayerController : MonoBehaviour
         rb.rotation = aimAngle;
     }
 
-    // void Die()
-    // {
-    //     if (playerCollider.IsTouchingLayers(LayerMask.GetMask("Enemy")))
-    //     {
-    //         FindObjectOfType<GameSession>().ProcessPlayerDeath();
-    //     }
-    // }
+    public void ApplyHitVisual()
+    {
+        StartCoroutine(HitVisual());
+    }
+
+    private IEnumerator HitVisual()
+    {
+        Color playerColour = spriteRenderer.color;
+        spriteRenderer.color = Color.white;
+        yield return new WaitForSeconds(0.15f);
+        spriteRenderer.color = playerColour;
+    }
 
     void CheckIfEnteredRoom()
     {
