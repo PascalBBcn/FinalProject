@@ -1014,6 +1014,8 @@ MonoBehaviour:
   weaponSpawner: {fileID: 0}
   playerPrefab: {fileID: 7751979707553719728, guid: b9f80a2a5dac7694ea7ab7bd47986544, type: 3}
   exitPrefab: {fileID: 7751979707553719728, guid: 86864cb7853411742b88d7b6e54f1fd8, type: 3}
+  weaponDB: {fileID: 11400000, guid: 806cea70c521d6a4f9bc326e9a3a78dd, type: 2}
+  weaponPrefab: {fileID: 7751979707553719728, guid: ff7754c905948c3408f9778080cb4abd, type: 3}
 --- !u!4 &476362377
 Transform:
   m_ObjectHideFlags: 0
@@ -2546,7 +2548,7 @@ GameObject:
   - component: {fileID: 1588214392}
   - component: {fileID: 1588214391}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: HUD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

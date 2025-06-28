@@ -17,7 +17,7 @@ MonoBehaviour:
   weaponSprite: {fileID: 0}
   rarity: 3
   bulletPrefab: {fileID: 309163366586274605, guid: c8646111e4062544cbbacf17eac749cf, type: 3}
-  bulletDamage: 1
+  bulletDamage: 50
   bulletSpeed: 30
   bulletSpread: 10
   bulletQuantity: 6

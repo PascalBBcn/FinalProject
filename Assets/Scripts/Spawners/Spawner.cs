@@ -11,10 +11,9 @@ public class Spawner : MonoBehaviour
     public GameObject exitPrefab;
     private GameObject exitInstance;
 
-    // public GameObject gunSmgPrefab;
-    // private GameObject gunSmgInstance;
-    // public GameObject gunShotgunPrefab;
-    // private GameObject gunShotgunInstance;
+    public WeaponDB weaponDB;
+    public GameObject weaponPrefab;
+    private GameObject weaponInstance;
 
     // Walks through the corridors
     // Corridors does indeed contain the center points as well
@@ -74,6 +73,14 @@ public class Spawner : MonoBehaviour
             if (roomData[i].roomType == RoomType.Chest) chestRoom = roomData[i];
             else if (roomData[i].roomType == RoomType.Boss) bossRoom = roomData[i];
         }
+
+        // WEAPON SPAWNING
+        WeaponData randomWeapon = weaponDB.weapons[Random.Range(0, weaponDB.weapons.Count)];
+        weaponInstance = Instantiate(weaponPrefab, chestRoom.bounds.center, Quaternion.identity);
+        WeaponPickup pickup = weaponInstance.GetComponent<WeaponPickup>();
+        pickup.InitializeWeapon(randomWeapon);
+
+        // PLAYER SPAWNING
         if (playerInstance == null)
         {
             playerInstance = Instantiate(playerPrefab, startRoom.bounds.center, Quaternion.identity);
@@ -84,22 +91,18 @@ public class Spawner : MonoBehaviour
             // Move existing player to new level's start position
             playerInstance.transform.position = startRoom.bounds.center;
         }
+
+        // LEVEL EXIT SPAWNING
         exitInstance = Instantiate(exitPrefab, bossRoom.bounds.center, Quaternion.identity);
         exitInstance.GetComponent<LevelExit>().SetGenerator(generator);
 
-        
-        // gunSmgInstance = Instantiate(gunSmgPrefab, generatedRooms[1].center, Quaternion.identity);
-        // gunShotgunInstance = Instantiate(gunShotgunPrefab, generatedRooms[2].center, Quaternion.identity);
-        
         enemySpawner.SpawnEnemies(roomData);
     }
 
     public void RemoveInstances()
     {
         enemySpawner.RemoveEnemies();
-        // Destroy(gunShotgunInstance);
-        // Destroy(gunSmgInstance);
-
+        Destroy(weaponInstance);
         Destroy(exitInstance);
     }
 }

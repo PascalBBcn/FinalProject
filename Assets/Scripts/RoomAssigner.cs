@@ -19,7 +19,7 @@ public class RoomAssigner
         {
             if (i != bossRoomIndex) validChestRoomIndices.Add(i);
         }
-        int chestRoomIndex = validChestRoomIndices[Random.Range(0, validChestRoomIndices.Count - 1)];
+        int chestRoomIndex = validChestRoomIndices[Random.Range(0, validChestRoomIndices.Count)];
 
         // Room assignment via tagging by roomType
         for (int i = 0; i < rooms.Count; i++)

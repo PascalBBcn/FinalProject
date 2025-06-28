@@ -48,7 +48,6 @@ public class PlayerController : MonoBehaviour
     {
         direction = playerControls.ReadValue<Vector2>();
         rb.velocity = new Vector2(direction.x * movementSpeed, direction.y * movementSpeed);
-        // Die();
         CheckIfEnteredRoom();
 
         if (Input.GetMouseButtonDown(0))
@@ -103,11 +102,34 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-    
-    // public void SetWeapon(StatModifier newWeapon)
-    // {
-    //     currentWeapon = newWeapon;
-    // }
+
+    public void SetWeapon(WeaponData newWeapon)
+    {
+        // Get the weapon scripts attached to the player
+        var weapons = GetComponentsInChildren<WeaponInterface>(true);
+        foreach (var weapon in weapons) ((MonoBehaviour)weapon).enabled = false;
+        
+        if (newWeapon is ProjectileWeaponData)
+        {
+            ProjectileWeapon projectileWeapon = GetComponentInChildren<ProjectileWeapon>(true);
+            if (projectileWeapon != null)
+            {
+                projectileWeapon.enabled = true;
+                projectileWeapon.weaponData = newWeapon as ProjectileWeaponData;
+                currentWeapon = projectileWeapon;
+            }
+        }
+        else if (newWeapon is LaserWeaponData)
+        {
+            LaserWeapon laserWeapon = GetComponentInChildren<LaserWeapon>(true);
+            if (laserWeapon != null)
+            {
+                laserWeapon.enabled = true;
+                laserWeapon.weaponData = newWeapon as LaserWeaponData;
+                currentWeapon = laserWeapon;
+            }
+        }
+    }
 
 }
 

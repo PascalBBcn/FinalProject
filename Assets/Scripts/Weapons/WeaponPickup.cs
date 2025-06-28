@@ -2,15 +2,24 @@ using UnityEngine;
 
 public class WeaponPickup : MonoBehaviour
 {
-    // public StatModifier weaponModifier;
+    public WeaponData weaponData;
 
-    private void OnTriggerEnter2D(Collider2D other)
+    public void InitializeWeapon(WeaponData data)
     {
-        PlayerController player = other.GetComponent<PlayerController>();
-        if (player != null)
+        weaponData = data;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
         {
-            // player.SetWeapon(weaponModifier);
-            Destroy(gameObject); 
+            PlayerController player = collision.GetComponent<PlayerController>();
+            if (player != null)
+            {
+                player.SetWeapon(weaponData);
+                Destroy(gameObject);
+            }
         }
     }
+
 }
