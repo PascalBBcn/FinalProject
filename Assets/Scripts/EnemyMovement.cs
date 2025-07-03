@@ -11,11 +11,14 @@ public class EnemyMovement : MonoBehaviour
     public float range = 10f;
     private bool isChasing = false;
 
-    private List<Vector2Int> currentPath = new List<Vector2Int>();
-    private int currentPathIndex = 0;
+    // Protected instead of private, so can be used by derived classes (Boss)
+    protected List<Vector2Int> currentPath = new List<Vector2Int>();
+    protected int currentPathIndex = 0;
+    protected Rigidbody2D rb;
+
     private Vector2Int lastPlayerPos;
     private Vector2Int enemyPos;
-    private Rigidbody2D rb;
+    
 
     public RectInt roomBounds; // To store which room each enemy is in
 
@@ -35,7 +38,7 @@ public class EnemyMovement : MonoBehaviour
     }
 
     // Does not recalculate the path every frame but rather based on interval
-    IEnumerator UpdatePath()
+    protected virtual IEnumerator UpdatePath()
     {
         while (true)
         {
@@ -88,8 +91,8 @@ public class EnemyMovement : MonoBehaviour
     {
         MoveAlongPath();
     }
-
-    void MoveAlongPath()
+    // This class is being overriden by derivate classes (Boss)
+    protected virtual void MoveAlongPath()
     {
         if (currentPath == null || currentPathIndex >= currentPath.Count) 
             return;
@@ -102,7 +105,7 @@ public class EnemyMovement : MonoBehaviour
         Vector3 newPosition = Vector3.MoveTowards(
             transform.position, 
             targetPos, 
-            moveSpeed * Time.deltaTime);
+            moveSpeed * Time.fixedDeltaTime); // Better to use fixedDeltaTime since within FixedUpdate
         
         rb.MovePosition(newPosition);
 

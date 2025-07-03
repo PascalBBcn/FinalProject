@@ -47,7 +47,6 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         direction = playerControls.ReadValue<Vector2>();
-        rb.velocity = new Vector2(direction.x * movementSpeed, direction.y * movementSpeed);
         CheckIfEnteredRoom();
 
         if (Input.GetMouseButtonDown(0))
@@ -63,6 +62,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        rb.velocity = new Vector2(direction.x * movementSpeed, direction.y * movementSpeed);
         Vector2 aimDirection = mousePosition - rb.position;
         float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - 90f;
         rb.rotation = aimAngle;

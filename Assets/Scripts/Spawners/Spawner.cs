@@ -10,6 +10,8 @@ public class Spawner : MonoBehaviour
     private GameObject playerInstance;
     public GameObject exitPrefab;
     private GameObject exitInstance;
+    public GameObject bossPrefab;
+    private GameObject bossInstance;
 
     public WeaponDB weaponDB;
     public GameObject weaponPrefab;
@@ -97,6 +99,8 @@ public class Spawner : MonoBehaviour
         exitInstance.GetComponent<LevelExit>().SetGenerator(generator);
 
         enemySpawner.SpawnEnemies(roomData);
+        bossInstance = Instantiate(bossPrefab, startRoom.bounds.center, Quaternion.identity);
+        bossInstance.GetComponent<EnemyMovement>().roomBounds = startRoom.bounds;
     }
 
     
