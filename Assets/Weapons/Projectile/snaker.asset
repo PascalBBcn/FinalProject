@@ -15,7 +15,7 @@ MonoBehaviour:
   weaponName: snaker
   fireRate: 20
   weaponSprite: {fileID: 0}
-  rarity: 9
+  rarity: 4
   bulletPrefab: {fileID: 309163366586274605, guid: c8646111e4062544cbbacf17eac749cf, type: 3}
   bulletDamage: 15
   bulletSpeed: 60

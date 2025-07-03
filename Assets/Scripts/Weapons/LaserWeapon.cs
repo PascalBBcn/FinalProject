@@ -46,7 +46,14 @@ public class LaserWeapon : MonoBehaviour, WeaponInterface
             endPos = hit.point;
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
             {
-                Destroy(hit.collider.gameObject);
+                EnemyStats enemyStats = hit.collider.GetComponent<EnemyStats>();
+                if (enemyStats != null)
+                {
+                    float damagePerSecond = weaponData.laserDPS * Time.deltaTime;
+                    enemyStats.TakeDamage(damagePerSecond);
+                }
+
+                // Destroy(hit.collider.gameObject);
             }
         }    
         else endPos = startPos + firePoint.up * weaponData.laserDistance;

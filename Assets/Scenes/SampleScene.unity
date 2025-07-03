@@ -1011,7 +1011,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemySpawner: {fileID: 673828904}
-  weaponSpawner: {fileID: 0}
+  weaponSpawner: {fileID: 1495266194}
   playerPrefab: {fileID: 7751979707553719728, guid: b9f80a2a5dac7694ea7ab7bd47986544, type: 3}
   exitPrefab: {fileID: 7751979707553719728, guid: 86864cb7853411742b88d7b6e54f1fd8, type: 3}
   weaponDB: {fileID: 11400000, guid: 806cea70c521d6a4f9bc326e9a3a78dd, type: 2}
@@ -2314,6 +2314,51 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &1495266193
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1495266195}
+  - component: {fileID: 1495266194}
+  m_Layer: 0
+  m_Name: WeaponSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1495266194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1495266193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1862964a46325774b8c0a9b6d5c0ff53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponDB: {fileID: 11400000, guid: 806cea70c521d6a4f9bc326e9a3a78dd, type: 2}
+--- !u!4 &1495266195
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1495266193}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 100.15598, y: 176.04446, z: -2.864656}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1514530931
 GameObject:
   m_ObjectHideFlags: 0

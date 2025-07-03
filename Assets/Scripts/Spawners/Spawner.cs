@@ -75,7 +75,7 @@ public class Spawner : MonoBehaviour
         }
 
         // WEAPON SPAWNING
-        WeaponData randomWeapon = weaponDB.weapons[Random.Range(0, weaponDB.weapons.Count)];
+        WeaponData randomWeapon = weaponSpawner.GetWeapon();
         weaponInstance = Instantiate(weaponPrefab, chestRoom.bounds.center, Quaternion.identity);
         WeaponPickup pickup = weaponInstance.GetComponent<WeaponPickup>();
         pickup.InitializeWeapon(randomWeapon);
@@ -98,6 +98,8 @@ public class Spawner : MonoBehaviour
 
         enemySpawner.SpawnEnemies(roomData);
     }
+
+    
 
     public void RemoveInstances()
     {

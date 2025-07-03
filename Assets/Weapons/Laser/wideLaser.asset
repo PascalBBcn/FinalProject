@@ -15,8 +15,8 @@ MonoBehaviour:
   weaponName: Laser
   fireRate: 5
   weaponSprite: {fileID: 0}
-  rarity: 20
-  laserDPS: 2
+  rarity: 4
+  laserDPS: 400
   laserDistance: 100
   laserWidth: 3
   laserColour: {r: 1, g: 0, b: 0, a: 0.54901963}
