@@ -7,7 +7,7 @@ public class GameSession : MonoBehaviour
 
     public int currentFloor = -1;
     public float difficultyMultiplier = 1.0f;
-    [SerializeField] int playerHealth = 100;
+    [SerializeField] int playerHealth = 1000;
     [SerializeField] TextMeshProUGUI healthText;
 
 

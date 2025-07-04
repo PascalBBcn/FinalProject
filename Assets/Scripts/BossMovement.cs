@@ -3,39 +3,48 @@ using UnityEngine;
 
 public class BossMovement : EnemyMovement
 {
-    [SerializeField] private float lungeSpeed = 20f;
+    [SerializeField] private float lungeSpeed = 25f;
     [SerializeField] private float lungeDuration = 1.0f;
-    [SerializeField] private float chargeDelay = 0.5f;
+    [SerializeField] private float lungeCooldown = 3f;
+
     private bool isLunging = false;
 
-    protected override void MoveAlongPath()
+    new void Start()  // "new" keyword handles the warning of hiding the inherited member of Start
     {
-        if (isLunging || currentPath == null || currentPathIndex >= currentPath.Count)
-            return;
-
-        Vector3 targetPos = new Vector3(
-            currentPath[currentPathIndex].x,
-            currentPath[currentPathIndex].y,
-            transform.position.z);
-
-        StartCoroutine(Lunge(targetPos));
+        base.Start();
+        StartCoroutine(Lunge());
     }
 
-    IEnumerator Lunge(Vector3 targetPos)
+    // The boss can move like regular enemies, but also has a lunge movement
+    protected override void MoveAlongPath()
     {
-        isLunging = true;
-        float timeElapsed = 0f;
-        yield return new WaitForSeconds(chargeDelay);
+        if (isLunging) return;
+        base.MoveAlongPath(); // When not lunging, use regular enemy movement
+    }
 
-        Vector3 direction = (targetPos - transform.position).normalized;
-        while (timeElapsed < lungeDuration)
+    IEnumerator Lunge()
+    {
+        while (true)
         {
-            rb.MovePosition(transform.position + direction * lungeSpeed * Time.fixedDeltaTime);
-            timeElapsed += Time.fixedDeltaTime;
-            yield return new WaitForFixedUpdate();
-        }
+            yield return new WaitForSeconds(lungeCooldown);
 
-        currentPathIndex++;
-        isLunging = false;
+            if (currentPath != null && currentPathIndex < currentPath.Count)
+            {
+                isLunging = true;
+
+                Vector3 targetPos = playerTransform.position;
+                Vector3 direction = (targetPos - transform.position).normalized;
+
+                float timeElapsed = 0f;
+                while (timeElapsed < lungeDuration)
+                {
+                    rb.MovePosition(transform.position + direction * lungeSpeed * Time.fixedDeltaTime);
+                    timeElapsed += Time.fixedDeltaTime;
+                    yield return new WaitForFixedUpdate();
+                }
+
+                isLunging = false;
+            }
+        }
     }
 }

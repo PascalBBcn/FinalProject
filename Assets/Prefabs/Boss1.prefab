@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28a16f9da2422224b9c1162c52482256, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyData: {fileID: 11400000, guid: 73c3c9c745f48ea4abd27f3c6b4f08d6, type: 2}
+  enemyData: {fileID: 11400000, guid: e38fd3d0625f0774dac788bc462c450b, type: 2}
 --- !u!114 &-3637313198227910988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,4 +182,4 @@ MonoBehaviour:
     height: 0
   lungeSpeed: 25
   lungeDuration: 1
-  chargeDelay: 0.5
+  lungeCooldown: 1

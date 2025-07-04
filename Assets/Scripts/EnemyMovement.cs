@@ -7,7 +7,7 @@ public class EnemyMovement : MonoBehaviour
 {
     private EnemyStats stats;
     private float moveSpeed;
-    public float pathUpdateInterval = 0.5f;
+    public float pathUpdateInterval = 0.1f;
     public float range = 10f;
     private bool isChasing = false;
 
@@ -15,14 +15,13 @@ public class EnemyMovement : MonoBehaviour
     protected List<Vector2Int> currentPath = new List<Vector2Int>();
     protected int currentPathIndex = 0;
     protected Rigidbody2D rb;
+    protected Transform playerTransform;
 
     private Vector2Int lastPlayerPos;
     private Vector2Int enemyPos;
     
-
     public RectInt roomBounds; // To store which room each enemy is in
 
-    private Transform playerTransform;
 
     void Awake()
     {
@@ -31,14 +30,14 @@ public class EnemyMovement : MonoBehaviour
         moveSpeed = stats.MoveSpeed;
     }
 
-    void Start()
+    public void Start()
     {
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         StartCoroutine(UpdatePath());
     }
 
     // Does not recalculate the path every frame but rather based on interval
-    protected virtual IEnumerator UpdatePath()
+    private IEnumerator UpdatePath()
     {
         while (true)
         {
@@ -91,22 +90,23 @@ public class EnemyMovement : MonoBehaviour
     {
         MoveAlongPath();
     }
-    // This class is being overriden by derivate classes (Boss)
+    
+    // This class is being overriden by derivative classes (Boss)
     protected virtual void MoveAlongPath()
     {
-        if (currentPath == null || currentPathIndex >= currentPath.Count) 
+        if (currentPath == null || currentPathIndex >= currentPath.Count)
             return;
-        
+
         Vector3 targetPos = new Vector3(
-            currentPath[currentPathIndex].x, 
-            currentPath[currentPathIndex].y, 
+            currentPath[currentPathIndex].x,
+            currentPath[currentPathIndex].y,
             transform.position.z);
-        
+
         Vector3 newPosition = Vector3.MoveTowards(
-            transform.position, 
-            targetPos, 
+            transform.position,
+            targetPos,
             moveSpeed * Time.fixedDeltaTime); // Better to use fixedDeltaTime since within FixedUpdate
-        
+
         rb.MovePosition(newPosition);
 
         if (Vector3.Distance(transform.position, targetPos) < 0.1f)
