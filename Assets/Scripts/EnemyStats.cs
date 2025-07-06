@@ -3,13 +3,14 @@ using UnityEngine;
 public class EnemyStats : MonoBehaviour
 {
     [SerializeField] private EnemyData enemyData;
-    private float currentHealth;
+    public float currentHealth;
 
     public float MoveSpeed => enemyData.moveSpeed;
     public float Damage => enemyData.damage;
     public float AttackRate => enemyData.attackRate;
     public bool IsBoss => enemyData.enemyType == EnemyData.EnemyType.Boss;
-
+    public float MaxHealth => enemyData.maxHealth;
+    
     private void Start()
     {
         currentHealth = enemyData.maxHealth;

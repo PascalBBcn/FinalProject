@@ -108,6 +108,7 @@ public class Spawner : MonoBehaviour
     public void RemoveInstances()
     {
         enemySpawner.RemoveEnemies();
+        Destroy(bossInstance);
         Destroy(weaponInstance);
         Destroy(exitInstance);
     }

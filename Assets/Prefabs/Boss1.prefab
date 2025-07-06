@@ -134,7 +134,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!114 &-4276060032219410811
 MonoBehaviour:
@@ -149,6 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: e38fd3d0625f0774dac788bc462c450b, type: 2}
+  currentHealth: 0
 --- !u!114 &-3637313198227910988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,4 +183,4 @@ MonoBehaviour:
     height: 0
   lungeSpeed: 25
   lungeDuration: 1
-  lungeCooldown: 1
+  lungeCooldown: 2
