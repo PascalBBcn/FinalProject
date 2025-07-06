@@ -8,6 +8,7 @@ public class EnemyStats : MonoBehaviour
     public float MoveSpeed => enemyData.moveSpeed;
     public float Damage => enemyData.damage;
     public float AttackRate => enemyData.attackRate;
+    public bool IsBoss => enemyData.enemyType == EnemyData.EnemyType.Boss;
 
     private void Start()
     {
@@ -17,6 +18,7 @@ public class EnemyStats : MonoBehaviour
     public void TakeDamage(float damageAmount)
     {
         currentHealth -= damageAmount;
+        if (IsBoss) GameSession.instance?.ProcessBossDamage(currentHealth, enemyData.maxHealth);
         if (currentHealth <= 0) Die();
     }
     private void Die()

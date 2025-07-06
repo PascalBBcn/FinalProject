@@ -16,3 +16,4 @@ MonoBehaviour:
   moveSpeed: 6
   damage: 25
   attackRate: 1
+  enemyType: 1
