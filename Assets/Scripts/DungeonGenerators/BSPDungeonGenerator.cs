@@ -40,6 +40,7 @@ public class BSPDungeonGenerator : MonoBehaviour
         tileRenderer.RemoveTiles();
 
         CreateRooms();
+        GameSession.instance.playerHealthBarContainer.SetActive(true);
         Pathfinding.Initialize(dungeonFloor);
     }
 
@@ -91,9 +92,13 @@ public class BSPDungeonGenerator : MonoBehaviour
                 edgePositions.Add(new Vector2Int(room.xMin, y));
                 edgePositions.Add(new Vector2Int(room.xMax - 1, y));
             }
+
             foreach (var pos in edgePositions)
             {
-                if (corridors.Contains(pos)) tileRenderer.SetSingleUnlockedDoor(pos);
+                if (corridors.Contains(pos))
+                {
+                    tileRenderer.SetSingleUnlockedDoor(pos);
+                }
             }
         }
 

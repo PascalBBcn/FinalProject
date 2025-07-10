@@ -68,7 +68,7 @@ public class EnemySpawner : MonoBehaviour
 
                 if (roomIsTooSmall && enemyCount > 6) enemyCount = 6;
                 break;
-            case 5:
+            default:
                 if (Random.value < 0.7f) enemyCount = Random.Range(7, 14);
                 else if (Random.value < 0.8f) enemyCount = Random.Range(15, 18);
                 else enemyCount = Random.Range(5, 7);

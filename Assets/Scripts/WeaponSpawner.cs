@@ -18,15 +18,16 @@ public class WeaponSpawner : MonoBehaviour
                 else possibleWeapons = weaponDB.weapons.Where(w => w.rarity >= 3 && w.rarity <= 5).ToList(); // 5%
                 break;
             case 2:
-                if (Random.value <= 0.7f) possibleWeapons = weaponDB.weapons.Where(w => w.rarity == 2).ToList(); 
-                else if (Random.value <= 0.92f) possibleWeapons = weaponDB.weapons.Where(w => w.rarity == 3).ToList(); 
-                else possibleWeapons = weaponDB.weapons.Where(w => w.rarity >= 4 && w.rarity <= 5).ToList(); 
+                if (Random.value <= 0.7f) possibleWeapons = weaponDB.weapons.Where(w => w.rarity == 2).ToList();
+                else if (Random.value <= 0.92f) possibleWeapons = weaponDB.weapons.Where(w => w.rarity == 3).ToList();
+                else possibleWeapons = weaponDB.weapons.Where(w => w.rarity >= 4 && w.rarity <= 5).ToList();
                 break;
-            case 3:
-                if (Random.value <= 0.7f) possibleWeapons = weaponDB.weapons.Where(w => w.rarity == 3).ToList(); 
-                else if (Random.value <= 0.9f) possibleWeapons = weaponDB.weapons.Where(w => w.rarity == 4).ToList(); 
-                else possibleWeapons = weaponDB.weapons.Where(w => w.rarity == 5).ToList(); 
+            default:
+                if (Random.value <= 0.7f) possibleWeapons = weaponDB.weapons.Where(w => w.rarity == 3).ToList();
+                else if (Random.value <= 0.9f) possibleWeapons = weaponDB.weapons.Where(w => w.rarity == 4).ToList();
+                else possibleWeapons = weaponDB.weapons.Where(w => w.rarity == 5).ToList();
                 break;
+
         }
         return possibleWeapons[Random.Range(0, possibleWeapons.Count())];
     }

@@ -11,7 +11,7 @@ public class GameSession : MonoBehaviour
     public float difficultyMultiplier = 1.0f;
     [SerializeField] float playerHealth = 100f;
     public Image playerHealthBar;
-    [SerializeField] TextMeshProUGUI healthText;
+    public GameObject playerHealthBarContainer;
 
     public Image bossHealthBar;
     public GameObject bossHealthBarContainer;
@@ -27,11 +27,6 @@ public class GameSession : MonoBehaviour
         Debug.Log(currentFloor);
     }
 
-    void Start()
-    {
-        healthText.text = playerHealth.ToString();
-    }
-
     public void IncreaseFloor()
     {
         currentFloor++;
@@ -43,7 +38,6 @@ public class GameSession : MonoBehaviour
         playerHealth -= damage;
         playerHealthBar.fillAmount = playerHealth / 100f;
         if (playerHealth <= 0) KillPlayer();
-        healthText.text = playerHealth.ToString();
     }
 
     public void ProcessBossDamage(float currentHealth, float maxHealth)
