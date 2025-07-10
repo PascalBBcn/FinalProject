@@ -17,6 +17,18 @@ public class Spawner : MonoBehaviour
     public GameObject weaponPrefab;
     private GameObject weaponInstance;
 
+    // Cache so SpawnLevelExit can use it
+    private RoomData bossRoomData;
+
+    private void OnEnable()
+    {
+        EnemyStats.OnBossDeath += SpawnLevelExit;
+    }
+    private void OnDisable()
+    {
+        EnemyStats.OnBossDeath -= SpawnLevelExit;
+    }
+
     // Walks through the corridors
     // Corridors does indeed contain the center points as well
     public Vector2Int GetFurthestRoomFromStart(List<Vector2Int> centers, HashSet<Vector2Int> corridors)
@@ -69,11 +81,11 @@ public class Spawner : MonoBehaviour
     {
         RoomData startRoom = roomData[0];
         RoomData chestRoom = null;
-        RoomData bossRoom = null;
+        bossRoomData = null;
         for (int i = 1; i < roomData.Count; i++)
         {
             if (roomData[i].roomType == RoomType.Chest) chestRoom = roomData[i];
-            else if (roomData[i].roomType == RoomType.Boss) bossRoom = roomData[i];
+            else if (roomData[i].roomType == RoomType.Boss) bossRoomData = roomData[i];
         }
 
         // WEAPON SPAWNING
@@ -95,15 +107,20 @@ public class Spawner : MonoBehaviour
         }
 
         // LEVEL EXIT SPAWNING
-        exitInstance = Instantiate(exitPrefab, bossRoom.bounds.center, Quaternion.identity);
+        Vector3 offScreen = new Vector3(20000, 20000, 0); 
+        exitInstance = Instantiate(exitPrefab, offScreen, Quaternion.identity);
         exitInstance.GetComponent<LevelExit>().SetGenerator(generator);
 
+
         enemySpawner.SpawnEnemies(roomData);
-        bossInstance = Instantiate(bossPrefab, startRoom.bounds.center, Quaternion.identity);
-        bossInstance.GetComponent<EnemyMovement>().roomBounds = startRoom.bounds;
+        bossInstance = Instantiate(bossPrefab, bossRoomData.bounds.center, Quaternion.identity);
+        bossInstance.GetComponent<EnemyMovement>().roomBounds = bossRoomData.bounds;
     }
 
-    
+    private void SpawnLevelExit()
+    {
+        exitInstance.transform.position = bossRoomData.bounds.center;
+    }
 
     public void RemoveInstances()
     {

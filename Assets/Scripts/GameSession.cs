@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,6 +15,7 @@ public class GameSession : MonoBehaviour
 
     public Image bossHealthBar;
     public GameObject bossHealthBarContainer;
+
     void Awake()
     {
         if (instance != null && instance != this)
@@ -47,7 +49,10 @@ public class GameSession : MonoBehaviour
     public void ProcessBossDamage(float currentHealth, float maxHealth)
     {
         bossHealthBar.fillAmount = currentHealth / maxHealth;
-        if (currentHealth <= 0) bossHealthBarContainer.SetActive(false);
+        if (currentHealth <= 0)
+        {
+            bossHealthBarContainer.SetActive(false);
+        }    
     }
     
     void KillPlayer()

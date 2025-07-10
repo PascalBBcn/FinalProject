@@ -25,7 +25,7 @@ public static class PCGAlgorithms
         HashSet<Vector2Int> dungeonFloor = new HashSet<Vector2Int>();
 
         int chanceOfChangingDirection = 5;
-        int chanceOfAddingRoom = 5;
+        int chanceOfAddingRoom = 50;
 
         // Place agent at origin and randomize direction
         Vector2Int direction = GetRandomCardinalDirection();

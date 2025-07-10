@@ -15,9 +15,12 @@ public class LevelExit : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
+            // To remove any persisting visuals of the laser
+            LaserWeapon laserBeam = collision.GetComponentInChildren<LaserWeapon>();
+            if (laserBeam != null) laserBeam.StopShooting();
+
             Debug.Log("Player reached the exit!");
             dungeonGenerator?.StartGeneration();
         }
     }
-
 }

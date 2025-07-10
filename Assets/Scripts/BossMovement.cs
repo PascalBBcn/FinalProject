@@ -16,6 +16,7 @@ public class BossMovement : EnemyMovement
         base.Start();
         enemyStats = GetComponent<EnemyStats>();
         StartCoroutine(Lunge());
+        StartCoroutine(CheckPlayerProximity());
     }
 
     // The boss can move like regular enemies, but also has a lunge movement
@@ -23,6 +24,24 @@ public class BossMovement : EnemyMovement
     {
         if (isLunging) return;
         base.MoveAlongPath(); // When not lunging, use regular enemy movement
+    }
+
+    // Show boss health bar if player in room bounds
+    private IEnumerator CheckPlayerProximity()
+    {
+        while (true)
+        {
+            if (playerTransform != null)
+            {
+                Vector2Int playerPos = new Vector2Int(
+                Mathf.RoundToInt(playerTransform.position.x),
+                Mathf.RoundToInt(playerTransform.position.y));
+
+                if (roomBounds.Contains(playerPos)) GameSession.instance.bossHealthBarContainer.SetActive(true);
+
+            }
+            yield return new WaitForSeconds(1f);
+        }
     }
 
     IEnumerator Lunge()

@@ -1,7 +1,9 @@
+using System;
 using UnityEngine;
 
 public class EnemyStats : MonoBehaviour
 {
+    public static event Action OnBossDeath;
     [SerializeField] private EnemyData enemyData;
     public float currentHealth;
 
@@ -24,6 +26,7 @@ public class EnemyStats : MonoBehaviour
     }
     private void Die()
     {
+        if(IsBoss) OnBossDeath?.Invoke();
         Destroy(gameObject);
     }
 }
