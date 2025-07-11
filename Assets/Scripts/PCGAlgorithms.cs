@@ -24,8 +24,8 @@ public static class PCGAlgorithms
     {
         HashSet<Vector2Int> dungeonFloor = new HashSet<Vector2Int>();
 
-        int chanceOfChangingDirection = 5;
-        int chanceOfAddingRoom = 50;
+        int chanceOfChangingDirection = 2;
+        int chanceOfAddingRoom = 70;
 
         // Place agent at origin and randomize direction
         Vector2Int direction = GetRandomCardinalDirection();
@@ -55,8 +55,8 @@ public static class PCGAlgorithms
             if (Random.Range(0, 100) < chanceOfAddingRoom)
             {
                 // Room dimensions
-                int width = Random.Range(3, 7);
-                int height = Random.Range(3, 7);
+                int width = Random.Range(6, 12);
+                int height = Random.Range(6, 12);
 
                 // Place room around agent position
                 for (int x = -width / 2; x <= width / 2; x++)

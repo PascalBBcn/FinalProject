@@ -37,6 +37,8 @@ public class ProjectileWeapon : MonoBehaviour, WeaponInterface
             for (int i = 0; i < weaponData.bulletQuantity; i++)
             {
                 GameObject bulletObject = Instantiate(weaponData.bulletPrefab, firePoint.position, firePoint.rotation);
+
+            
                 Physics2D.IgnoreCollision(bulletObject.GetComponent<Collider2D>(), GetComponent<Collider2D>());
                 Bullet bullet = bulletObject.GetComponent<Bullet>();
                 if (bullet != null)
