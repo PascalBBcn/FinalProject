@@ -10,6 +10,8 @@ public class Spawner : MonoBehaviour
     private GameObject playerInstance;
     public GameObject exitPrefab;
     private GameObject exitInstance;
+    public GameObject teleportPrefab;
+    private GameObject teleportInstance;
     public GameObject bossPrefab;
     private GameObject bossInstance;
 
@@ -18,7 +20,7 @@ public class Spawner : MonoBehaviour
     private GameObject weaponInstance;
 
     // Cache so SpawnLevelExit can use it
-    private RoomData bossRoomData;
+    private RoomData organicBossRoom;
 
     private void OnEnable()
     {
@@ -81,11 +83,13 @@ public class Spawner : MonoBehaviour
     {
         RoomData startRoom = roomData[0];
         RoomData chestRoom = null;
-        bossRoomData = null;
+        organicBossRoom = null;
+        RoomData bossRoomData = null;
         for (int i = 1; i < roomData.Count; i++)
         {
             if (roomData[i].roomType == RoomType.Chest) chestRoom = roomData[i];
             else if (roomData[i].roomType == RoomType.Boss) bossRoomData = roomData[i];
+            else if (roomData[i].roomType == RoomType.OrganicBoss) organicBossRoom = roomData[i];
         }
 
         // WEAPON SPAWNING
@@ -107,19 +111,23 @@ public class Spawner : MonoBehaviour
         }
 
         // LEVEL EXIT SPAWNING
+
+        teleportInstance = Instantiate(teleportPrefab, bossRoomData.bounds.center, Quaternion.identity);
+        teleportInstance.GetComponent<LevelTeleport>().SetGenerator(generator);
+
         Vector3 offScreen = new Vector3(20000, 20000, 0); 
         exitInstance = Instantiate(exitPrefab, offScreen, Quaternion.identity);
         exitInstance.GetComponent<LevelExit>().SetGenerator(generator);
 
 
         enemySpawner.SpawnEnemies(roomData);
-        bossInstance = Instantiate(bossPrefab, bossRoomData.bounds.center, Quaternion.identity);
-        bossInstance.GetComponent<EnemyMovement>().roomBounds = bossRoomData.bounds;
-    }
+        bossInstance = Instantiate(bossPrefab, organicBossRoom.bounds.center, Quaternion.identity);
+        bossInstance.GetComponent<EnemyMovement>().roomBounds = organicBossRoom.bounds;
+    }   
 
     private void SpawnLevelExit()
     {
-        exitInstance.transform.position = bossRoomData.bounds.center;
+        exitInstance.transform.position = organicBossRoom.bounds.center;
     }
 
     public void RemoveInstances()
@@ -128,5 +136,6 @@ public class Spawner : MonoBehaviour
         Destroy(bossInstance);
         Destroy(weaponInstance);
         Destroy(exitInstance);
+        Destroy(teleportInstance);
     }
 }

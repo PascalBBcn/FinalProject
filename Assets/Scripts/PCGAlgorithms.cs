@@ -27,6 +27,20 @@ public static class PCGAlgorithms
         int chanceOfChangingDirection = 5;
         int chanceOfAddingRoom = 20;
 
+        // Room dimensions
+        int w = Random.Range(3, 5);
+        int h = Random.Range(3, 5);
+        // Place an intial room around agent position
+        for (int x = -w / 2; x <= w / 2; x++)
+        {
+            for (int y = -h / 2; y <= h / 2; y++)
+            {
+                Vector2Int tile = agentPosition + new Vector2Int(x, y);
+                dungeonFloor.Add(tile);
+            }
+        }
+
+
         // Place agent at origin and randomize direction
         Vector2Int direction = GetRandomCardinalDirection();
         dungeonFloor.Add(agentPosition);
@@ -135,7 +149,7 @@ public static class PCGAlgorithms
     private static void SplitVertically(BSPNode node, int minRoomWidth)
     {
         if (node.Bounds.width <= minRoomWidth/2) return;
-        int xSplit = Random.Range(minRoomWidth/2, node.Bounds.width); // Inclusive range
+        int xSplit = Random.Range(minRoomWidth/2, node.Bounds.width); 
 
         // VALUE BELOW MAKES IT LOOK TOO PREDICTABLE (but makes only valid leaves!)
         // if (node.Bounds.width <= minRoomWidth-1) return; // Too narrow to split

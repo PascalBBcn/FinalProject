@@ -1229,7 +1229,8 @@ MonoBehaviour:
   enemySpawner: {fileID: 673828904}
   weaponSpawner: {fileID: 1495266194}
   playerPrefab: {fileID: 7751979707553719728, guid: b9f80a2a5dac7694ea7ab7bd47986544, type: 3}
-  exitPrefab: {fileID: 7751979707553719728, guid: 86864cb7853411742b88d7b6e54f1fd8, type: 3}
+  exitPrefab: {fileID: 7751979707553719728, guid: 2e705664c26b9ee44a2d931165b028ce, type: 3}
+  teleportPrefab: {fileID: 7751979707553719728, guid: 86864cb7853411742b88d7b6e54f1fd8, type: 3}
   bossPrefab: {fileID: 6237256674629555278, guid: d6dfd2255258e1b4b9c8d91058a21aa6, type: 3}
   weaponDB: {fileID: 11400000, guid: 806cea70c521d6a4f9bc326e9a3a78dd, type: 2}
   weaponPrefab: {fileID: 7751979707553719728, guid: ff7754c905948c3408f9778080cb4abd, type: 3}

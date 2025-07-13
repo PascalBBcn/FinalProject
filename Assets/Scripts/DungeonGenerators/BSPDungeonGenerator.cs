@@ -28,6 +28,8 @@ public class BSPDungeonGenerator : MonoBehaviour
     public HashSet<Vector2Int> dungeonFloor { get; private set; }
     public List<RectInt> rooms { get; private set; } = new List<RectInt>();
 
+    private Vector2Int bossRoomPos = new Vector2Int(100, 100);
+
     public void StartGeneration()
     {
         tutorialText.SetActive(false);
@@ -107,14 +109,16 @@ public class BSPDungeonGenerator : MonoBehaviour
         }
 
         // Agent-based boss room (far away)
-        HashSet<Vector2Int> bossRoom = GenerateBossRoom();
-        dungeonFloor.UnionWith(bossRoom);
-
+        HashSet<Vector2Int> organicBossRoom = GenerateBossRoom();
+        dungeonFloor.UnionWith(organicBossRoom);
+        RectInt organicBossRoomBounds = GetBoundsFromOrganicRoom(organicBossRoom);
+        RoomData organicBossRoomData = new RoomData(organicBossRoomBounds, RoomType.OrganicBoss);
 
         RenderTiles(dungeonFloor);
 
         // For "tagging" rooms via different roomTypes
         List<RoomData> roomData = RoomAssigner.AssignRooms(rooms, furthestRoom);
+        roomData.Add(organicBossRoomData);
 
         // spawner.SpawnInstances(rooms, this, furthestRoom);
         spawner.SpawnInstances(roomData, this);
@@ -180,7 +184,7 @@ public class BSPDungeonGenerator : MonoBehaviour
             }
         }
     }
-    
+
 
     private HashSet<Vector2Int> CreateRandomRooms(List<RectInt> rooms)
     {
@@ -198,7 +202,29 @@ public class BSPDungeonGenerator : MonoBehaviour
         HashSet<Vector2Int> dungeonFloor = new HashSet<Vector2Int>();
         var agentBasedRoom = PCGAlgorithms.AgentBasedDig(numberOfDigs, new Vector2Int(100, 100));
         dungeonFloor.UnionWith(agentBasedRoom);
-        return dungeonFloor;     
+        return dungeonFloor;
+    }
+
+    private RectInt GetBoundsFromOrganicRoom(HashSet<Vector2Int> tiles)
+    {
+        int minX = int.MaxValue;
+        int minY = int.MaxValue;
+        int maxX = int.MinValue;
+        int maxY = int.MinValue;
+        foreach (var tile in tiles)
+        {
+            if (tile.x < minX) minX = tile.x;
+            if (tile.y < minY) minY = tile.y;
+            if (tile.x > maxX) maxX = tile.x;
+            if (tile.y > maxY) maxY = tile.y;
+        }
+        return new RectInt(minX, minY, maxX - minX, maxY - minY);
+
+    }
+
+    public void TeleportToBossRoom(GameObject player)
+    {
+        player.transform.position = new Vector3(bossRoomPos.x, bossRoomPos.y, 0);
     }
 }
 

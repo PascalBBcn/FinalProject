@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class LevelExit : MonoBehaviour
+public class LevelTeleport : MonoBehaviour
 {
     public BSPDungeonGenerator dungeonGenerator;
 
@@ -17,7 +17,7 @@ public class LevelExit : MonoBehaviour
             LaserWeapon laserBeam = collision.GetComponentInChildren<LaserWeapon>();
             if (laserBeam != null) laserBeam.StopShooting();
 
-            dungeonGenerator?.StartGeneration();
+            dungeonGenerator?.TeleportToBossRoom(collision.gameObject);
         }
     }
 }

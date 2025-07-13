@@ -1,2 +1,2 @@
 // To help with "intelligent" spawning 
-public enum RoomType { Start, Normal, Chest, MiniBoss, Boss }
+public enum RoomType { Start, Normal, Chest, MiniBoss, Boss, OrganicBoss }

@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 2792718432978736265}
   - component: {fileID: 340684559802860751}
   - component: {fileID: 8186170500523514034}
-  - component: {fileID: -1336858466445912914}
+  - component: {fileID: -2797453846580419933}
   m_Layer: 8
-  m_Name: Exit
+  m_Name: Teleport
   m_TagString: Interactables
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0, b: 1, a: 1}
+  m_Color: {r: 0, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -112,7 +112,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &-1336858466445912914
+--- !u!114 &-2797453846580419933
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,7 +121,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7751979707553719728}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b2648c6adcd8134db5b3fa503f96234, type: 3}
+  m_Script: {fileID: 11500000, guid: 28549ac20a5c50c47ad67b289f55d88e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dungeonGenerator: {fileID: 0}
