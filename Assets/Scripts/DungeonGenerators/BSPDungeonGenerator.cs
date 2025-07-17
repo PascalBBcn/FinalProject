@@ -29,7 +29,7 @@ public class BSPDungeonGenerator : MonoBehaviour
     public List<RectInt> rooms { get; private set; } = new List<RectInt>();
 
     HashSet<Vector2Int> organicBossRoom = new HashSet<Vector2Int>();
-    private Vector2Int bossRoomPos = new Vector2Int(100, 100);
+    private Vector2Int bossRoomPos = new Vector2Int(300, 300);
 
     public void StartGame()
     {
@@ -209,7 +209,7 @@ public class BSPDungeonGenerator : MonoBehaviour
     public HashSet<Vector2Int> GenerateBossRoom()
     {
         HashSet<Vector2Int> dungeonFloor = new HashSet<Vector2Int>();
-        var agentBasedRoom = PCGAlgorithms.AgentBasedDig(numberOfDigs, new Vector2Int(100, 100));
+        var agentBasedRoom = PCGAlgorithms.AgentBasedDig(numberOfDigs, bossRoomPos);
         dungeonFloor.UnionWith(agentBasedRoom);
         return dungeonFloor;
     }

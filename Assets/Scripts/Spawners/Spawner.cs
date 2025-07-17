@@ -21,8 +21,8 @@ public class Spawner : MonoBehaviour
 
     // Cache so SpawnLevelExit can use it
     private RoomData organicBossRoom;
-    Vector3 bossSpawnPos = new Vector3(100, 100, 0);
-    
+    Vector3 bossSpawnPos = new Vector3(300, 300, 0);
+
     private void OnEnable()
     {
         EnemyStats.OnBossDeath += SpawnLevelExit;

@@ -32,8 +32,7 @@ public static class PCGAlgorithms
         {
             for (int y = -1; y <= 1; y++)
             {
-                Vector2Int tile = agentPosition + new Vector2Int(x, y);
-                dungeonFloor.Add(tile);
+                dungeonFloor.Add(agentPosition + new Vector2Int(x, y));
             }
         }
 
@@ -49,10 +48,13 @@ public static class PCGAlgorithms
             dungeonFloor.Add(agentPosition);
 
             // Ensure no single width pathways
-            Vector2Int extraTile;
-            if (direction.x != 0) extraTile = new Vector2Int(0, 1);
-            else extraTile = new Vector2Int(1, 0);
-            dungeonFloor.Add(agentPosition + extraTile);
+            for (int x = -1; x <= 1; x++)
+            {
+                for (int y = -1; y <= 1; y++)
+                {
+                    dungeonFloor.Add(agentPosition + new Vector2Int(x, y));
+                }
+            }
 
             // Potentially change digging direction
             if (Random.Range(0, 100) < chanceOfChangingDirection)
