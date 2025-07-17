@@ -31,10 +31,18 @@ public class BSPDungeonGenerator : MonoBehaviour
     HashSet<Vector2Int> organicBossRoom = new HashSet<Vector2Int>();
     private Vector2Int bossRoomPos = new Vector2Int(100, 100);
 
+    public void StartGame()
+    {
+        GameSession.instance.ResetGame();
+        StartGeneration();
+    }
     public void StartGeneration()
     {
         tutorialText.SetActive(false);
         GameSession.instance.IncreaseFloor();
+        GameSession.instance.bossHealthBar.fillAmount = 1f;
+        GameSession.instance.bossHealthBarContainer.SetActive(false);
+
         Debug.Log(GameSession.instance.currentFloor);
         // Ensure tileRenderer exists
         if (tileRenderer == null)
