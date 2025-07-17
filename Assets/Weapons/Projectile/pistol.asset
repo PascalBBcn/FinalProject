@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: pistol
   m_EditorClassIdentifier: 
   weaponName: pistol
-  fireRate: 2
+  fireRate: 3
   weaponSprite: {fileID: 0}
   rarity: 0
   bulletPrefab: {fileID: 309163366586274605, guid: c8646111e4062544cbbacf17eac749cf, type: 3}

@@ -19,7 +19,7 @@ public class EnemyMovement : MonoBehaviour
 
     private Vector2Int lastPlayerPos;
     private Vector2Int enemyPos;
-    
+
     public RectInt roomBounds; // To store which room each enemy is in
 
 
@@ -34,6 +34,8 @@ public class EnemyMovement : MonoBehaviour
     {
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         StartCoroutine(UpdatePath());
+        if (stats.IsBoss) StartCoroutine(CheckPlayerProximity());
+
     }
 
     // Does not recalculate the path every frame but rather based on interval
@@ -48,11 +50,11 @@ public class EnemyMovement : MonoBehaviour
             }
             // Convert positions to grid coordinates
             enemyPos = new Vector2Int(
-                Mathf.RoundToInt(transform.position.x), 
+                Mathf.RoundToInt(transform.position.x),
                 Mathf.RoundToInt(transform.position.y));
-            
+
             Vector2Int playerPos = new Vector2Int(
-                Mathf.RoundToInt(playerTransform.position.x), 
+                Mathf.RoundToInt(playerTransform.position.x),
                 Mathf.RoundToInt(playerTransform.position.y));
 
             if (roomBounds.Contains(playerPos))
@@ -80,17 +82,17 @@ public class EnemyMovement : MonoBehaviour
                     }
                 }
             }
-            
+
             yield return new WaitForSeconds(pathUpdateInterval);
         }
     }
- 
+
     // rb physics movement has better performance in fixedUpdate
     void FixedUpdate()
     {
         MoveAlongPath();
     }
-    
+
     // This class is being overriden by derivative classes (Boss)
     protected virtual void MoveAlongPath()
     {
@@ -109,9 +111,27 @@ public class EnemyMovement : MonoBehaviour
 
         rb.MovePosition(newPosition);
 
-        if (Vector3.Distance(transform.position, targetPos) < 0.1f)
+        if (Vector3.Distance(newPosition, targetPos) < 0.1f)
         {
             currentPathIndex++;
+        }
+    }
+    
+    // If a boss, show health bar if player in room bounds
+    private IEnumerator CheckPlayerProximity()
+    {
+        while (true)
+        {
+            if (playerTransform != null)
+            {
+                Vector2Int playerPos = new Vector2Int(
+                Mathf.RoundToInt(playerTransform.position.x),
+                Mathf.RoundToInt(playerTransform.position.y));
+
+                if (roomBounds.Contains(playerPos)) GameSession.instance.bossHealthBarContainer.SetActive(true);
+
+            }
+            yield return new WaitForSeconds(1f);
         }
     }
 }
