@@ -124,7 +124,7 @@ public class Spawner : MonoBehaviour
         enemySpawner.SpawnEnemies(roomData);
         bossInstance = Instantiate(bossPrefab, bossSpawnPos, Quaternion.identity);
         bossInstance.GetComponent<EnemyMovement>().roomBounds = organicBossRoom.bounds;
-    }   
+    }
 
     private void SpawnLevelExit()
     {
