@@ -28,6 +28,7 @@ public class BSPDungeonGenerator : MonoBehaviour
     public HashSet<Vector2Int> dungeonFloor { get; private set; }
     public List<RectInt> rooms { get; private set; } = new List<RectInt>();
 
+    HashSet<Vector2Int> organicBossRoom = new HashSet<Vector2Int>();
     private Vector2Int bossRoomPos = new Vector2Int(100, 100);
 
     public void StartGeneration()
@@ -109,7 +110,7 @@ public class BSPDungeonGenerator : MonoBehaviour
         }
 
         // Agent-based boss room (far away)
-        HashSet<Vector2Int> organicBossRoom = GenerateBossRoom();
+        organicBossRoom = GenerateBossRoom();
         dungeonFloor.UnionWith(organicBossRoom);
         RectInt organicBossRoomBounds = GetBoundsFromOrganicRoom(organicBossRoom);
         RoomData organicBossRoomData = new RoomData(organicBossRoomBounds, RoomType.OrganicBoss);
@@ -224,7 +225,21 @@ public class BSPDungeonGenerator : MonoBehaviour
 
     public void TeleportToBossRoom(GameObject player)
     {
-        player.transform.position = new Vector3(bossRoomPos.x, bossRoomPos.y, 0);
+        
+        Vector2Int furthestPosFromBoss = Vector2Int.zero;
+        float maxDist = float.MinValue;
+        foreach (var pos in organicBossRoom)
+        {
+            float dist = Vector2.Distance(pos, bossRoomPos);
+            if (dist > maxDist)
+            {
+                maxDist = dist;
+                furthestPosFromBoss = pos;
+            }
+
+        }
+        if (!organicBossRoom.Contains(furthestPosFromBoss)) Debug.Log("PLAYER SPAWN ERROR");
+        player.transform.position = new Vector3(furthestPosFromBoss.x +0.5f, furthestPosFromBoss.y+0.5f, 0);
     }
 }
 

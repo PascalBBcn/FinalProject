@@ -27,13 +27,10 @@ public static class PCGAlgorithms
         int chanceOfChangingDirection = 5;
         int chanceOfAddingRoom = 20;
 
-        // Room dimensions
-        int w = Random.Range(3, 5);
-        int h = Random.Range(3, 5);
         // Place an intial room around agent position
-        for (int x = -w / 2; x <= w / 2; x++)
+        for (int x = -1; x <= 1; x++)
         {
-            for (int y = -h / 2; y <= h / 2; y++)
+            for (int y = -1; y <= 1; y++)
             {
                 Vector2Int tile = agentPosition + new Vector2Int(x, y);
                 dungeonFloor.Add(tile);

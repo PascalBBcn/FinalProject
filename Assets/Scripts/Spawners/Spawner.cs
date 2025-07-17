@@ -21,7 +21,8 @@ public class Spawner : MonoBehaviour
 
     // Cache so SpawnLevelExit can use it
     private RoomData organicBossRoom;
-
+    Vector3 bossSpawnPos = new Vector3(100, 100, 0);
+    
     private void OnEnable()
     {
         EnemyStats.OnBossDeath += SpawnLevelExit;
@@ -101,13 +102,13 @@ public class Spawner : MonoBehaviour
         // PLAYER SPAWNING
         if (playerInstance == null)
         {
-            playerInstance = Instantiate(playerPrefab, startRoom.bounds.center, Quaternion.identity);
+            playerInstance = Instantiate(playerPrefab, bossRoomData.bounds.center, Quaternion.identity);
             Camera.main.GetComponent<FollowPlayerCamera>().player = playerInstance.transform;
         }
         else
         {
             // Move existing player to new level's start position
-            playerInstance.transform.position = startRoom.bounds.center;
+            playerInstance.transform.position = bossRoomData.bounds.center;
         }
 
         // LEVEL EXIT SPAWNING
@@ -119,15 +120,15 @@ public class Spawner : MonoBehaviour
         exitInstance = Instantiate(exitPrefab, offScreen, Quaternion.identity);
         exitInstance.GetComponent<LevelExit>().SetGenerator(generator);
 
-
+        
         enemySpawner.SpawnEnemies(roomData);
-        bossInstance = Instantiate(bossPrefab, organicBossRoom.bounds.center, Quaternion.identity);
+        bossInstance = Instantiate(bossPrefab, bossSpawnPos, Quaternion.identity);
         bossInstance.GetComponent<EnemyMovement>().roomBounds = organicBossRoom.bounds;
     }   
 
     private void SpawnLevelExit()
     {
-        exitInstance.transform.position = organicBossRoom.bounds.center;
+        exitInstance.transform.position = bossSpawnPos;
     }
 
     public void RemoveInstances()
