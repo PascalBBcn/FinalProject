@@ -30,9 +30,19 @@ public class EnemyStats : MonoBehaviour
     {
         if (IsBoss)
         {
+            // If it is the self-multiplying boss, split on its death
             BossSelfMultiply split = GetComponent<BossSelfMultiply>();
-            if (split != null) split.SplitOnDeath();
-            OnBossDeath?.Invoke();
+            if (split != null)
+            {
+                split.SplitOnDeath();
+                if (BossSelfMultiply.numActiveInstances == 1) OnBossDeath?.Invoke();
+
+            }
+            else
+            {
+                // Spawn the LevelExit after normal bosses die
+                OnBossDeath?.Invoke();
+            }
         }
 
         Destroy(gameObject);

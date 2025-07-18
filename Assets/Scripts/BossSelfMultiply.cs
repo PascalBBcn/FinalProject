@@ -4,9 +4,20 @@ using Random = UnityEngine.Random;
 
 public class BossSelfMultiply : EnemyMovement
 {
+    // Used to keep track of all instances (for LevelExit spawning)
+    public static int numActiveInstances = 0;
     private int splitCount = 0;
     public GameObject childPrefab;
     public EnemyStats enemyStats;
+
+    private void OnEnable()
+    {
+        numActiveInstances++;
+    }
+    private void OnDisable()
+    {
+        numActiveInstances--;
+    }
 
     new void Start()  // "new" keyword handles the warning of hiding the inherited member of Start
     {
