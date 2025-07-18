@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
@@ -134,7 +135,18 @@ public class Spawner : MonoBehaviour
     public void RemoveInstances()
     {
         enemySpawner.RemoveEnemies();
+
+        if (BossSelfMultiply.activeInstances != null)
+        {
+            foreach (var child in BossSelfMultiply.activeInstances.ToList())  // .ToList() to avoid modifying while iterating
+            {
+                if (child != null) GameObject.Destroy(child);
+            }
+            BossSelfMultiply.activeInstances.Clear();
+        }
+        
         Destroy(bossInstance);
+
         Destroy(weaponInstance);
         Destroy(exitInstance);
         Destroy(teleportInstance);

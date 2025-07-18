@@ -35,7 +35,7 @@ public class EnemyStats : MonoBehaviour
             if (split != null)
             {
                 split.SplitOnDeath();
-                if (BossSelfMultiply.numActiveInstances == 1) OnBossDeath?.Invoke();
+                if (BossSelfMultiply.activeInstances.Count == 1) OnBossDeath?.Invoke();
 
             }
             else
