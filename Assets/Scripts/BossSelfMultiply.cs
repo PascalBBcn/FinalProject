@@ -5,8 +5,11 @@ using Random = UnityEngine.Random;
 
 public class BossSelfMultiply : EnemyMovement
 {
-    // Used to keep track of all instances (for LevelExit spawning)
-    // public static int numActiveInstances = 0;
+    [SerializeField] private float lungeSpeed = 15f;
+    [SerializeField] private float lungeDuration = 0.25f;
+    [SerializeField] private float lungeCooldown = 1f;
+
+    private bool isLunging = false;
     public static List<GameObject> activeInstances = new List<GameObject>();
     private int splitCount = 0;
     public GameObject childPrefab;
@@ -14,23 +17,24 @@ public class BossSelfMultiply : EnemyMovement
 
     private void OnEnable()
     {
-        // numActiveInstances++;
         activeInstances.Add(gameObject);
     }
     private void OnDisable()
     {
         activeInstances.Remove(gameObject);
-        // numActiveInstances--;
     }
 
     new void Start()  // "new" keyword handles the warning of hiding the inherited member of Start
     {
         base.Start();
         enemyStats = GetComponent<EnemyStats>();
+        StartCoroutine(Lunge());
+
     }
 
     protected override void MoveAlongPath()
     {
+        if (isLunging) return;
         base.MoveAlongPath(); // Regular enemy movement
     }
 
@@ -48,6 +52,42 @@ public class BossSelfMultiply : EnemyMovement
             child.transform.localScale *= 0.75f;
 
             if (childStats != null) childStats.OverrideMaxHealth(enemyStats.MaxHealth * 0.7f);
+        }
+    }
+
+    IEnumerator Lunge()
+    {
+        while (true)
+        {
+            float maxHealth = enemyStats.MaxHealth;
+            float currentHealth = enemyStats.currentHealth;
+
+
+            yield return new WaitForSeconds(lungeCooldown);
+
+            if (currentPath != null && currentPathIndex < currentPath.Count)
+            {
+                isLunging = true;
+
+                if (playerTransform == null)
+                {
+                    isLunging = false;
+                    continue;
+                }
+                Vector3 targetPos = playerTransform.position;
+                Vector3 direction = (targetPos - transform.position).normalized;
+
+                float timeElapsed = 0f;
+                while (timeElapsed < lungeDuration)
+                {
+                    rb.MovePosition(transform.position + direction * lungeSpeed * Time.fixedDeltaTime);
+                    timeElapsed += Time.fixedDeltaTime;
+                    yield return new WaitForFixedUpdate();
+                }
+
+                isLunging = false;
+            }
+
         }
     }
 }
