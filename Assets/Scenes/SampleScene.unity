@@ -2247,7 +2247,7 @@ MonoBehaviour:
   dungeonHeight: 80
   minRoomWidth: 11
   minRoomHeight: 11
-  numberOfDigs: 200
+  numberOfDigs: 1000
   startPos: {x: 0, y: 0}
   tileRenderer: {fileID: 207240795}
   spawner: {fileID: 476362376}

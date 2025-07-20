@@ -101,10 +101,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c466a84aecdceac46bb376fd20c9076e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallLayerMask:
-    serializedVersion: 2
-    m_Bits: 512
-  wallCheckRadius: 0.2
   pathUpdateInterval: 0.5
   range: 10
   roomBounds:

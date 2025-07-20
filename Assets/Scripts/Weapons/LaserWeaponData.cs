@@ -7,4 +7,6 @@ public class LaserWeaponData : WeaponData
     public float laserDistance;
     public float laserWidth;
     public Color laserColour = Color.blue;
+    public bool autoLaser = false;
+    public float autoLaserRate;
 }

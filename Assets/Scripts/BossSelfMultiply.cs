@@ -5,8 +5,8 @@ using Random = UnityEngine.Random;
 
 public class BossSelfMultiply : EnemyMovement
 {
-    [SerializeField] private float lungeSpeed = 15f;
-    [SerializeField] private float lungeDuration = 0.25f;
+    [SerializeField] private float lungeSpeed = 10f;
+    [SerializeField] private float lungeDuration = 0.05f;
     [SerializeField] private float lungeCooldown = 1f;
 
     private bool isLunging = false;
@@ -59,10 +59,7 @@ public class BossSelfMultiply : EnemyMovement
     {
         while (true)
         {
-            float maxHealth = enemyStats.MaxHealth;
-            float currentHealth = enemyStats.currentHealth;
-
-
+            
             yield return new WaitForSeconds(lungeCooldown);
 
             if (currentPath != null && currentPathIndex < currentPath.Count)

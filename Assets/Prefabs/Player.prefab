@@ -279,7 +279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2165d693c3b733b42967767a78077176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponData: {fileID: 11400000, guid: 78727ca7f32cb6a4fa691fbe263b3b22, type: 2}
+  weaponData: {fileID: 11400000, guid: 44bbc09cc1dbc4549a2063914f104747, type: 2}
   firePoint: {fileID: 628361416537747984}
 --- !u!120 &5549632497754542372
 LineRenderer:

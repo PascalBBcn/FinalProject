@@ -181,5 +181,8 @@ MonoBehaviour:
     y: 0
     width: 0
     height: 0
+  lungeSpeed: 10
+  lungeDuration: 0.5
+  lungeCooldown: 1
   childPrefab: {fileID: 6237256674629555278}
   enemyStats: {fileID: 0}

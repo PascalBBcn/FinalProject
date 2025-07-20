@@ -8,6 +8,10 @@ public class LaserWeapon : MonoBehaviour, WeaponInterface
     private LineRenderer lineRenderer;
     private bool isFiring;
 
+    private float laserTimer = 0f;
+    private bool laserActive = true;
+
+
     private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
@@ -21,8 +25,24 @@ public class LaserWeapon : MonoBehaviour, WeaponInterface
 
     void Update()
     {
+        if (isFiring)
+        {
+            Shoot();
 
-        if (isFiring) Shoot();
+            if (weaponData.autoLaser)
+            {
+                laserTimer += Time.deltaTime;
+                if (laserTimer >= weaponData.autoLaserRate)
+                {
+                    laserTimer = 0f;
+                    laserActive = !laserActive;
+                    lineRenderer.enabled = laserActive;
+                }
+            }
+            else lineRenderer.enabled = true;
+
+        }
+
     }
 
     public void StartShooting()
