@@ -101,6 +101,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c466a84aecdceac46bb376fd20c9076e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  separationRadius: 1
+  separationWeight: 0.5
   pathUpdateInterval: 0.5
   range: 10
   roomBounds:

@@ -90,7 +90,8 @@ public static class Pathfinding
                 // If neighbourPos is already visited, ignore it
                 if (!closedList.Contains(neighbourPos))
                 {
-                    double gNew = cellDetails[currentTile.pos].g + 1.0;
+                    double cost = (dir.x == 0 || dir.y == 0) ? 1.0 : 1.414;
+                    double gNew = cellDetails[currentTile.pos].g + cost;
                     double hNew = CalculateHValue(neighbourPos, playerPos);
                     double fNew = gNew + hNew;
 

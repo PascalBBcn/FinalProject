@@ -103,13 +103,13 @@ public class Spawner : MonoBehaviour
         // PLAYER SPAWNING
         if (playerInstance == null)
         {
-            playerInstance = Instantiate(playerPrefab, bossRoomData.bounds.center, Quaternion.identity);
+            playerInstance = Instantiate(playerPrefab, startRoom.bounds.center, Quaternion.identity);
             Camera.main.GetComponent<FollowPlayerCamera>().player = playerInstance.transform;
         }
         else
         {
             // Move existing player to new level's start position
-            playerInstance.transform.position = bossRoomData.bounds.center;
+            playerInstance.transform.position = startRoom.bounds.center;
         }
 
         // LEVEL EXIT SPAWNING

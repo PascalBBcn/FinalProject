@@ -96,8 +96,8 @@ public class EnemyMovement : MonoBehaviour
     // This class is being overriden by derivative classes (Boss)
     protected virtual void MoveAlongPath()
     {
-        if (currentPath == null || currentPathIndex >= currentPath.Count)
-            return;
+        if (currentPath == null || currentPathIndex >= currentPath.Count) return;
+        
 
         Vector3 targetPos = new Vector3(
             currentPath[currentPathIndex].x,
@@ -111,7 +111,7 @@ public class EnemyMovement : MonoBehaviour
 
         rb.MovePosition(newPosition);
 
-        if (Vector3.Distance(newPosition, targetPos) < 0.1f)
+        if (Vector2.Distance(newPosition, targetPos) < 0.9f)
         {
             currentPathIndex++;
         }
