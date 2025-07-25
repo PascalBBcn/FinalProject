@@ -260,12 +260,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7751979707553719728}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 976bb97a364ba83408baf35c96450594, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponData: {fileID: 11400000, guid: a7f21e7e2a1298a49916809ba40252cd, type: 2}
+  weaponData: {fileID: 11400000, guid: 1f3b62558c4f5a74782e470908217753, type: 2}
   firePoint: {fileID: 628361416537747984}
 --- !u!114 &9195980166679887825
 MonoBehaviour:
@@ -274,7 +274,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7751979707553719728}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2165d693c3b733b42967767a78077176, type: 3}
   m_Name: 

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dce85b3b596bf41479c02d629bbb18b8, type: 3}
+  m_Name: cannon
+  m_EditorClassIdentifier: 
+  weaponName: cannon
+  fireRate: 1
+  weaponSprite: {fileID: 0}
+  rarity: 1
+  bulletPrefab: {fileID: 309163366586274605, guid: 215104e38553f304686a9bba113c04fe, type: 3}
+  bulletDamage: 50
+  bulletSpeed: 30
+  bulletSpread: 0
+  bulletQuantity: 1

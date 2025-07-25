@@ -6,6 +6,7 @@ public class EnemySpawner : MonoBehaviour
 {
     private List<GameObject> spawnedEnemies = new List<GameObject>();
     public GameObject enemyPrefab;
+    public GameObject enemyRangedPrefab;
 
     public void SpawnEnemies(List<RoomData> roomData)
     {

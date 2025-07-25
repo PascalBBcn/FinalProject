@@ -7,6 +7,9 @@ public class Spawner : MonoBehaviour
     public EnemySpawner enemySpawner;
     public WeaponSpawner weaponSpawner;
 
+    public GameObject enemyRangedPrefab;
+    private GameObject enemyRangedInstance;
+
     public GameObject playerPrefab;
     private GameObject playerInstance;
     public GameObject exitPrefab;
@@ -112,8 +115,11 @@ public class Spawner : MonoBehaviour
             playerInstance.transform.position = startRoom.bounds.center;
         }
 
-        // LEVEL EXIT SPAWNING
+        enemyRangedInstance = Instantiate(enemyRangedPrefab, startRoom.bounds.center, Quaternion.identity);
+        enemyRangedInstance.GetComponent<EnemyMovement>().roomBounds = startRoom.bounds;
 
+
+        // LEVEL EXIT SPAWNING
         teleportInstance = Instantiate(teleportPrefab, bossRoomData.bounds.center, Quaternion.identity);
         teleportInstance.GetComponent<LevelTeleport>().SetGenerator(generator);
 

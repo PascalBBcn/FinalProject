@@ -9,6 +9,7 @@ TagManager:
   - Wall
   - Bullet
   - BlockAllExceptPlayer
+  - BulletEnemy
   layers:
   - Default
   - TransparentFX
@@ -22,7 +23,7 @@ TagManager:
   - Wall
   - Bullet
   - BlockAllExceptPlayer
-  - 
+  - BulletEnemy
   - 
   - 
   - 

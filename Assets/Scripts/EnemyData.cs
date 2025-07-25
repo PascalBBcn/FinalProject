@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Enemy Data", menuName = "Enemy")]
 public class EnemyData : ScriptableObject
 {
-    public enum EnemyType { Normal, Boss };
+    public enum EnemyType { Normal, Boss, Ranged };
     public float maxHealth;
     public float moveSpeed;
     public float damage;

@@ -30,24 +30,19 @@ public class ProjectileWeapon : MonoBehaviour, WeaponInterface
     }
     private void Shoot()
     {
-        if (timeSinceLastShot > 1 / weaponData.fireRate)
+        for (int i = 0; i < weaponData.bulletQuantity; i++)
         {
-            timeSinceLastShot = 0;
+            GameObject bulletObject = Instantiate(weaponData.bulletPrefab, firePoint.position, firePoint.rotation);
 
-            for (int i = 0; i < weaponData.bulletQuantity; i++)
+        
+            Physics2D.IgnoreCollision(bulletObject.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+            Bullet bullet = bulletObject.GetComponent<Bullet>();
+            if (bullet != null)
             {
-                GameObject bulletObject = Instantiate(weaponData.bulletPrefab, firePoint.position, firePoint.rotation);
-
-            
-                Physics2D.IgnoreCollision(bulletObject.GetComponent<Collider2D>(), GetComponent<Collider2D>());
-                Bullet bullet = bulletObject.GetComponent<Bullet>();
-                if (bullet != null)
-                {
-                    // Apply bullet spread via rotation
-                    bulletObject.transform.Rotate(0, 0, Random.Range(-weaponData.bulletSpread, weaponData.bulletSpread));
-                    bullet.damage = weaponData.bulletDamage;
-                    bullet.speed = weaponData.bulletSpeed;
-                }
+                // Apply bullet spread via rotation
+                bulletObject.transform.Rotate(0, 0, Random.Range(-weaponData.bulletSpread, weaponData.bulletSpread));
+                bullet.damage = weaponData.bulletDamage;
+                bullet.speed = weaponData.bulletSpeed;
             }
         }
     }
