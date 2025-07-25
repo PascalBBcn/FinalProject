@@ -7,9 +7,6 @@ public class Spawner : MonoBehaviour
     public EnemySpawner enemySpawner;
     public WeaponSpawner weaponSpawner;
 
-    public GameObject enemyRangedPrefab;
-    private GameObject enemyRangedInstance;
-
     public GameObject playerPrefab;
     private GameObject playerInstance;
     public GameObject exitPrefab;
@@ -114,9 +111,6 @@ public class Spawner : MonoBehaviour
             // Move existing player to new level's start position
             playerInstance.transform.position = startRoom.bounds.center;
         }
-
-        enemyRangedInstance = Instantiate(enemyRangedPrefab, startRoom.bounds.center, Quaternion.identity);
-        enemyRangedInstance.GetComponent<EnemyMovement>().roomBounds = startRoom.bounds;
 
 
         // LEVEL EXIT SPAWNING
