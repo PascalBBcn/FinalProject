@@ -6,7 +6,6 @@ using TMPro;
 // The main script of the game
 public class BSPDungeonGenerator : MonoBehaviour
 {
-    public GameObject tutorialText;
     [SerializeField] private int dungeonWidth = 80;
     [SerializeField] private int dungeonHeight = 80;
     [SerializeField] private int minRoomWidth = 13;
@@ -38,7 +37,6 @@ public class BSPDungeonGenerator : MonoBehaviour
     }
     public void StartGeneration()
     {
-        tutorialText.SetActive(false);
         GameSession.instance.IncreaseFloor();
         GameSession.instance.bossHealthBar.fillAmount = 1f;
         GameSession.instance.bossHealthBarContainer.SetActive(false);

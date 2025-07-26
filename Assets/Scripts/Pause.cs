@@ -33,11 +33,13 @@ public class Pause : MonoBehaviour
     public void RestartGame()
     {
         dungeonGenerator.StartGame();
+        Time.timeScale = 1f;
         pauseMenu.SetActive(false);
     }
 
     public void QuitGame()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(0);
     }
 }
