@@ -15,7 +15,7 @@ public class GameSession : MonoBehaviour
 
     public Image bossHealthBar;
     public GameObject bossHealthBarContainer;
-    public GameObject gameOverText;
+    public GameObject gameOverMenu;
 
     void Awake()
     {
@@ -56,13 +56,13 @@ public class GameSession : MonoBehaviour
         if (player != null)
         {
             Destroy(player);
-            gameOverText.SetActive(true);
+            gameOverMenu.SetActive(true);
         }
     }
 
     public void ResetGame()
     {
-        gameOverText.SetActive(false);
+        gameOverMenu.SetActive(false);
         currentFloor = 0;
         difficultyMultiplier = 1.0f;
         playerHealth = 100f;
