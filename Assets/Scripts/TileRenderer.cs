@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Random = UnityEngine.Random;
 
 // Responsible for placing tiles on the tilemap, depending on positions given
 public class TileRenderer : MonoBehaviour
@@ -11,6 +12,7 @@ public class TileRenderer : MonoBehaviour
     [SerializeField] private Tilemap doorLockedTilemap;
 
     [SerializeField] private TileBase floorTile;
+    [SerializeField] private TileBase floorTile2;
     [SerializeField] private TileBase wallTile;
     [SerializeField] private TileBase doorUnlockedTile;
     [SerializeField] private TileBase doorLockedTile;
@@ -32,7 +34,11 @@ public class TileRenderer : MonoBehaviour
 
     public void SetFloorTiles(HashSet<Vector2Int> floorPositions)
     {
-        SetTiles(floorPositions, floorTilemap, floorTile);
+        foreach (var pos in floorPositions)
+        {
+            TileBase selectedTile = Random.Range(0f, 1f) < 0.5f ? floorTile : floorTile2;
+            SetSingleTile(floorTilemap, selectedTile, pos);
+        }
     }
 
     public void SetWallTiles(HashSet<Vector2Int> floorPositions)

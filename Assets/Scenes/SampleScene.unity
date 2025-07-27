@@ -987,6 +987,7 @@ MonoBehaviour:
   doorUnlockedTilemap: {fileID: 1491827952}
   doorLockedTilemap: {fileID: 1402883094}
   floorTile: {fileID: 11400000, guid: 6509e2315e831a84885b0da3e4284aec, type: 2}
+  floorTile2: {fileID: 11400000, guid: d0f2d6b5810014349b2f648125801306, type: 2}
   wallTile: {fileID: 11400000, guid: b6ea114399ae5c14e8f040ac322f8411, type: 2}
   doorUnlockedTile: {fileID: 11400000, guid: 8756b0cd56513524b9e548b95ddfc67e, type: 2}
   doorLockedTile: {fileID: 11400000, guid: 754a4df474639974288edbec647845aa, type: 2}
@@ -1645,7 +1646,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1662,7 +1663,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 10
+  orthographic size: 9
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -3425,12 +3426,12 @@ MonoBehaviour:
   m_ScreenX: 0.5
   m_ScreenY: 0.5
   m_CameraDistance: 10
-  m_DeadZoneWidth: 0.15
-  m_DeadZoneHeight: 0.15
+  m_DeadZoneWidth: 0
+  m_DeadZoneHeight: 0
   m_DeadZoneDepth: 0
   m_UnlimitedSoftZone: 0
-  m_SoftZoneWidth: 1.05
-  m_SoftZoneHeight: 0.8
+  m_SoftZoneWidth: 0.9
+  m_SoftZoneHeight: 0.9
   m_BiasX: 0
   m_BiasY: 0
   m_CenterOnActivate: 1
@@ -4343,7 +4344,7 @@ MonoBehaviour:
   m_Follow: {fileID: 2792718432978736265, guid: b9f80a2a5dac7694ea7ab7bd47986544, type: 3}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 10
+    OrthographicSize: 9
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
