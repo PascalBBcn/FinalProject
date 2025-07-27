@@ -57,7 +57,9 @@ public class PlayerController : MonoBehaviour
         {
             currentWeapon?.StopShooting();
         }
-        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        // Using Cinemachine, this check is necessary to avoid an error
+        if (Camera.main.pixelRect.Contains(Input.mousePosition)) mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        
     }
 
     private void FixedUpdate()

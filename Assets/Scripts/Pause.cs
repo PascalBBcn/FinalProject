@@ -40,6 +40,7 @@ public class Pause : MonoBehaviour
     public void QuitGame()
     {
         Time.timeScale = 1f;
+        if (GameSession.instance != null) Destroy(GameSession.instance.gameObject);
         SceneManager.LoadScene(0);
     }
 }

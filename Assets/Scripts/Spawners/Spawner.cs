@@ -1,9 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Cinemachine;
 
 public class Spawner : MonoBehaviour
 {
+    public CinemachineVirtualCamera virtualCamera;
+
     public EnemySpawner enemySpawner;
     public WeaponSpawner weaponSpawner;
 
@@ -104,7 +107,8 @@ public class Spawner : MonoBehaviour
         if (playerInstance == null)
         {
             playerInstance = Instantiate(playerPrefab, startRoom.bounds.center, Quaternion.identity);
-            Camera.main.GetComponent<FollowPlayerCamera>().player = playerInstance.transform;
+            // Camera.main.GetComponent<FollowPlayerCamera>().player = playerInstance.transform;
+            virtualCamera.Follow = playerInstance.transform;
         }
         else
         {

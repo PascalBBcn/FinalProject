@@ -7,6 +7,7 @@ public class FollowPlayerCamera : MonoBehaviour
     public Vector3 offset;
 
     [SerializeField] private float cameraSize = 10f;
+
     private Camera cam;
 
     void Awake()
