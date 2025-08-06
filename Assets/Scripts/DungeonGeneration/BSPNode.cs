@@ -20,10 +20,8 @@ public class BSPNode
         this.RightChild = null;
     }
 
-    // Helper to check if node has children or not (is a leaf node)
     public bool IsLeaf()
     {
-        // EIther 0 children, or node MUST have 2 children as this is a BINARY TREE
         return this.LeftChild == null && this.RightChild == null;
     }
 
@@ -37,18 +35,10 @@ public class BSPNode
             {
                 leafNodes.Add(this.Bounds);
             }
-        }
-        else
+        }else
         {
-            // If node is not a leaf, use recursion on its children
-            if (this.LeftChild != null)
-            {
-                this.LeftChild.GetLeafNodes(leafNodes, minWidth, minHeight);
-            }
-            if (this.RightChild != null)
-            {
-                this.RightChild.GetLeafNodes(leafNodes, minWidth, minHeight);
-            }
+            if (this.LeftChild != null) this.LeftChild.GetLeafNodes(leafNodes, minWidth, minHeight);
+            if (this.RightChild != null) this.RightChild.GetLeafNodes(leafNodes, minWidth, minHeight);
         }
     }
 

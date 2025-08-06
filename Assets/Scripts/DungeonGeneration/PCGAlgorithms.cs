@@ -23,30 +23,22 @@ public static class PCGAlgorithms
     public static HashSet<Vector2Int> AgentBasedDig(int numberOfDigs, Vector2Int agentPosition)
     {
         HashSet<Vector2Int> dungeonFloor = new HashSet<Vector2Int>();
-
         int chanceOfChangingDirection = 5;
         int chanceOfAddingRoom = 20;
-
-        // Place an intial room around agent position
         for (int x = -1; x <= 1; x++)
         {
             for (int y = -1; y <= 1; y++)
-            {
+            {   // Place an intial room around agent position
                 dungeonFloor.Add(agentPosition + new Vector2Int(x, y));
             }
         }
-
-
         // Place agent at origin and randomize direction
         Vector2Int direction = GetRandomCardinalDirection();
         dungeonFloor.Add(agentPosition);
-
-        while (dungeonFloor.Count < numberOfDigs)
+        while (dungeonFloor.Count < numberOfDigs) 
         {
-            // Dig along this direction
-            agentPosition += direction;
+            agentPosition += direction; // Dig along this direction
             dungeonFloor.Add(agentPosition);
-
             // Ensure no single width pathways
             for (int x = -1; x <= 1; x++)
             {
@@ -55,7 +47,6 @@ public static class PCGAlgorithms
                     dungeonFloor.Add(agentPosition + new Vector2Int(x, y));
                 }
             }
-
             // Potentially change digging direction
             if (Random.Range(0, 100) < chanceOfChangingDirection)
             {
@@ -63,14 +54,11 @@ public static class PCGAlgorithms
                 chanceOfChangingDirection = 5;
             }
             else chanceOfChangingDirection += 5;
-
             // Potentially add ROOM
             if (Random.Range(0, 100) < chanceOfAddingRoom)
             {
-                // Room dimensions
-                int width = Random.Range(3, 5);
+                int width = Random.Range(3, 5); // Room dimensions
                 int height = Random.Range(3, 5);
-
                 // Place room around agent position
                 for (int x = -width / 2; x <= width / 2; x++)
                 {
@@ -84,7 +72,6 @@ public static class PCGAlgorithms
             }
             else chanceOfAddingRoom += 5;
         }
-
         return dungeonFloor;
     }
 

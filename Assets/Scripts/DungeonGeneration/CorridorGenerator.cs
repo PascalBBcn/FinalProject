@@ -113,16 +113,12 @@ public class CorridorGenerator
     private  static void GetValidLeafCenters(BSPNode node, List<Vector2Int> roomCenterPoints, List<Vector2Int> results)
     {
         if (node == null) return;
-
         if (node.IsLeaf())
         {
             Vector2Int center = Vector2Int.FloorToInt(node.Bounds.center);
             // Check if the roomCenters list contains the node's bounds center, if so, add it to results
             // Some of the leaves have bounds far too small, and these will be ignored
-            if (roomCenterPoints.Contains(center))
-            {
-                results.Add(center);
-            }
+            if (roomCenterPoints.Contains(center)) results.Add(center);
         }
         else
         {
@@ -130,8 +126,6 @@ public class CorridorGenerator
             GetValidLeafCenters(node.RightChild, roomCenterPoints, results);
         }
     }
-
-
     // Ensures that the shortest (proximity wise) connection is made between two partitions
     private static (Vector2Int, Vector2Int) FindClosest(List<Vector2Int> leftSubtree, List<Vector2Int> rightSubtree)
     {
@@ -150,7 +144,6 @@ public class CorridorGenerator
                 }
             }
         }
-        
         return closestRooms;
     }
 

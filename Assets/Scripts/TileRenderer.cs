@@ -10,12 +10,15 @@ public class TileRenderer : MonoBehaviour
     [SerializeField] private Tilemap wallTilemap;
     [SerializeField] private Tilemap doorUnlockedTilemap;
     [SerializeField] private Tilemap doorLockedTilemap;
+    [SerializeField] private Tilemap hiddenRoomsTilemap;
 
     [SerializeField] private TileBase floorTile;
     [SerializeField] private TileBase floorTile2;
     [SerializeField] private TileBase wallTile;
     [SerializeField] private TileBase doorUnlockedTile;
     [SerializeField] private TileBase doorLockedTile;
+    [SerializeField] private TileBase hiddenRoomsTile;
+
 
     // Flexible as it can be used to set any sort of tile
     private void SetTiles(HashSet<Vector2Int> positions, Tilemap tilemap, TileBase tile)
@@ -91,10 +94,37 @@ public class TileRenderer : MonoBehaviour
         return wallPositions;
     }
 
+    public void HideRooms(List<RectInt> rooms)
+    {
+        foreach (var room in rooms)
+        {
+            for (int x = room.xMin - 1; x <= room.xMax; x++)
+            {
+                for (int y = room.yMin - 1; y <= room.yMax; y++)
+                {
+                    Vector3Int position = new Vector3Int(x, y, 0);
+                    hiddenRoomsTilemap.SetTile(position, hiddenRoomsTile);
+                }
+            }
+        }
+    }
+    public void RevealRoom(RectInt room)
+    {
+
+        for (int x = room.xMin - 1; x <= room.xMax; x++)
+        {
+            for (int y = room.yMin - 1; y <= room.yMax; y++)
+            {
+                Vector3Int position = new Vector3Int(x, y, 0);
+                hiddenRoomsTilemap.SetTile(position, null);
+            }
+        }
+        
+    }
+
     public void RemoveTile(Vector2Int position)
     {
         var tilePos = doorLockedTilemap.WorldToCell((Vector3Int)position);
-        // wallTilemap.SetTile(tilePos, null);
         doorLockedTilemap.SetTile(tilePos, null);
     }
 

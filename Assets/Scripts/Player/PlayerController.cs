@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     private WeaponInterface currentWeapon;
 
     private BSPDungeonGenerator dungeonGenerator;
+    // private TileRenderer tileRenderer;
 
     private void Awake()
     {
@@ -99,6 +100,7 @@ public class PlayerController : MonoBehaviour
 
             if (roomTriggerZone.Contains(playerPos)) // Player is in a room.
             {
+                // tileRenderer.RevealRoom(dungeonGenerator.rooms[i]);
                 dungeonGenerator.LockRoom(dungeonGenerator.rooms[i]);
                 return;
             }

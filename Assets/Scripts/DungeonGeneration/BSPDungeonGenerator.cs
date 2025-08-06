@@ -62,9 +62,6 @@ public class BSPDungeonGenerator : MonoBehaviour
         RectInt dungeonSpace = new RectInt(startPos.x, startPos.y, dungeonWidth, dungeonHeight);
         BSPNode rootNode = PCGAlgorithms.BinarySpacePartitioning(dungeonSpace, minRoomWidth, minRoomHeight);
 
-        int totalLeaves = rootNode.CountLeafNodes();
-        Debug.Log($"Num of leaf nodes: {totalLeaves}");
-
         rooms = new List<RectInt>();
         rootNode.GetLeafNodes(rooms, minRoomWidth, minRoomHeight);
 
@@ -122,6 +119,7 @@ public class BSPDungeonGenerator : MonoBehaviour
         RoomData organicBossRoomData = new RoomData(organicBossRoomBounds, RoomType.OrganicBoss);
 
         RenderTiles(dungeonFloor);
+        // tileRenderer.HideRooms(rooms);
 
         // For "tagging" rooms via different roomTypes
         List<RoomData> roomData = RoomAssigner.AssignRooms(rooms, furthestRoom);
