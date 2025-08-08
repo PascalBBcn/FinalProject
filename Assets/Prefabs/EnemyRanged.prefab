@@ -177,6 +177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: ded2eae1dc84c5e4483965744870c74f, type: 2}
   currentHealth: 0
+  slimeDeathParticlesPrefab: {fileID: 175324891730096159, guid: 0bece4ebb283df044b10c187036cae12, type: 3}
 --- !u!114 &-3637313198227910988
 MonoBehaviour:
   m_ObjectHideFlags: 0

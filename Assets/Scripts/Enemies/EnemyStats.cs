@@ -15,6 +15,8 @@ public class EnemyStats : MonoBehaviour
     // Overriding the health for the self-multiplying boss if null, be default
     public float MaxHealth => overrideMaxHealth ?? enemyData.maxHealth;
 
+    public GameObject slimeDeathParticlesPrefab;
+
     private void Start()
     {
         currentHealth = overrideMaxHealth ?? enemyData.maxHealth;
@@ -45,7 +47,8 @@ public class EnemyStats : MonoBehaviour
             }
         }
 
-        Destroy(gameObject);
+        Instantiate(slimeDeathParticlesPrefab, transform.position, Quaternion.identity);
+        Destroy(gameObject, 0.1f);
     }
     // Used for the boss that self-multiplies on death
     public void OverrideMaxHealth(float newMax)
