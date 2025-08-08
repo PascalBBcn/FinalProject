@@ -71,7 +71,7 @@ public class EnemyMovement : MonoBehaviour
                     {
                         isChasing = true;
                     }
-                    if (isChasing && playerPos != lastPlayerPos)
+                    if (isChasing)
                     {
                         currentPath = Pathfinding.AStar(enemyPos, playerPos);
                         if (currentPath != null && currentPath.Count > 0)
