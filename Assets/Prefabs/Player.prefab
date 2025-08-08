@@ -235,6 +235,7 @@ MonoBehaviour:
       m_Flags: 8
     m_Flags: 0
   playerColour: {r: 0, g: 0, b: 0, a: 0}
+  animator: {fileID: 694614207}
 --- !u!114 &-7227048892884804314
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -16,7 +16,8 @@ public class PlayerController : MonoBehaviour
     private WeaponInterface currentWeapon;
 
     private BSPDungeonGenerator dungeonGenerator;
-    // private TileRenderer tileRenderer;
+
+    public Animator animator;
 
     private void Awake()
     {
@@ -78,7 +79,7 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator HitVisual()
     {
-        
+        animator.SetTrigger("Hit");
         spriteRenderer.color = Color.white;
         yield return new WaitForSeconds(0.15f);
         spriteRenderer.color = playerColour;
