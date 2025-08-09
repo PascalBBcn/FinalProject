@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
-using TMPro;
+
 
 // The main script of the game
 public class BSPDungeonGenerator : MonoBehaviour
