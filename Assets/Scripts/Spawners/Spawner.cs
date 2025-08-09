@@ -103,9 +103,17 @@ public class Spawner : MonoBehaviour
         WeaponPickup pickup = weaponInstance.GetComponent<WeaponPickup>();
         pickup.InitializeWeapon(randomWeapon);
 
+
+        // DEBUG (SPAWNS NEAR BOSS TELEPORT)
+        // float tileSize = 1f;
+        // Vector3 offset = new Vector3(3 * tileSize, 0f, 0f); // 3 tiles right
+        // Vector3 spawnPoss = (Vector3)bossRoomData.bounds.center + offset;
+
         // PLAYER SPAWNING
         if (playerInstance == null)
         {
+            // playerInstance = Instantiate(playerPrefab, spawnPoss, Quaternion.identity);
+
             playerInstance = Instantiate(playerPrefab, startRoom.bounds.center, Quaternion.identity);
             // Camera.main.GetComponent<FollowPlayerCamera>().player = playerInstance.transform;
             virtualCamera.Follow = playerInstance.transform;
@@ -114,6 +122,8 @@ public class Spawner : MonoBehaviour
         {
             // Move existing player to new level's start position
             playerInstance.transform.position = startRoom.bounds.center;
+            // playerInstance = Instantiate(playerPrefab, spawnPoss, Quaternion.identity);
+
         }
 
 

@@ -13,6 +13,7 @@ public class LevelTeleport : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
+            FindObjectOfType<Transitions>().StartFadeTransition();
             // To remove any persisting visuals of the laser
             LaserWeapon laserBeam = collision.GetComponentInChildren<LaserWeapon>();
             if (laserBeam != null) laserBeam.StopShooting();
