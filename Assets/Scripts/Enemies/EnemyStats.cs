@@ -16,6 +16,7 @@ public class EnemyStats : MonoBehaviour
     public float MaxHealth => overrideMaxHealth ?? enemyData.maxHealth;
 
     public GameObject slimeDeathParticlesPrefab;
+    public Animator animator;
 
     private void Start()
     {
@@ -25,6 +26,7 @@ public class EnemyStats : MonoBehaviour
     public void TakeDamage(float damageAmount)
     {
         currentHealth -= damageAmount;
+        if(!IsBoss) animator.SetTrigger("Hit");
         if (IsBoss) GameSession.instance?.ProcessBossDamage(currentHealth, enemyData.maxHealth);
         if (currentHealth <= 0) Die();
     }

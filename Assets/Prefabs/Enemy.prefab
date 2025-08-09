@@ -145,6 +145,7 @@ MonoBehaviour:
   enemyData: {fileID: 11400000, guid: 73c3c9c745f48ea4abd27f3c6b4f08d6, type: 2}
   currentHealth: 0
   slimeDeathParticlesPrefab: {fileID: 175324891730096159, guid: 0bece4ebb283df044b10c187036cae12, type: 3}
+  animator: {fileID: 3099412195322789402}
 --- !u!114 &-3637313198227910988
 MonoBehaviour:
   m_ObjectHideFlags: 0
