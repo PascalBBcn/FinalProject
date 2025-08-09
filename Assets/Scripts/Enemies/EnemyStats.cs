@@ -49,7 +49,8 @@ public class EnemyStats : MonoBehaviour
             }
         }
 
-        Instantiate(slimeDeathParticlesPrefab, transform.position, Quaternion.identity);
+        GameObject particles = Instantiate(slimeDeathParticlesPrefab, transform.position, Quaternion.identity);
+        Destroy(particles, 2f);
         Destroy(gameObject, 0.1f);
     }
     // Used for the boss that self-multiplies on death
