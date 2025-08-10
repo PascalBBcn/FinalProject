@@ -18,6 +18,11 @@ public class BossMovement : EnemyMovement
         StartCoroutine(Lunge());
     }
 
+    private void Update()
+    {
+        RotateSprite();
+    }
+
     // The boss can move like regular enemies, but also has a lunge movement
     protected override void MoveAlongPath()
     {
@@ -85,6 +90,15 @@ public class BossMovement : EnemyMovement
             }
 
         }
+    }
+
+    private void RotateSprite()
+    {
+        if (playerTransform == null) return;
+        Vector2 dir = playerTransform.position - transform.position;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        // Sprite is facing up so 90deg swap
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
     }
 
     private IEnumerator ScaleSprite(Vector3 targetSize, float duration)
