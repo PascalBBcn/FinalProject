@@ -60,7 +60,10 @@ public class LaserWeapon : MonoBehaviour, WeaponInterface
         Vector3 startPos = firePoint.position;
         Vector3 endPos;
 
-        RaycastHit2D hit = Physics2D.Raycast(startPos, firePoint.up, weaponData.laserDistance);
+        // Excludes the player mask
+        int playerLayer = ~LayerMask.GetMask("Player");
+
+        RaycastHit2D hit = Physics2D.Raycast(startPos, firePoint.up, weaponData.laserDistance, playerLayer);
         if (hit.collider != null)
         {
             endPos = hit.point;
@@ -75,7 +78,7 @@ public class LaserWeapon : MonoBehaviour, WeaponInterface
 
                 // Destroy(hit.collider.gameObject);
             }
-        }    
+        }
         else endPos = startPos + firePoint.up * weaponData.laserDistance;
 
         startPos.z = 0f;

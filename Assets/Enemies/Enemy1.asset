@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Enemy1
   m_EditorClassIdentifier: 
   maxHealth: 100
-  moveSpeed: 4
+  moveSpeed: 6
   damage: 17
   attackRate: 0.75
+  enemyType: 0

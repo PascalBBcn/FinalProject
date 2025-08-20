@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca2821d043d10394b8c1f3513b99c8ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 11
+  movementSpeed: 10
   rb: {fileID: 8952260969365591225}
   playerControls:
     m_Name: Player Controls
@@ -252,12 +252,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7751979707553719728}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 976bb97a364ba83408baf35c96450594, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponData: {fileID: 11400000, guid: 69b29102c29b10645b89d2bad4af9a18, type: 2}
+  weaponData: {fileID: 11400000, guid: a7f21e7e2a1298a49916809ba40252cd, type: 2}
   firePoint: {fileID: 628361416537747984}
 --- !u!114 &9195980166679887825
 MonoBehaviour:
@@ -266,12 +266,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7751979707553719728}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2165d693c3b733b42967767a78077176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponData: {fileID: 11400000, guid: 44bbc09cc1dbc4549a2063914f104747, type: 2}
+  weaponData: {fileID: 11400000, guid: 78727ca7f32cb6a4fa691fbe263b3b22, type: 2}
   firePoint: {fileID: 628361416537747984}
 --- !u!120 &5549632497754542372
 LineRenderer:
@@ -313,7 +313,7 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 6
   m_Positions:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 1}
