@@ -8,6 +8,8 @@ public class EnemyStats : MonoBehaviour
     [SerializeField] private float? overrideMaxHealth = null;
     public float currentHealth;
 
+    private bool isDying = false;
+
     public float MoveSpeed => enemyData.moveSpeed;
     public float Damage => enemyData.damage;
     public float AttackRate => enemyData.attackRate;
@@ -25,13 +27,15 @@ public class EnemyStats : MonoBehaviour
 
     public void TakeDamage(float damageAmount)
     {
+        if (isDying) return;
         currentHealth -= damageAmount;
         if(!IsBoss) animator.SetTrigger("Hit");
         if (IsBoss) GameSession.instance?.ProcessBossDamage(currentHealth, enemyData.maxHealth);
-        if (currentHealth <= 0) Die();
+        if (currentHealth <= 0 && !isDying) Die();
     }
     private void Die()
     {
+        isDying = true;
         if (IsBoss)
         {
             // If it is the self-multiplying boss, split on its death
@@ -40,7 +44,6 @@ public class EnemyStats : MonoBehaviour
             {
                 split.SplitOnDeath();
                 if (BossSelfMultiply.activeInstances.Count == 1) OnBossDeath?.Invoke();
-
             }
             else
             {

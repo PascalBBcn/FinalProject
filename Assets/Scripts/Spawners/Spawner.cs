@@ -16,7 +16,9 @@ public class Spawner : MonoBehaviour
     private GameObject exitInstance;
     public GameObject teleportPrefab;
     private GameObject teleportInstance;
-    public GameObject bossPrefab;
+
+    public GameObject bossPrefab1;
+    public GameObject bossPrefab2;
     private GameObject bossInstance;
 
     public WeaponDB weaponDB;
@@ -86,6 +88,9 @@ public class Spawner : MonoBehaviour
 
     public void SpawnInstances(List<RoomData> roomData, BSPDungeonGenerator generator)
     {
+        int floor = GameSession.instance.currentFloor;
+        GameObject currentFloorBoss = bossPrefab1;
+
         RoomData startRoom = roomData[0];
         RoomData chestRoom = null;
         organicBossRoom = null;
@@ -105,24 +110,23 @@ public class Spawner : MonoBehaviour
 
 
         // DEBUG (SPAWNS NEAR BOSS TELEPORT)
-        float tileSize = 1f;
-        Vector3 offset = new Vector3(3 * tileSize, 0f, 0f); // 3 tiles right
-        Vector3 spawnPoss = (Vector3)bossRoomData.bounds.center + offset;
+        // float tileSize = 1f;
+        // Vector3 offset = new Vector3(3 * tileSize, 0f, 0f); // 3 tiles right
+        // Vector3 spawnPoss = (Vector3)bossRoomData.bounds.center + offset;
 
         // PLAYER SPAWNING
         if (playerInstance == null)
         {
-            playerInstance = Instantiate(playerPrefab, spawnPoss, Quaternion.identity);
-
-            // playerInstance = Instantiate(playerPrefab, startRoom.bounds.center, Quaternion.identity);
+            // playerInstance = Instantiate(playerPrefab, spawnPoss, Quaternion.identity);
+            playerInstance = Instantiate(playerPrefab, startRoom.bounds.center, Quaternion.identity);
             // Camera.main.GetComponent<FollowPlayerCamera>().player = playerInstance.transform;
             virtualCamera.Follow = playerInstance.transform;
         }
         else
         {
             // Move existing player to new level's start position
-            // playerInstance.transform.position = startRoom.bounds.center;
-            playerInstance = Instantiate(playerPrefab, spawnPoss, Quaternion.identity);
+            playerInstance.transform.position = startRoom.bounds.center;
+            // playerInstance = Instantiate(playerPrefab, spawnPoss, Quaternion.identity);
 
         }
 
@@ -135,9 +139,22 @@ public class Spawner : MonoBehaviour
         exitInstance = Instantiate(exitPrefab, offScreen, Quaternion.identity);
         exitInstance.GetComponent<LevelExit>().SetGenerator(generator);
 
-        
         enemySpawner.SpawnEnemies(roomData);
-        bossInstance = Instantiate(bossPrefab, bossSpawnPos, Quaternion.identity);
+        // Spawn different boss depending on floor
+        switch (floor)
+        {
+            case 1:
+                currentFloorBoss = bossPrefab1;
+                break;
+            case 2:
+                currentFloorBoss = bossPrefab2;
+                break;
+            default:
+                currentFloorBoss = bossPrefab1; 
+                break;
+        }
+
+        bossInstance = Instantiate(currentFloorBoss, bossSpawnPos, Quaternion.identity);
         bossInstance.GetComponent<EnemyMovement>().roomBounds = organicBossRoom.bounds;
     }
 

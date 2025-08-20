@@ -10,21 +10,22 @@ public class WeaponSpawner : MonoBehaviour
     {
         int floor = GameSession.instance.currentFloor;
         List<WeaponData> possibleWeapons = new List<WeaponData>();
+        float randomValue = Random.value;
         switch (floor)
         {
             case 1:
-                if (Random.value <= 0.7f) possibleWeapons = weaponDB.weapons.Where(w => w.rarity == 1).ToList(); // 70%
-                else if (Random.value <= 0.95f) possibleWeapons = weaponDB.weapons.Where(w => w.rarity == 2).ToList(); // 20%
+                if (randomValue <= 0.7f) possibleWeapons = weaponDB.weapons.Where(w => w.rarity == 1).ToList(); // 70%
+                else if (randomValue <= 0.95f) possibleWeapons = weaponDB.weapons.Where(w => w.rarity == 2).ToList(); // 20%
                 else possibleWeapons = weaponDB.weapons.Where(w => w.rarity >= 3 && w.rarity <= 4).ToList(); // 5%
                 break;
             case 2:
-                if (Random.value <= 0.7f) possibleWeapons = weaponDB.weapons.Where(w => w.rarity == 2).ToList();
-                else if (Random.value <= 0.92f) possibleWeapons = weaponDB.weapons.Where(w => w.rarity == 3).ToList();
+                if (randomValue <= 0.7f) possibleWeapons = weaponDB.weapons.Where(w => w.rarity == 2).ToList();
+                else if (randomValue <= 0.92f) possibleWeapons = weaponDB.weapons.Where(w => w.rarity == 3).ToList();
                 else possibleWeapons = weaponDB.weapons.Where(w => w.rarity >= 4).ToList();
                 break;
             default:
-                if (Random.value <= 0.7f) possibleWeapons = weaponDB.weapons.Where(w => w.rarity == 3).ToList();
-                else if (Random.value <= 0.9f) possibleWeapons = weaponDB.weapons.Where(w => w.rarity == 4).ToList();
+                if (randomValue <= 0.7f) possibleWeapons = weaponDB.weapons.Where(w => w.rarity == 3).ToList();
+                else if (randomValue <= 0.9f) possibleWeapons = weaponDB.weapons.Where(w => w.rarity == 4).ToList();
                 else possibleWeapons = weaponDB.weapons.Where(w => w.rarity == 4).ToList();
                 break;
 

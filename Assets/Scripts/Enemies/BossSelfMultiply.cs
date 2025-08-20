@@ -11,7 +11,7 @@ public class BossSelfMultiply : EnemyMovement
 
     private bool isLunging = false;
     public static List<GameObject> activeInstances = new List<GameObject>();
-    private int splitCount = 0;
+    public int splitCount = 0;
     public GameObject childPrefab;
     public EnemyStats enemyStats;
 
