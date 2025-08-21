@@ -91,6 +91,7 @@ public class EnemyMovement : MonoBehaviour
     void FixedUpdate()
     {
         MoveAlongPath();
+        rb.velocity = Vector2.zero;
     }
 
     // This class is being overriden by derivative classes (Boss)

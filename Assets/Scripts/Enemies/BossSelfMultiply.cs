@@ -15,6 +15,7 @@ public class BossSelfMultiply : EnemyMovement
     public GameObject childPrefab;
     public EnemyStats enemyStats;
 
+
     private void OnEnable()
     {
         activeInstances.Add(gameObject);
@@ -43,15 +44,16 @@ public class BossSelfMultiply : EnemyMovement
         if (splitCount >= 3) return;
         for (int i = 0; i < 2; i++)
         {
-            Vector3 spawnOffset = new Vector3(Random.Range(-0.75f, 0.75f), Random.Range(-0.75f, 0.75f), 0);
-            GameObject child = Instantiate(childPrefab, transform.position + spawnOffset, Quaternion.identity);
+            // Vector3 spawnOffset = new Vector3(Random.Range(-0.4f, 0.4f), Random.Range(-0.4f, 0.4f), 0);
+            GameObject child = Instantiate(childPrefab, transform.position, Quaternion.identity);
             BossSelfMultiply childScript = child.GetComponent<BossSelfMultiply>();
             EnemyStats childStats = child.GetComponent<EnemyStats>();
 
             if (childScript != null) childScript.splitCount = splitCount + 1;
-            child.transform.localScale *= 0.75f;
+            child.transform.localScale *= 0.8f;
 
             if (childStats != null) childStats.OverrideMaxHealth(enemyStats.MaxHealth * 0.7f);
+            
         }
     }
 
@@ -59,7 +61,6 @@ public class BossSelfMultiply : EnemyMovement
     {
         while (true)
         {
-            
             yield return new WaitForSeconds(lungeCooldown);
 
             if (currentPath != null && currentPathIndex < currentPath.Count)

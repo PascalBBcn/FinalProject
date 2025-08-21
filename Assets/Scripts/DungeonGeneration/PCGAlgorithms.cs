@@ -39,14 +39,42 @@ public static class PCGAlgorithms
         {
             agentPosition += direction; // Dig along this direction
             dungeonFloor.Add(agentPosition);
-            // Ensure no single width pathways
-            for (int x = -1; x <= 1; x++)
+
+            int randomValue = Random.Range(0, 3);
+            switch (randomValue)
             {
-                for (int y = -1; y <= 1; y++)
-                {
-                    dungeonFloor.Add(agentPosition + new Vector2Int(x, y));
-                }
+                case 0:
+                    // Ensure no single width pathways
+                    for (int x = -1; x <= 1; x++)
+                    {
+                        for (int y = -1; y <= 1; y++)
+                        {
+                            dungeonFloor.Add(agentPosition + new Vector2Int(x, y));
+                        }
+                    }
+                    break;
+                case 1:
+                    // Ensure no single width pathways
+                    for (int x = -1; x <= 2; x++)
+                    {
+                        for (int y = -2; y <= 1; y++)
+                        {
+                            dungeonFloor.Add(agentPosition + new Vector2Int(x, y));
+                        }
+                    }
+                    break;
+                case 2:
+                    // Ensure no single width pathways
+                    for (int x = -2; x <= 1; x++)
+                    {
+                        for (int y = -1; y <= 1; y++)
+                        {
+                            dungeonFloor.Add(agentPosition + new Vector2Int(x, y));
+                        }
+                    }
+                    break;
             }
+            
             // Potentially change digging direction
             if (Random.Range(0, 100) < chanceOfChangingDirection)
             {
@@ -172,7 +200,4 @@ public static class PCGAlgorithms
         node.LeftChild = room1Node;  // Top child
         node.RightChild = room2Node; // Bottom child
     }  
-
-
-
 }
