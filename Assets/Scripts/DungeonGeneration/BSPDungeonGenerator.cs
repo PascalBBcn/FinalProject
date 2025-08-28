@@ -36,6 +36,7 @@ public class BSPDungeonGenerator : MonoBehaviour
     }
     public void StartGeneration()
     {
+        AudioManager.Instance.PlayMusic("Music");
         GameSession.instance.IncreaseFloor();
         GameSession.instance.bossHealthBar.fillAmount = 1f;
         GameSession.instance.bossHealthBarContainer.SetActive(false);

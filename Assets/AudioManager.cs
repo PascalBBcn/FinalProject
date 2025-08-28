@@ -17,11 +17,6 @@ public class AudioManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    private void Start()
-    {
-        PlayMusic("Music");
-    }
-    
     public void PlayMusic(string name)
     {
         Sound sound = Array.Find(music, n => n.audioName == name);
@@ -37,7 +32,24 @@ public class AudioManager : MonoBehaviour
         Sound sound = Array.Find(sfx, n => n.audioName == name);
         if (sound == null) Debug.Log("Sound missing");
         else sfxSrc.PlayOneShot(sound.audioClip);
-        
+
     }
+    public void ToggleMusic()
+    {
+        musicSrc.mute = !musicSrc.mute;
+    }
+    public void ToggleSFX()
+    {
+        sfxSrc.mute = !sfxSrc.mute;
+    }
+    public void VolumeMusic(float volume)
+    {
+        musicSrc.volume = volume;
+    }
+    public void VolumeSFX(float volume)
+    {
+        sfxSrc.volume = volume;
+    }
+
 
 }
