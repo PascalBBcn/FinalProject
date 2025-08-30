@@ -34,6 +34,26 @@ public class AudioManager : MonoBehaviour
         else sfxSrc.PlayOneShot(sound.audioClip);
 
     }
+    public void PlayLoopSFX(string name)
+    {
+        Sound sound = Array.Find(sfx, n => n.audioName == name);
+        if (sound == null) Debug.Log("Sound missing");
+        else
+        {
+            sfxSrc.clip = sound.audioClip;
+            sfxSrc.loop = true;
+            if (!sfxSrc.isPlaying) sfxSrc.Play();
+        }
+
+    }
+    public void StopLoopSFX()
+    {
+        if (sfxSrc.isPlaying)
+        {
+            sfxSrc.Stop();
+            sfxSrc.loop = false;
+        }
+    }
     public void ToggleMusic()
     {
         musicSrc.mute = !musicSrc.mute;

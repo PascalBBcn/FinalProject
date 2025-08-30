@@ -23,6 +23,24 @@ public class LaserWeapon : MonoBehaviour, WeaponInterface
         lineRenderer.enabled = false;
     }
 
+    // Ensures the laser sound stops when picking up new weapon
+    private void OnDisable()
+    {
+        if (isFiring)
+        {
+            AudioManager.Instance.StopLoopSFX();
+            isFiring = false;
+        }
+    }
+    private void OnDestroy()
+    {
+        if (isFiring)
+        {
+            AudioManager.Instance.StopLoopSFX();
+            isFiring = false;
+        }
+    }
+
     void Update()
     {
         if (isFiring)
@@ -37,6 +55,8 @@ public class LaserWeapon : MonoBehaviour, WeaponInterface
                     laserTimer = 0f;
                     laserActive = !laserActive;
                     lineRenderer.enabled = laserActive;
+
+                    if (laserActive) AudioManager.Instance.PlaySFX("Laser");
                 }
             }
             else lineRenderer.enabled = true;
@@ -49,11 +69,14 @@ public class LaserWeapon : MonoBehaviour, WeaponInterface
     {
         isFiring = true;
         lineRenderer.enabled = true;
+        if(!weaponData.autoLaser) AudioManager.Instance.PlayLoopSFX("Laser");
     }
     public void StopShooting()
     {
         isFiring = false;
         lineRenderer.enabled = false;
+        AudioManager.Instance.StopLoopSFX();
+
     }
     private void Shoot()
     {
@@ -75,8 +98,6 @@ public class LaserWeapon : MonoBehaviour, WeaponInterface
                     float damagePerSecond = weaponData.laserDPS * Time.deltaTime;
                     enemyStats.TakeDamage(damagePerSecond);
                 }
-
-                // Destroy(hit.collider.gameObject);
             }
         }
         else endPos = startPos + firePoint.up * weaponData.laserDistance;

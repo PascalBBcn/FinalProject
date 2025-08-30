@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class LevelTeleport : MonoBehaviour
@@ -19,6 +20,12 @@ public class LevelTeleport : MonoBehaviour
             if (laserBeam != null) laserBeam.StopShooting();
 
             dungeonGenerator?.TeleportToBossRoom(collision.gameObject);
+            StartCoroutine(DelayBossMusic(2f));
         }
+    }
+    private IEnumerator DelayBossMusic(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        AudioManager.Instance.PlayMusic("BossMusic");
     }
 }

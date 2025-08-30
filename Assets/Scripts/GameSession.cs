@@ -53,6 +53,7 @@ public class GameSession : MonoBehaviour
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {
+            AudioManager.Instance.PlaySFX("PlayerDeath");
             Destroy(player);
             gameOverMenu.SetActive(true);
         }

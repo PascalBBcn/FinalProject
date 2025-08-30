@@ -1912,7 +1912,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -2859,7 +2859,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -4602,9 +4602,19 @@ MonoBehaviour:
   music:
   - audioName: Music
     audioClip: {fileID: 8300000, guid: fe7a361872fc972499fd14c2397c0d66, type: 3}
+  - audioName: BossMusic
+    audioClip: {fileID: 8300000, guid: 53520e995288acc45bf673b64cbb9a09, type: 3}
   sfx:
   - audioName: Shoot
     audioClip: {fileID: 8300000, guid: e70db125c4c05c342ab6dd5f9da5c531, type: 3}
+  - audioName: Laser
+    audioClip: {fileID: 8300000, guid: 43832e370b0c90d43b24e564ab959758, type: 3}
+  - audioName: EnemyDeath
+    audioClip: {fileID: 8300000, guid: b13c7b70cb7fd6c47a24144e4d1b940d, type: 3}
+  - audioName: Pickup
+    audioClip: {fileID: 8300000, guid: 9112739208106534f98ccce94abd967d, type: 3}
+  - audioName: PlayerDeath
+    audioClip: {fileID: 8300000, guid: 25a2215166385c042a7aa09aa071d83a, type: 3}
   musicSrc: {fileID: 1481424051}
   sfxSrc: {fileID: 1084909235}
 --- !u!4 &1397813278

@@ -43,18 +43,23 @@ public class EnemyStats : MonoBehaviour
             if (split != null)
             {
                 split.SplitOnDeath();
-                if (BossSelfMultiply.activeInstances.Count == 1) OnBossDeath?.Invoke();
+                if (BossSelfMultiply.activeInstances.Count == 1)
+                {
+                    OnBossDeath?.Invoke();
+                    AudioManager.Instance.PlayMusic("Music");
+                }
             }
-            else
-            {
-                // Spawn the LevelExit after normal bosses die
-                OnBossDeath?.Invoke();
-            }
+                else
+                {
+                    // Spawn the LevelExit after normal bosses die
+                    OnBossDeath?.Invoke();
+                }
         }
 
         GameObject particles = Instantiate(slimeDeathParticlesPrefab, transform.position, Quaternion.identity);
         Destroy(particles, 2f);
         Destroy(gameObject, 0.1f);
+        AudioManager.Instance.PlaySFX("EnemyDeath");
     }
     // Used for the boss that self-multiplies on death
     public void OverrideMaxHealth(float newMax)

@@ -16,6 +16,7 @@ public class WeaponPickup : MonoBehaviour
             PlayerController player = collision.GetComponent<PlayerController>();
             if (player != null)
             {
+                AudioManager.Instance.PlaySFX("Pickup");
                 player.SetWeapon(weaponData);
                 Destroy(gameObject);
             }
