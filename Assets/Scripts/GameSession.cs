@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,8 @@ public class GameSession : MonoBehaviour
     public Image bossHealthBar;
     public GameObject bossHealthBarContainer;
     public GameObject gameOverMenu;
+
+    public TextMeshProUGUI floorReachedText;
 
     void Awake()
     {
@@ -35,6 +38,7 @@ public class GameSession : MonoBehaviour
     public void ProcessPlayerDeath(float damage)
     {
         playerHealth -= damage;
+        AudioManager.Instance.PlaySFX("PlayerHit");
         playerHealthBar.fillAmount = playerHealth / 100f;
         if (playerHealth <= 0) KillPlayer();
     }
@@ -53,6 +57,7 @@ public class GameSession : MonoBehaviour
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {
+            floorReachedText.text = $"You reached floor {currentFloor}";
             AudioManager.Instance.PlaySFX("PlayerDeath");
             Destroy(player);
             gameOverMenu.SetActive(true);

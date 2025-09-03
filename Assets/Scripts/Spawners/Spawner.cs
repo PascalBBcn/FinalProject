@@ -117,16 +117,16 @@ public class Spawner : MonoBehaviour
         // PLAYER SPAWNING
         if (playerInstance == null)
         {
-            playerInstance = Instantiate(playerPrefab, spawnPoss, Quaternion.identity);
-            // playerInstance = Instantiate(playerPrefab, startRoom.bounds.center, Quaternion.identity);
+            // playerInstance = Instantiate(playerPrefab, spawnPoss, Quaternion.identity);
+            playerInstance = Instantiate(playerPrefab, startRoom.bounds.center, Quaternion.identity);
             // Camera.main.GetComponent<FollowPlayerCamera>().player = playerInstance.transform;
             virtualCamera.Follow = playerInstance.transform;
         }
         else
         {
             // Move existing player to new level's start position
-            // playerInstance.transform.position = startRoom.bounds.center;
-            playerInstance = Instantiate(playerPrefab, spawnPoss, Quaternion.identity);
+            playerInstance.transform.position = startRoom.bounds.center;
+            // playerInstance = Instantiate(playerPrefab, spawnPoss, Quaternion.identity);
 
         }
 

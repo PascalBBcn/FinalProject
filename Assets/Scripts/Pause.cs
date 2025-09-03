@@ -41,6 +41,7 @@ public class Pause : MonoBehaviour
     {
         Time.timeScale = 1f;
         if (GameSession.instance != null) Destroy(GameSession.instance.gameObject);
+        AudioManager.Instance.musicSrc.Stop();
         SceneManager.LoadScene(0);
     }
 }

@@ -5,6 +5,13 @@ public class UIControls : MonoBehaviour
 {
     public Slider _musicSlider, _sfxSlider;
 
+    // Syncs slider positions to current actual value
+    void Start()
+    {
+        if (_musicSlider != null) _musicSlider.value = AudioManager.Instance.musicSrc.volume;
+        if (_sfxSlider != null) _sfxSlider.value = AudioManager.Instance.sfxSrc.volume;
+    }
+
     public void ToggleMusic()
     {
         AudioManager.Instance.ToggleMusic();
