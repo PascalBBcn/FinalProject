@@ -52,8 +52,11 @@ public class BossSelfMultiply : EnemyMovement
             if (childScript != null) childScript.splitCount = splitCount + 1;
             child.transform.localScale *= 0.8f;
 
-            if (childStats != null) childStats.OverrideMaxHealth(enemyStats.MaxHealth * 0.7f);
-            
+            if (childStats != null)
+            {
+                childStats.OverrideMaxHealth(enemyStats.MaxHealth * 0.7f);
+                childStats.OverrideDamage(enemyStats.Damage * 0.65f);
+            }
         }
     }
 

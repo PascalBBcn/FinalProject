@@ -6,12 +6,13 @@ public class EnemyStats : MonoBehaviour
     public static event Action OnBossDeath;
     [SerializeField] private EnemyData enemyData;
     [SerializeField] private float? overrideMaxHealth = null;
+    [SerializeField] private float? overrideDamage = null;
     public float currentHealth;
 
     private bool isDying = false;
 
     public float MoveSpeed => enemyData.moveSpeed;
-    public float Damage => enemyData.damage;
+    public float Damage => overrideDamage ?? enemyData.damage;
     public float AttackRate => enemyData.attackRate;
     public bool IsBoss => enemyData.enemyType == EnemyData.EnemyType.Boss;
     // Overriding the health for the self-multiplying boss if null, be default
@@ -29,7 +30,7 @@ public class EnemyStats : MonoBehaviour
     {
         if (isDying) return;
         currentHealth -= damageAmount;
-        if(!IsBoss) animator.SetTrigger("Hit");
+        if (!IsBoss) animator.SetTrigger("Hit");
         if (IsBoss) GameSession.instance?.ProcessBossDamage(currentHealth, enemyData.maxHealth);
         if (currentHealth <= 0 && !isDying) Die();
     }
@@ -49,11 +50,11 @@ public class EnemyStats : MonoBehaviour
                     AudioManager.Instance.PlayMusic("Music");
                 }
             }
-                else
-                {
-                    // Spawn the LevelExit after normal bosses die
-                    OnBossDeath?.Invoke();
-                }
+            else
+            {
+                // Spawn the LevelExit after normal bosses die
+                OnBossDeath?.Invoke();
+            }
         }
 
         GameObject particles = Instantiate(slimeDeathParticlesPrefab, transform.position, Quaternion.identity);
@@ -66,5 +67,10 @@ public class EnemyStats : MonoBehaviour
     {
         overrideMaxHealth = newMax;
         currentHealth = newMax;
+    }
+    // Used for the boss that self-multiplies on death
+    public void OverrideDamage(float newDmg)
+    {
+        overrideDamage = newDmg;
     }
 }

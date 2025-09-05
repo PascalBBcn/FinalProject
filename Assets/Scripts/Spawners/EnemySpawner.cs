@@ -41,8 +41,6 @@ public class EnemySpawner : MonoBehaviour
                     enemyRangedCount--;
                 }
             }
-
-
         }
     }
     
@@ -52,14 +50,13 @@ public class EnemySpawner : MonoBehaviour
         bool roomIsTooSmall = (roomData.bounds.width * roomData.bounds.height) < 250;
         int enemyCount = 0;
         int floor = GameSession.instance.currentFloor;
-        float difficulty = GameSession.instance.difficultyMultiplier;
         float randomValue = Random.value;
         switch (floor)
         {
             case 1:
-                if (randomValue < 0.7f) enemyCount = Random.Range(1, 3); // 70%
-                else if (randomValue < 0.8f) enemyCount = Random.Range(4, 7); // 10%
-                else enemyCount = 0; // 20%
+                if (randomValue < 0.75f) enemyCount = Random.Range(1, 3); // 75%
+                else if (randomValue < 0.85f) enemyCount = Random.Range(2, 4); // 10%
+                else enemyCount = 0; // 15%
                 break;
             case 2:
                 if (randomValue < 0.7f) enemyCount = Random.Range(3, 6);
@@ -101,7 +98,6 @@ public class EnemySpawner : MonoBehaviour
         bool roomIsTooSmall = (roomData.bounds.width * roomData.bounds.height) < 250;
         int enemyCount = 0;
         int floor = GameSession.instance.currentFloor;
-        float difficulty = GameSession.instance.difficultyMultiplier;
         float randomValue = Random.value;
         switch (floor)
         {
