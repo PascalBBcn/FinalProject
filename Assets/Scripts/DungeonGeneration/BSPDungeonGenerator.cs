@@ -21,6 +21,7 @@ public class BSPDungeonGenerator : MonoBehaviour
     [SerializeField] private EnemySpawner enemySpawner;
 
 
+
     // Give read-access only to other scripts
     public HashSet<Vector2Int> corridors { get; private set; }
     public HashSet<Vector2Int> dungeonFloor { get; private set; }

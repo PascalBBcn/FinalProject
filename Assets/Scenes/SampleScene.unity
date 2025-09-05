@@ -1157,7 +1157,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6ee81994534d65d4a914cc43cdbd0aa8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2baf0488266c66c47a11445eb61795e2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1808,7 +1808,7 @@ MonoBehaviour:
   playerPrefab: {fileID: 7751979707553719728, guid: b9f80a2a5dac7694ea7ab7bd47986544, type: 3}
   exitPrefab: {fileID: 7751979707553719728, guid: 2e705664c26b9ee44a2d931165b028ce, type: 3}
   teleportPrefab: {fileID: 7751979707553719728, guid: 86864cb7853411742b88d7b6e54f1fd8, type: 3}
-  bossPrefab1: {fileID: 6237256674629555278, guid: 325f91860f292544cbdcae85a10b6fa5, type: 3}
+  bossPrefab1: {fileID: 6237256674629555278, guid: d6dfd2255258e1b4b9c8d91058a21aa6, type: 3}
   bossPrefab2: {fileID: 6237256674629555278, guid: d6dfd2255258e1b4b9c8d91058a21aa6, type: 3}
   weaponDB: {fileID: 11400000, guid: 806cea70c521d6a4f9bc326e9a3a78dd, type: 2}
   weaponPrefab: {fileID: 7751979707553719728, guid: ff7754c905948c3408f9778080cb4abd, type: 3}
@@ -4342,6 +4342,7 @@ MonoBehaviour:
   playerHealth: 100
   playerHealthBar: {fileID: 1986621132}
   playerHealthBarContainer: {fileID: 2026042457}
+  startingWeapon: {fileID: 11400000, guid: a7f21e7e2a1298a49916809ba40252cd, type: 2}
   bossHealthBar: {fileID: 1902172527}
   bossHealthBarContainer: {fileID: 1531674170}
   gameOverMenu: {fileID: 1358452202}

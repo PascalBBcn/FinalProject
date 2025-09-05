@@ -12,6 +12,9 @@ public class GameSession : MonoBehaviour
     public Image playerHealthBar;
     public GameObject playerHealthBarContainer;
 
+    [SerializeField] private WeaponData startingWeapon;
+
+
     public Image bossHealthBar;
     public GameObject bossHealthBarContainer;
     public GameObject gameOverMenu;
@@ -71,5 +74,8 @@ public class GameSession : MonoBehaviour
         difficultyMultiplier = 1.0f;
         playerHealth = 100f;
         playerHealthBar.fillAmount = 1f;
+
+        PlayerController p = FindObjectOfType<PlayerController>();
+        if (p != null && startingWeapon != null) p.SetWeapon(startingWeapon);
     }
 }

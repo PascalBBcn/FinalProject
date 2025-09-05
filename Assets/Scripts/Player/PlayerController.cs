@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+    
     private void OnEnable()
     {
         playerControls.Enable();
