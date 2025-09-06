@@ -19,8 +19,8 @@ public class EnemySpawner : MonoBehaviour
                 while (enemyCount > 0)
                 {
                     // Random position
-                    int x = Random.Range(roomData[i].bounds.x + 3, roomData[i].bounds.xMax - 3);
-                    int y = Random.Range(roomData[i].bounds.y + 3, roomData[i].bounds.yMax - 3);
+                    int x = Random.Range(roomData[i].bounds.x + 5, roomData[i].bounds.xMax - 3);
+                    int y = Random.Range(roomData[i].bounds.y + 3, roomData[i].bounds.yMax - 5);
                     Vector2 spawnPos = new Vector2(x, y);
 
                     GameObject enemyInstance = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
@@ -31,8 +31,8 @@ public class EnemySpawner : MonoBehaviour
                 while (enemyRangedCount > 0)
                 {
                     // Random position
-                    int x = Random.Range(roomData[i].bounds.x + 3, roomData[i].bounds.xMax - 3);
-                    int y = Random.Range(roomData[i].bounds.y + 3, roomData[i].bounds.yMax - 3);
+                    int x = Random.Range(roomData[i].bounds.x + 3, roomData[i].bounds.xMax - 5);
+                    int y = Random.Range(roomData[i].bounds.y + 5, roomData[i].bounds.yMax - 3);
                     Vector2 spawnPos = new Vector2(x, y);
 
                     GameObject enemyRangedInstance = Instantiate(enemyRangedPrefab, spawnPos, Quaternion.identity);
