@@ -1813,6 +1813,8 @@ MonoBehaviour:
   bossPrefab2: {fileID: 6237256674629555278, guid: d6dfd2255258e1b4b9c8d91058a21aa6, type: 3}
   weaponDB: {fileID: 11400000, guid: 806cea70c521d6a4f9bc326e9a3a78dd, type: 2}
   weaponPrefab: {fileID: 7751979707553719728, guid: ff7754c905948c3408f9778080cb4abd, type: 3}
+  healthPickup: {fileID: 0}
+  healthPickupPrefab: {fileID: 7751979707553719728, guid: cc239d1dd636ddf4db9965e100e7dfe8, type: 3}
 --- !u!4 &476362377
 Transform:
   m_ObjectHideFlags: 0

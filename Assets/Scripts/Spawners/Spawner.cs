@@ -25,6 +25,9 @@ public class Spawner : MonoBehaviour
     public GameObject weaponPrefab;
     private GameObject weaponInstance;
 
+    public GameObject healthPickupPrefab;
+    private GameObject healthPickupInstance;
+
     // Cache so SpawnLevelExit can use it
     private RoomData organicBossRoom;
     Vector3 bossSpawnPos = new Vector3(300, 300, 0);
@@ -135,7 +138,8 @@ public class Spawner : MonoBehaviour
         teleportInstance = Instantiate(teleportPrefab, bossRoomData.bounds.center, Quaternion.identity);
         teleportInstance.GetComponent<LevelTeleport>().SetGenerator(generator);
 
-        Vector3 offScreen = new Vector3(20000, 20000, 0); 
+        Vector3 offScreen = new Vector3(20000, 20000, 0);
+        healthPickupInstance = Instantiate(healthPickupPrefab, offScreen, Quaternion.identity);
         exitInstance = Instantiate(exitPrefab, offScreen, Quaternion.identity);
         exitInstance.GetComponent<LevelExit>().SetGenerator(generator);
 
@@ -173,6 +177,10 @@ public class Spawner : MonoBehaviour
     private void SpawnLevelExit()
     {
         exitInstance.transform.position = bossSpawnPos;
+        Vector3 off = new Vector3(1, 0f, 0f);
+        Vector3 pos = (Vector3)bossSpawnPos + off;
+        healthPickupInstance.transform.position = pos;
+        
     }
 
     public void RemoveInstances()
