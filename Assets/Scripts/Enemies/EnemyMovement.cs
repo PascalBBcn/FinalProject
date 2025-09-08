@@ -13,6 +13,7 @@ public class EnemyMovement : MonoBehaviour
     private Vector2Int enemyPos;
 
     public float pathUpdateInterval = 0.1f;
+
     // Protected instead of private, so can be used by derived classes (Boss)
     protected List<Vector2Int> currentPath = new List<Vector2Int>();
     protected int currentPathIndex = 0; 
@@ -34,7 +35,6 @@ public class EnemyMovement : MonoBehaviour
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         StartCoroutine(UpdatePath());
         if (stats.IsBoss) StartCoroutine(CheckPlayerProximity());
-
     }
 
     // Does not recalculate the path every frame but rather based on interval

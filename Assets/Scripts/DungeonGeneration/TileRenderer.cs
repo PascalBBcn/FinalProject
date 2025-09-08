@@ -94,34 +94,6 @@ public class TileRenderer : MonoBehaviour
         return wallPositions;
     }
 
-    public void HideRooms(List<RectInt> rooms)
-    {
-        foreach (var room in rooms)
-        {
-            for (int x = room.xMin - 1; x <= room.xMax; x++)
-            {
-                for (int y = room.yMin - 1; y <= room.yMax; y++)
-                {
-                    Vector3Int position = new Vector3Int(x, y, 0);
-                    hiddenRoomsTilemap.SetTile(position, hiddenRoomsTile);
-                }
-            }
-        }
-    }
-    public void RevealRoom(RectInt room)
-    {
-
-        for (int x = room.xMin - 1; x <= room.xMax; x++)
-        {
-            for (int y = room.yMin - 1; y <= room.yMax; y++)
-            {
-                Vector3Int position = new Vector3Int(x, y, 0);
-                hiddenRoomsTilemap.SetTile(position, null);
-            }
-        }
-        
-    }
-
     public void RemoveTile(Vector2Int position)
     {
         var tilePos = doorLockedTilemap.WorldToCell((Vector3Int)position);

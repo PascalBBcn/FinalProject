@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // The main script of the game
-public class BSPDungeonGenerator : MonoBehaviour
+public class DungeonGenerator : MonoBehaviour
 {
     [Header("Dungeon Dimensions")]
     [SerializeField] private int dungeonWidth = 65;
@@ -196,6 +196,7 @@ public class BSPDungeonGenerator : MonoBehaviour
         return dungeonFloor;
     }
 
+    // Get approximate Rect bounds from organic room
     private RectInt GetBoundsFromOrganicRoom(HashSet<Vector2Int> tiles)
     {
         int minX = int.MaxValue;
@@ -216,6 +217,7 @@ public class BSPDungeonGenerator : MonoBehaviour
     {
         Vector2Int furthestPosFromBoss = Vector2Int.zero;
         float maxDist = float.MinValue;
+
         foreach (var pos in organicBossRoom)
         {
             float dist = Vector2.Distance(pos, bossRoomPos);
@@ -224,8 +226,8 @@ public class BSPDungeonGenerator : MonoBehaviour
                 maxDist = dist;
                 furthestPosFromBoss = pos;
             }
-
         }
+        
         if (!organicBossRoom.Contains(furthestPosFromBoss)) Debug.Log("PLAYER SPAWN ERROR");
         player.transform.position = new Vector3(furthestPosFromBoss.x + 0.5f, furthestPosFromBoss.y + 0.5f, 0);
     }

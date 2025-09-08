@@ -52,6 +52,7 @@ public class BossSelfMultiply : EnemyMovement
 
             if (childStats != null)
             {
+                // Split instances have reduced health and damage
                 childStats.OverrideMaxHealth(enemyStats.MaxHealth * 0.7f);
                 childStats.OverrideDamage(enemyStats.Damage * 0.65f);
             }

@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class LevelExit : MonoBehaviour
 {
-    public BSPDungeonGenerator dungeonGenerator;
+    public DungeonGenerator dungeonGenerator;
 
-    public void SetGenerator(BSPDungeonGenerator generator)
+    public void SetGenerator(DungeonGenerator generator)
     {
         this.dungeonGenerator = generator;
     }

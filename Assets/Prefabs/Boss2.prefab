@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: -8020243547482062475}
   - component: {fileID: -4276060032219410811}
   - component: {fileID: -3637313198227910988}
-  - component: {fileID: 4824259990281150707}
+  - component: {fileID: 6516701360798715673}
+  - component: {fileID: 1523647689}
   m_Layer: 7
   m_Name: Boss2
   m_TagString: Enemy
@@ -31,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 6237256674629555278}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 139.84886, y: 0.43837166, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.25, y: 1.25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -78,8 +79,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0, g: 1, b: 0.9063432, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 0cbc00f5d7395304b81b502dbedec6b5, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -102,18 +103,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.0016340613, y: 0.000000029802322}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 2, y: 2}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.9, y: 0.9}
+  m_Size: {x: 0.8920411, y: 0.8953021}
   m_EdgeRadius: 0
 --- !u!50 &-8020243547482062475
 Rigidbody2D:
@@ -148,10 +149,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28a16f9da2422224b9c1162c52482256, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyData: {fileID: 11400000, guid: b2717c8e3e5f04f4b902c98963413b30, type: 2}
+  enemyData: {fileID: 11400000, guid: e38fd3d0625f0774dac788bc462c450b, type: 2}
   currentHealth: 0
-  slimeDeathParticlesPrefab: {fileID: 0}
-  animator: {fileID: 0}
+  slimeDeathParticlesPrefab: {fileID: 175324891730096159, guid: 0bece4ebb283df044b10c187036cae12, type: 3}
+  animator: {fileID: 1523647689}
 --- !u!114 &-3637313198227910988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,7 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edb5817c5bfff6a4c82061811ef93217, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4824259990281150707
+--- !u!114 &6516701360798715673
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -173,13 +174,37 @@ MonoBehaviour:
   m_GameObject: {fileID: 6237256674629555278}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c466a84aecdceac46bb376fd20c9076e, type: 3}
+  m_Script: {fileID: 11500000, guid: 04b68a8c4a6caf64ab07ad19e69bbb6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathUpdateInterval: 0.25
-  range: 20
+  pathUpdateInterval: 0.5
+  range: 10
   roomBounds:
     x: 0
     y: 0
     width: 0
     height: 0
+  lungeSpeed: 25
+  lungeDuration: 1
+  lungeCooldown: 2
+--- !u!95 &1523647689
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6237256674629555278}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d9a9bef8fb05cd84bb56ef5a43cdfcd7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

@@ -7,6 +7,7 @@ public class AudioManager : MonoBehaviour
     public Sound[] music, sfx;
     public AudioSource musicSrc, sfxSrc;
 
+    // SINGLETON PATTERN
     private void Awake()
     {
         if (Instance == null)

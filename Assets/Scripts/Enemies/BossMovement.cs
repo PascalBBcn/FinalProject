@@ -88,7 +88,6 @@ public class BossMovement : EnemyMovement
                 else yield return StartCoroutine(ScaleSprite(Vector3.one, 0.05f));
                 isLunging = false;
             }
-
         }
     }
 

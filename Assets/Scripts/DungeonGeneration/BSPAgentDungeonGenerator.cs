@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// The main script of the game
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// THIS SCRIPT IS THE HYBRID APPROACH WITH ONLY THE DUNGEON LAYOUT AND NO
+// GAME MECHANICS OR SPAWNING (FROM THE MIDTERM FEATURE PROTOTYPE)
 // Uses BSP for macro, but fills rooms with Agent-based "digged" rooms
 public class BSPAgentDungeonGenerator : MonoBehaviour
 {

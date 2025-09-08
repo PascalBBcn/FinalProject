@@ -1433,7 +1433,7 @@ MonoBehaviour:
   playerPrefab: {fileID: 7751979707553719728, guid: b9f80a2a5dac7694ea7ab7bd47986544, type: 3}
   exitPrefab: {fileID: 7751979707553719728, guid: 2e705664c26b9ee44a2d931165b028ce, type: 3}
   teleportPrefab: {fileID: 7751979707553719728, guid: 86864cb7853411742b88d7b6e54f1fd8, type: 3}
-  bossPrefab1: {fileID: 6237256674629555278, guid: d6dfd2255258e1b4b9c8d91058a21aa6, type: 3}
+  bossPrefab1: {fileID: 6237256674629555278, guid: 325f91860f292544cbdcae85a10b6fa5, type: 3}
   bossPrefab2: {fileID: 6237256674629555278, guid: d6dfd2255258e1b4b9c8d91058a21aa6, type: 3}
   weaponPrefab: {fileID: 7751979707553719728, guid: ff7754c905948c3408f9778080cb4abd, type: 3}
   healthPickupPrefab: {fileID: 7751979707553719728, guid: cc239d1dd636ddf4db9965e100e7dfe8, type: 3}
@@ -4943,10 +4943,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1753761884}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b3dc0ec48985fe4098be84d04c025cd, type: 3}
+  m_Script: {fileID: 11500000, guid: a768e60c50399ff4b9f730f642402e82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
 --- !u!1 &1815296503
 GameObject:
   m_ObjectHideFlags: 0

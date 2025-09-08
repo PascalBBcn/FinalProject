@@ -8,16 +8,15 @@ public class EnemyStats : MonoBehaviour
     [SerializeField] private float? overrideMaxHealth = null;
     [SerializeField] private float? overrideDamage = null;
     public float currentHealth;
-
     private bool isDying = false;
 
     public float MoveSpeed => enemyData.moveSpeed;
+    // Overriding the damage/health for the self-multiplying boss, if null, be default
     public float Damage => overrideDamage ?? enemyData.damage;
+    public float MaxHealth => overrideMaxHealth ?? enemyData.maxHealth;
     public float AttackRate => enemyData.attackRate;
     public bool IsBoss => enemyData.enemyType == EnemyData.EnemyType.Boss;
-    // Overriding the health for the self-multiplying boss if null, be default
-    public float MaxHealth => overrideMaxHealth ?? enemyData.maxHealth;
-
+    
     public GameObject slimeDeathParticlesPrefab;
     public Animator animator;
 

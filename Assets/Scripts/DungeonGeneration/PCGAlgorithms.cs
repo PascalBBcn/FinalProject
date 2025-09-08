@@ -165,11 +165,6 @@ public static class PCGAlgorithms
         if (node.Bounds.width <= minRoomWidth/2) return;
         int xSplit = Random.Range(minRoomWidth/2, node.Bounds.width); 
 
-        // VALUE BELOW MAKES IT LOOK TOO PREDICTABLE (but makes only valid leaves!)
-        // if (node.Bounds.width <= minRoomWidth-1) return; // Too narrow to split
-        // int xSplit = Random.Range(minRoomWidth, node.Bounds.width - minRoomWidth); // Ensure both rooms are large enough
-
-
         // Create new rooms with resulting split amount included
         RectInt room1Rect = new RectInt(node.Bounds.x, node.Bounds.y, xSplit, node.Bounds.height);
         RectInt room2Rect = new RectInt(node.Bounds.x + xSplit, node.Bounds.y, node.Bounds.width - xSplit, node.Bounds.height);
@@ -185,10 +180,6 @@ public static class PCGAlgorithms
     {
         if (node.Bounds.height <= minRoomHeight/2) return;
         int ySplit = Random.Range(minRoomHeight/2, node.Bounds.height); // Inclusive range
-
-        // VALUE BELOW MAKES IT LOOK TOO PREDICTABLE (but makes only valid leaves!)
-        // if (node.Bounds.height <= minRoomHeight-1) return; // Too narrow to split
-        // int ySplit = Random.Range(minRoomHeight, node.Bounds.height - minRoomHeight); // Ensure both rooms are large enough
 
         // Create new rooms with resulting split amount included
         RectInt room1Rect = new RectInt(node.Bounds.x, node.Bounds.y, node.Bounds.width, ySplit);

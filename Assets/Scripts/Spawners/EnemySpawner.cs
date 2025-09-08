@@ -125,7 +125,6 @@ public class EnemySpawner : MonoBehaviour
         return Mathf.Clamp(enemyCount, 0, 18);
     }
 
-
     // For room locking system
     public bool EnemiesAreAlive(RectInt room)
     {

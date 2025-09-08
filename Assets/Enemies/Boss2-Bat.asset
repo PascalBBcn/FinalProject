@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eda3d8d13b24e32409936e877e3a1cab, type: 3}
-  m_Name: Boss2-Speed
+  m_Name: Boss2-Bat
   m_EditorClassIdentifier: 
-  maxHealth: 700
-  moveSpeed: 10
-  damage: 8
-  attackRate: 8
+  maxHealth: 500
+  moveSpeed: 6
+  damage: 25
+  attackRate: 1
   enemyType: 1

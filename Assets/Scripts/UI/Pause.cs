@@ -6,7 +6,7 @@ public class Pause : MonoBehaviour
     public GameObject pauseMenu;
     private bool isPaused = false;
 
-    public BSPDungeonGenerator dungeonGenerator;
+    public DungeonGenerator dungeonGenerator;
 
     void Update()
     {

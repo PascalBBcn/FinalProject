@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class LevelTeleport : MonoBehaviour
 {
-    public BSPDungeonGenerator dungeonGenerator;
+    public DungeonGenerator dungeonGenerator;
 
-    public void SetGenerator(BSPDungeonGenerator generator)
+    public void SetGenerator(DungeonGenerator generator)
     {
         this.dungeonGenerator = generator;
     }

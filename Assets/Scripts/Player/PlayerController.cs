@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     
     private WeaponInterface currentWeapon;
 
-    private BSPDungeonGenerator dungeonGenerator;
+    private DungeonGenerator dungeonGenerator;
 
     public Animator animator;
 
@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<BoxCollider2D>();
-        dungeonGenerator = FindObjectOfType<BSPDungeonGenerator>();
+        dungeonGenerator = FindObjectOfType<DungeonGenerator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         playerColour = spriteRenderer.color;
 

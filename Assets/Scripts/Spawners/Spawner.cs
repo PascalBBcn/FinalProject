@@ -91,7 +91,7 @@ public class Spawner : MonoBehaviour
         return maxKey;
     }
 
-    public void SpawnInstances(List<RoomData> roomData, BSPDungeonGenerator generator)
+    public void SpawnInstances(List<RoomData> roomData, DungeonGenerator generator)
     {
         int floor = GameSession.instance.currentFloor;
         GameObject currentFloorBoss = bossPrefab1;

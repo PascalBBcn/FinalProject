@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CorridorGenerator
 {
-    // Used for furthest room from starting room calculation
+    // Used for calculating the furthest room from the starting room 
     public static HashSet<Vector2Int> thinCorridors = new HashSet<Vector2Int>();
 
     public static HashSet<Vector2Int> CreateCorridors(List<(Vector2Int, Vector2Int)> roomConnections)

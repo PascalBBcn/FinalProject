@@ -42,7 +42,7 @@ public class BSPNode
         }
     }
 
-    // Function for debugging purposes only
+    // DEBUGGING PURPOSES ONLY
     public void PrintTree(string direction = "")
     {
         string nodePosition = string.IsNullOrEmpty(direction) ? "root" : direction;
@@ -53,7 +53,7 @@ public class BSPNode
         if (RightChild != null) RightChild.PrintTree(direction + "r");
     }
 
-    // Function for debugging purposes only
+    // DEBUGGING PURPOSES ONLY
     public int CountLeafNodes()
     {
         if (this.IsLeaf()) return 1;
