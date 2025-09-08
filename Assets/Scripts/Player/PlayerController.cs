@@ -7,12 +7,13 @@ public class PlayerController : MonoBehaviour
     public float movementSpeed = 20;
     public Rigidbody2D rb;
     public InputAction playerControls;
-    Vector2 direction = Vector2.zero;
     BoxCollider2D playerCollider;
     Vector2 mousePosition;
+    Vector2 direction = Vector2.zero;
 
-    private SpriteRenderer spriteRenderer;
     public Color playerColour;
+    private SpriteRenderer spriteRenderer;
+    
     private WeaponInterface currentWeapon;
 
     private BSPDungeonGenerator dungeonGenerator;
@@ -26,6 +27,7 @@ public class PlayerController : MonoBehaviour
         dungeonGenerator = FindObjectOfType<BSPDungeonGenerator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         playerColour = spriteRenderer.color;
+
         // Needed otherwise it selects the first weaponScript (no matter if unchecked)
         var weapons = GetComponentsInChildren<WeaponInterface>();
         foreach (var weapon in weapons)
@@ -60,6 +62,7 @@ public class PlayerController : MonoBehaviour
         {
             currentWeapon?.StopShooting();
         }
+        
         // Using Cinemachine, this check is necessary to avoid an error
         if (Camera.main.pixelRect.Contains(Input.mousePosition)) mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         
@@ -102,7 +105,6 @@ public class PlayerController : MonoBehaviour
 
             if (roomTriggerZone.Contains(playerPos)) // Player is in a room.
             {
-                // tileRenderer.RevealRoom(dungeonGenerator.rooms[i]);
                 dungeonGenerator.LockRoom(dungeonGenerator.rooms[i]);
                 return;
             }

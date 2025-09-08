@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class BossSelfMultiply : EnemyMovement
 {
@@ -44,7 +43,6 @@ public class BossSelfMultiply : EnemyMovement
         if (splitCount >= 3) return;
         for (int i = 0; i < 2; i++)
         {
-            // Vector3 spawnOffset = new Vector3(Random.Range(-0.4f, 0.4f), Random.Range(-0.4f, 0.4f), 0);
             GameObject child = Instantiate(childPrefab, transform.position, Quaternion.identity);
             BossSelfMultiply childScript = child.GetComponent<BossSelfMultiply>();
             EnemyStats childStats = child.GetComponent<EnemyStats>();
