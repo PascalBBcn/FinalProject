@@ -7,7 +7,6 @@ public class GameSession : MonoBehaviour
     public static GameSession instance { get; private set; }
 
     public int currentFloor = -1;
-    public float difficultyMultiplier = 1.0f;
     [SerializeField] float playerHealth = 100f;
     public Image playerHealthBar;
     public GameObject playerHealthBarContainer;
@@ -35,10 +34,9 @@ public class GameSession : MonoBehaviour
     public void IncreaseFloor()
     {
         currentFloor++;
-        difficultyMultiplier += 0.2f;
     }
 
-    public void ProcessPlayerDeath(float damage)
+    public void ProcessPlayerDamage(float damage)
     {
         playerHealth -= damage;
         AudioManager.Instance.PlaySFX("PlayerHit");
@@ -71,7 +69,6 @@ public class GameSession : MonoBehaviour
     {
         gameOverMenu.SetActive(false);
         currentFloor = 0;
-        difficultyMultiplier = 1.0f;
         playerHealth = 100f;
         playerHealthBar.fillAmount = 1f;
 

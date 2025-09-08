@@ -10,7 +10,7 @@ public class HealthPickup : MonoBehaviour
             if (player != null)
             {
                 AudioManager.Instance.PlaySFX("Pickup");
-                GameSession.instance.ProcessPlayerDeath(-25);
+                GameSession.instance.ProcessPlayerDamage(-25);
                 Destroy(gameObject);
             }
         }

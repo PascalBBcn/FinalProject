@@ -31,7 +31,7 @@ public class BulletEnemy : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             collision.gameObject.GetComponent<PlayerController>().ApplyHitVisual();
-            GameSession.instance.ProcessPlayerDeath(damage);
+            GameSession.instance.ProcessPlayerDamage(damage);
         }
         if (collision.gameObject.layer != LayerMask.NameToLayer("Bullet") && collision.gameObject.layer != LayerMask.NameToLayer("Enemy"))
         {

@@ -21,7 +21,7 @@ public class EnemyAttack : MonoBehaviour
         if (collision.gameObject.CompareTag("Player") && cooldown <= 0f)
         {
             collision.gameObject.GetComponent<PlayerController>().ApplyHitVisual();
-            GameSession.instance.ProcessPlayerDeath(enemyStats.Damage);
+            GameSession.instance.ProcessPlayerDamage(enemyStats.Damage);
             cooldown = 1f / enemyStats.AttackRate;
         }
     }
