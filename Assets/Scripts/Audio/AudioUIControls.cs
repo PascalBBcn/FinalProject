@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIControls : MonoBehaviour
+public class AudioUIControls : MonoBehaviour
 {
     public Slider _musicSlider, _sfxSlider;
 

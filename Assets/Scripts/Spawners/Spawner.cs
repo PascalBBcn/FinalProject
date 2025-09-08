@@ -5,33 +5,35 @@ using Cinemachine;
 
 public class Spawner : MonoBehaviour
 {
-    public CinemachineVirtualCamera virtualCamera;
+    [Header("Cinemachine Camera")]
+    [SerializeField] private CinemachineVirtualCamera virtualCamera;
 
-    public EnemySpawner enemySpawner;
-    public WeaponSpawner weaponSpawner;
+    [Header("Spawners")]
+    [SerializeField] private EnemySpawner enemySpawner;
+    [SerializeField] private WeaponSpawner weaponSpawner;
 
-    public GameObject playerPrefab;
+    [Header("Prefabs")]
+    [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private GameObject exitPrefab;
+    [SerializeField] private GameObject teleportPrefab;
+    [SerializeField] private GameObject bossPrefab1;
+    [SerializeField] private GameObject bossPrefab2;
+    [SerializeField] private GameObject weaponPrefab;
+    [SerializeField] private GameObject healthPickupPrefab;
+
+    // INSTANCES
     private GameObject playerInstance;
-    public GameObject exitPrefab;
     private GameObject exitInstance;
-    public GameObject teleportPrefab;
     private GameObject teleportInstance;
-
-    public GameObject bossPrefab1;
-    public GameObject bossPrefab2;
     private GameObject bossInstance;
-
-    public WeaponDB weaponDB;
-    public GameObject weaponPrefab;
     private GameObject weaponInstance;
-
-    public GameObject healthPickupPrefab;
     private GameObject healthPickupInstance;
 
-    // Cache so SpawnLevelExit can use it
-    private RoomData organicBossRoom;
-    Vector3 bossSpawnPos = new Vector3(300, 300, 0);
+    private RoomData organicBossRoom; // Cache so SpawnLevelExit method can use it
+    private Vector3 bossSpawnPos = new Vector3(300, 300, 0);
+    private Vector3 offScreen = new Vector3(20000, 20000, 0); // Initially spawn the exit instance totally offscreen
 
+    // Event subscription: boss death
     private void OnEnable()
     {
         EnemyStats.OnBossDeath += SpawnLevelExit;
@@ -42,7 +44,7 @@ public class Spawner : MonoBehaviour
     }
 
     // Walks through the corridors
-    // Corridors does indeed contain the center points as well
+    // Corridors does contain the center points as well
     public Vector2Int GetFurthestRoomFromStart(List<Vector2Int> centers, HashSet<Vector2Int> corridors)
     {
         var cardinalDirections = new List<Vector2Int>
@@ -112,37 +114,22 @@ public class Spawner : MonoBehaviour
         pickup.InitializeWeapon(randomWeapon);
 
 
-        // DEBUG (SPAWNS NEAR BOSS TELEPORT)
-        float tileSize = 1f;
-        Vector3 offset = new Vector3(3 * tileSize, 0f, 0f); // 3 tiles right
-        Vector3 spawnPoss = (Vector3)bossRoomData.bounds.center + offset;
-
         // PLAYER SPAWNING
         if (playerInstance == null)
         {
-            // playerInstance = Instantiate(playerPrefab, spawnPoss, Quaternion.identity);
             playerInstance = Instantiate(playerPrefab, startRoom.bounds.center, Quaternion.identity);
-            // Camera.main.GetComponent<FollowPlayerCamera>().player = playerInstance.transform;
             virtualCamera.Follow = playerInstance.transform;
         }
-        else
-        {
-            // Move existing player to new level's start position
-            playerInstance.transform.position = startRoom.bounds.center;
-            // playerInstance = Instantiate(playerPrefab, spawnPoss, Quaternion.identity);
+        else playerInstance.transform.position = startRoom.bounds.center; // Move existing player to new level's start position
 
-        }
-
-
-        // LEVEL EXIT SPAWNING
+        // LEVEL TELEPORT/EXIT/PICKUP SPAWNING
         teleportInstance = Instantiate(teleportPrefab, bossRoomData.bounds.center, Quaternion.identity);
         teleportInstance.GetComponent<LevelTeleport>().SetGenerator(generator);
-
-        Vector3 offScreen = new Vector3(20000, 20000, 0);
-        healthPickupInstance = Instantiate(healthPickupPrefab, offScreen, Quaternion.identity);
         exitInstance = Instantiate(exitPrefab, offScreen, Quaternion.identity);
         exitInstance.GetComponent<LevelExit>().SetGenerator(generator);
+        healthPickupInstance = Instantiate(healthPickupPrefab, offScreen, Quaternion.identity);
 
+        // ENEMY/BOSS SPAWNING
         enemySpawner.SpawnEnemies(roomData);
         // Spawn different boss depending on floor
         switch (floor)
@@ -160,9 +147,10 @@ public class Spawner : MonoBehaviour
                 currentFloorBoss = bossPrefab1;
                 break;
         }
+        // Spawn ranged enemies with boss on floor3
         if (floor == 3)
         {
-            Vector3 off = new Vector3(1 * tileSize, 0f, 0f); 
+            Vector3 off = new Vector3(1f, 0f, 0f);
             Vector3 pos = (Vector3)bossSpawnPos + off;
 
             GameObject enemyRanged1 = Instantiate(enemySpawner.enemyRangedPrefab, pos, Quaternion.identity);
@@ -177,10 +165,10 @@ public class Spawner : MonoBehaviour
     private void SpawnLevelExit()
     {
         exitInstance.transform.position = bossSpawnPos;
+        // Create offset for health pickup spawn pos
         Vector3 off = new Vector3(1, 0f, 0f);
         Vector3 pos = (Vector3)bossSpawnPos + off;
         healthPickupInstance.transform.position = pos;
-        
     }
 
     public void RemoveInstances()
@@ -197,7 +185,6 @@ public class Spawner : MonoBehaviour
         }
         
         Destroy(bossInstance);
-
         Destroy(weaponInstance);
         Destroy(exitInstance);
         Destroy(teleportInstance);

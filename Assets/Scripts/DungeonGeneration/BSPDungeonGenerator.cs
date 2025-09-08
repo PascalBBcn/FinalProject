@@ -1,26 +1,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 // The main script of the game
 public class BSPDungeonGenerator : MonoBehaviour
 {
+    [Header("Dungeon Dimensions")]
     [SerializeField] private int dungeonWidth = 65;
     [SerializeField] private int dungeonHeight = 65;
     [SerializeField] private int minRoomWidth = 11;
     [SerializeField] private int minRoomHeight = 11;
-    private int padding = 2; // For padding between rooms
     [SerializeField] private int numberOfDigs = 200;
+    private int padding = 2; // For padding between rooms
+    private Vector2Int startPos = Vector2Int.zero;
 
-
-    [SerializeField] private Vector2Int startPos = Vector2Int.zero;
+    [Header("References")]
     [SerializeField] private TileRenderer tileRenderer;
-
     [SerializeField] private Spawner spawner;
-    // Need access to enemySpawner just for room-locking-system
-    [SerializeField] private EnemySpawner enemySpawner;
-
-
+    [SerializeField] private EnemySpawner enemySpawner; // Need access to enemySpawner just for room-locking-system
 
     // Give read-access only to other scripts
     public HashSet<Vector2Int> corridors { get; private set; }
@@ -42,24 +38,23 @@ public class BSPDungeonGenerator : MonoBehaviour
         GameSession.instance.bossHealthBar.fillAmount = 1f;
         GameSession.instance.bossHealthBarContainer.SetActive(false);
 
-        Debug.Log(GameSession.instance.currentFloor);
-        // Ensure tileRenderer exists
-        if (tileRenderer == null)
+        if (tileRenderer == null) // Ensure tileRenderer exists
         {
             Debug.LogError("TileRenderer missing!");
             return;
         }
+        // Reset game scene before repopulating it
         spawner.RemoveInstances();
-        // "Refresh" game scene each time before repopulating it
         tileRenderer.RemoveTiles();
 
         CreateRooms();
         GameSession.instance.playerHealthBarContainer.SetActive(true);
-        Pathfinding.Initialize(dungeonFloor);
+        Pathfinding.Initialize(dungeonFloor); // Initialize pathfinding for new dungeon
     }
 
     private void CreateRooms()
     {
+        // Partition dungeon space
         RectInt dungeonSpace = new RectInt(startPos.x, startPos.y, dungeonWidth, dungeonHeight);
         BSPNode rootNode = PCGAlgorithms.BinarySpacePartitioning(dungeonSpace, minRoomWidth, minRoomHeight);
 
@@ -76,10 +71,9 @@ public class BSPDungeonGenerator : MonoBehaviour
             roomCenterPoints.Add(Vector2Int.FloorToInt(room.center));
         }
 
-        // Generate the positions for corridor placements
-        // These are pairs of connections
+        // Generate positions for corridor placements (These are pairs of connections)
         List<(Vector2Int, Vector2Int)> roomConnectionPairings = CorridorGenerator.GetRoomConnectionPairings(rootNode, roomCenterPoints);
-        // Generate corridors
+        // GENERATE CORRIDORS
         corridors = CorridorGenerator.CreateCorridors(roomConnectionPairings);
         dungeonFloor.UnionWith(corridors);
 
@@ -87,7 +81,48 @@ public class BSPDungeonGenerator : MonoBehaviour
         // Using thin corridors (to avoid redundant processes from 3-wide corridor)
         Vector2Int furthestRoom = spawner.GetFurthestRoomFromStart(roomCenterPoints, CorridorGenerator.thinCorridors);
 
-        // ADD DOORS
+        // ADD DOORS for each room
+        GenerateDoors();
+        
+        // Generate Agent-based BOSS ROOM (far away)
+        organicBossRoom = GenerateBossRoom();
+        dungeonFloor.UnionWith(organicBossRoom);
+        RectInt organicBossRoomBounds = GetBoundsFromOrganicRoom(organicBossRoom);
+        RoomData organicBossRoomData = new RoomData(organicBossRoomBounds, RoomType.OrganicBoss);
+
+        // RENDER DUNGEON
+        RenderTiles(dungeonFloor);
+
+        // ASSIGN ROOMS different roomTypes
+        List<RoomData> roomData = RoomAssigner.AssignRooms(rooms, furthestRoom);
+        roomData.Add(organicBossRoomData);
+
+        // SPAWN GAMEOBJECTS
+        spawner.SpawnInstances(roomData, this);
+
+    }
+
+    private HashSet<Vector2Int> CreateRectangularRooms(List<RectInt> rooms)
+    {
+        HashSet<Vector2Int> dungeonFloor = new HashSet<Vector2Int>();
+        foreach (var room in rooms)
+        {
+            // Iterate through the room bounds, including the padding around it
+            for (int col = padding; col < room.width - padding; col++)
+            {
+                for (int row = padding; row < room.height - padding; row++)
+                {
+                    // Find the position for the room
+                    Vector2Int position = new Vector2Int(room.x + col, room.y + row);
+                    dungeonFloor.Add(position);
+                }
+            }
+        }
+        return dungeonFloor;
+    }
+
+    private void GenerateDoors()
+    {   
         foreach (var room in rooms)
         {
             List<Vector2Int> edgePositions = new List<Vector2Int>();
@@ -112,45 +147,7 @@ public class BSPDungeonGenerator : MonoBehaviour
                 }
             }
         }
-
-        // Agent-based boss room (far away)
-        organicBossRoom = GenerateBossRoom();
-        dungeonFloor.UnionWith(organicBossRoom);
-        RectInt organicBossRoomBounds = GetBoundsFromOrganicRoom(organicBossRoom);
-        RoomData organicBossRoomData = new RoomData(organicBossRoomBounds, RoomType.OrganicBoss);
-
-        RenderTiles(dungeonFloor);
-        // tileRenderer.HideRooms(rooms);
-
-        // For "tagging" rooms via different roomTypes
-        List<RoomData> roomData = RoomAssigner.AssignRooms(rooms, furthestRoom);
-        roomData.Add(organicBossRoomData);
-
-        // spawner.SpawnInstances(rooms, this, furthestRoom);
-        spawner.SpawnInstances(roomData, this);
-
     }
-
-    private HashSet<Vector2Int> CreateRectangularRooms(List<RectInt> rooms)
-    {
-        HashSet<Vector2Int> dungeonFloor = new HashSet<Vector2Int>();
-        foreach (var room in rooms)
-        {
-            // Iterate through the room bounds, including the padding around it
-            for (int col = padding; col < room.width - padding; col++)
-            {
-                for (int row = padding; row < room.height - padding; row++)
-                {
-                    // Find the position for the room
-                    Vector2Int position = new Vector2Int(room.x + col, room.y + row);
-                    dungeonFloor.Add(position);
-                }
-            }
-        }
-        return dungeonFloor;
-    }
-
-
     private void RenderTiles(HashSet<Vector2Int> dungeonFloor)
     {
         tileRenderer.SetFloorTiles(dungeonFloor); // Render based on dungeonFloor positions
@@ -191,18 +188,6 @@ public class BSPDungeonGenerator : MonoBehaviour
         }
     }
 
-
-    private HashSet<Vector2Int> CreateRandomRooms(List<RectInt> rooms)
-    {
-        HashSet<Vector2Int> dungeonFloor = new HashSet<Vector2Int>();
-        foreach (var room in rooms)
-        {
-            var agentBasedRoom = PCGAlgorithms.AgentBasedDig(numberOfDigs, Vector2Int.FloorToInt(room.center));
-            dungeonFloor.UnionWith(agentBasedRoom);
-        }
-        return dungeonFloor;
-    }
-
     public HashSet<Vector2Int> GenerateBossRoom()
     {
         HashSet<Vector2Int> dungeonFloor = new HashSet<Vector2Int>();
@@ -225,12 +210,10 @@ public class BSPDungeonGenerator : MonoBehaviour
             if (tile.y > maxY) maxY = tile.y;
         }
         return new RectInt(minX, minY, maxX - minX, maxY - minY);
-
     }
 
     public void TeleportToBossRoom(GameObject player)
     {
-        
         Vector2Int furthestPosFromBoss = Vector2Int.zero;
         float maxDist = float.MinValue;
         foreach (var pos in organicBossRoom)
@@ -244,7 +227,7 @@ public class BSPDungeonGenerator : MonoBehaviour
 
         }
         if (!organicBossRoom.Contains(furthestPosFromBoss)) Debug.Log("PLAYER SPAWN ERROR");
-        player.transform.position = new Vector3(furthestPosFromBoss.x +0.5f, furthestPosFromBoss.y+0.5f, 0);
+        player.transform.position = new Vector3(furthestPosFromBoss.x + 0.5f, furthestPosFromBoss.y + 0.5f, 0);
     }
 }
 
