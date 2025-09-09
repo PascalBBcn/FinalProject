@@ -164,6 +164,13 @@ public class Spawner : MonoBehaviour
 
     private void SpawnLevelExit()
     {
+        // YOU WON THE GAME
+        if (GameSession.instance.currentFloor == 3)
+        {
+            GameSession.instance.winMenu.SetActive(true);
+            return;
+        }
+        
         exitInstance.transform.position = bossSpawnPos;
         // Create offset for health pickup spawn pos
         Vector3 off = new Vector3(1, 0f, 0f);

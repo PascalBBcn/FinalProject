@@ -17,6 +17,7 @@ public class GameSession : MonoBehaviour
     public Image bossHealthBar;
     public GameObject bossHealthBarContainer;
     public GameObject gameOverMenu;
+    public GameObject winMenu;
 
     public TextMeshProUGUI floorReachedText;
 
@@ -68,6 +69,7 @@ public class GameSession : MonoBehaviour
     public void ResetGame()
     {
         gameOverMenu.SetActive(false);
+        winMenu.SetActive(false);
         currentFloor = 0;
         playerHealth = 100f;
         playerHealthBar.fillAmount = 1f;
