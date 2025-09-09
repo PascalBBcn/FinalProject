@@ -4996,3 +4996,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponData: {fileID: 0}
+  pickupTextPrefab: {fileID: 4619276283041037999, guid: 26d5eca07e8e01f42b807a8720523f27, type: 3}

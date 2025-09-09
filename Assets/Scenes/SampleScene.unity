@@ -1117,7 +1117,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -3301,7 +3301,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentFloor: 0
-  difficultyMultiplier: 1
   playerHealth: 100
   playerHealthBar: {fileID: 1986621132}
   playerHealthBarContainer: {fileID: 2026042457}

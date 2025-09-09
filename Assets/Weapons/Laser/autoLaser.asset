@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfcd23dd1da6fda4a92186ee44692321, type: 3}
   m_Name: autoLaser
   m_EditorClassIdentifier: 
-  weaponName: Laser
+  weaponName: autoLaser
   fireRate: 0
   weaponSprite: {fileID: 0}
   rarity: 2
