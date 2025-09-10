@@ -6,7 +6,7 @@ public class GameSession : MonoBehaviour
 {
     public static GameSession instance { get; private set; }
 
-    public int currentFloor = -1;
+    public int currentFloor = 0;
     [SerializeField] float playerHealth = 100f;
     public Image playerHealthBar;
     public GameObject playerHealthBarContainer;
@@ -70,7 +70,7 @@ public class GameSession : MonoBehaviour
     {
         gameOverMenu.SetActive(false);
         winMenu.SetActive(false);
-        currentFloor = 0;
+        currentFloor = 1;
         playerHealth = 100f;
         playerHealthBar.fillAmount = 1f;
 

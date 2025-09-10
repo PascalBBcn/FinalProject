@@ -37,7 +37,6 @@ public class BossMovement : EnemyMovement
         {
             float maxHealth = enemyStats.MaxHealth;
             float currentHealth = enemyStats.currentHealth;
-
             if (currentHealth / maxHealth <= 0.3f)
             {
                 lungeDuration = Random.Range(0.4f, 0.9f);
@@ -54,9 +53,7 @@ public class BossMovement : EnemyMovement
                 lungeCooldown = 1.5f;
                 lungeSpeed = 30f;
             }
-
             yield return new WaitForSeconds(lungeCooldown);
-
             if (currentPath != null && currentPathIndex < currentPath.Count)
             {
                 isLunging = true;
@@ -81,7 +78,6 @@ public class BossMovement : EnemyMovement
                     timeElapsed += Time.fixedDeltaTime;
                     yield return new WaitForFixedUpdate();
                 }
-
                 // Shrink back sprite
                 if(lungeCooldown >= 1.5f) yield return StartCoroutine(ScaleSprite(Vector3.one, 0.2f));
                 else if(lungeCooldown >= 1f) yield return StartCoroutine(ScaleSprite(Vector3.one, 0.1f));

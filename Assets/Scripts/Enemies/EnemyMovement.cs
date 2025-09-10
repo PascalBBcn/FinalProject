@@ -5,23 +5,24 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
+    // REFERENCES/COMPONENTS
     private EnemyStats stats;
     protected Rigidbody2D rb;
+    protected Transform playerTransform;
+
+    // PATHFINDING/MOVEMENT
     private float moveSpeed;
     public float range = 10f;
     private bool isChasing = false;
     private Vector2Int enemyPos;
-
+    private Vector2Int lastPlayerPos;
     public float pathUpdateInterval = 0.1f;
 
     // Protected instead of private, so can be used by derived classes (Boss)
     protected List<Vector2Int> currentPath = new List<Vector2Int>();
     protected int currentPathIndex = 0; 
-    private Vector2Int lastPlayerPos;
-    protected Transform playerTransform;
-
+    
     public RectInt roomBounds; // To store which room each enemy is in
-
 
     void Awake()
     {
